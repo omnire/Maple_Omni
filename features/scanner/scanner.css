@@ -1,0 +1,135 @@
+/* ============================================================================
+ * 🎨 MAPLE OMNI - scanner.css (최종 컴포넌트 인게임 스타일 배치 자산)
+ * ============================================================================ 
+ * [초보자 안내서]
+ * 이 스타일시트는 오리지널 인게임 장비창 구성을 완벽 시뮬레이션 및 복구화합니다.
+ * 토스트 박스 위치 및 투명 배경 정렬의 물리 격차가 완전히 교정되어 있습니다.
+ */
+
+.scanner-grid-container {
+    display: grid !important;
+    grid-template-columns: 38px 38px 140px 38px 38px !important;
+    grid-template-rows: repeat(6, 38px) !important;
+    gap: 4px !important;
+    width: fit-content !important;
+    margin: 20px auto !important;
+    position: relative !important;
+}
+
+.scanner-char-container {
+    grid-column: 3 / 4 !important;
+    grid-row: 1 / 7 !important; 
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important; 
+    position: relative !important;
+    min-height: 120px !important;
+}
+
+.scanner-char-img {
+    width: 175px !important;
+    height: auto !important;
+    pointer-events: none !important;
+    filter: drop-shadow(0 0 7px rgba(0,0,0,0.15)) !important;
+    z-index: 5 !important; 
+    position: absolute !important;
+    bottom: 10px !important;
+}
+
+.scanner-item-slot {
+    width: 38px !important;
+    height: 38px !important;
+    border: 1px solid #d1d5db !important;
+    background: #ffffff !important;
+    border-radius: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+}
+
+.scanner-item-slot img {
+    width: 30px !important;
+    height: 30px !important;
+    object-fit: contain !important;
+}
+
+.scanner-item-slot:hover {
+    background: #f1f5f9 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05) !important;
+    cursor: pointer !important;
+}
+
+.scanner-compare-table {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.compare-row {
+    display: flex;
+    border-bottom: 1px solid #f1f5f9;
+    align-items: center;
+    transition: background 0.15s ease;
+}
+
+.compare-row.interactive-row { cursor: pointer !important; }
+.compare-row.interactive-row:hover { background: #f1f5f9 !important; }
+.compare-row:last-child { border-bottom: none; }
+.compare-row.header { background: #f8fafc; font-weight: 900; color: #475569; }
+
+.compare-cell {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 12px;
+    text-align: center;
+    color: #334155;
+    font-weight: 700;
+}
+
+.compare-cell.label {
+    background: #f8fafc;
+    font-weight: 900;
+    color: #64748b;
+    border-right: 1px solid #f1f5f9;
+    text-align: left;
+}
+
+.compare-cell.my-col { color: #0f172a; border-right: 1px solid #f1f5f9; }
+.compare-cell.rival-col { color: #2563eb; }
+.compare-cell.action-col { border-left: 1px solid #f1f5f9; background: #fbfcfe; }
+.font-num { font-family: 'Consolas', monospace; font-size: 13px; letter-spacing: 0.5px; }
+
+.accordion-sub-row:hover { background: #f1f5f9 !important; }
+
+#omni_toast_container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 99999;
+}
+
+.omni-toast {
+    background: #1e293b;
+    color: #ffffff;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 4px solid #4f46e5;
+    opacity: 1;
+}
+.omni-toast.error { border-left-color: #ef4444; }
+.omni-toast.info { border-left-color: #06b6d4; }
