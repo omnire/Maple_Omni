@@ -36,7 +36,7 @@
 
         /* ✅ 성장 분석 리포트 그래프 최적화 CSS */
         .growth-report-area { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-        #growthChart { width: 100% !important; height: 100% !important; }
+        .growthChart { width: 100% !important; height: 100% !important; }
     </style>
 </head>
 <body>
@@ -106,8 +106,10 @@
 <script src="common/data.js"></script>
 <script src="item_db.js"></script>
 <script src="features/builder/data.js"></script>
+<script src="features/search/data/skill_db.js"></script>
 
 <script src="features/api/api-core.js"></script>
+<script src="features/portal/api-ranking.js"></script>
 <script src="common/ui-core.js"></script>
 <script src="common/ui-omni.js"></script>
 <script src="common/ui-tooltip.js"></script>
@@ -115,11 +117,9 @@
 <script src="features/search/modules/search_main_new.js"></script>
 <script src="features/search/modules/search_union.js"></script>
 <script src="features/search/modules/search_alts.js"></script>
-<script src="features/search/modules/search_cody.js"></script>
+<script src="features/search/modules/search_skill.js"></script>
 <script src="features/search/modules/search_achieve.js"></script>
 <script src="features/search/modules/search_core.js"></script>
-<script src="features/search/api-search.js"></script>
-<script src="features/portal/api-ranking.js"></script>
 
 <script src="features/hunt/hunt-common.js"></script>
 <script src="features/hunt/hunt-realtime.js"></script>
@@ -140,6 +140,7 @@
 <script src="script.js"></script>
 
 <script>
+    // 💡 [클린 복원] 충돌을 방지하기 위해 window load 이벤트 강제 가로채기 소스코드를 완벽히 제거했습니다.
     window.renderRecentSearchesMain = function() {
         const container = document.getElementById('recentSearchList');
         if (!container) return;

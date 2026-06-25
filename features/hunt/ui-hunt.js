@@ -13,36 +13,77 @@ window.renderHuntCharacterCard = function(data) {
     const charBox = document.getElementById('huntCharacterCard');
     if (!charBox) return;
 
-    // 1️⃣ 데이터가 없거나, 필수 정보(캐릭터 이름 등)가 없는 경우 빈 카드로 덮어씌웁니다.
-    if (!data || !data.basic || !data.basic.character_name) {
+    const slotIdx = window.currentIdx || 1;
+
+    // [초보자용 주석] 외부로부터 진짜 새로운 검색 결과(data)가 넘어온 시점에만 해당 슬롯 스토리지에 격리 안전 저장을 진행합니다.
+    if (data && data.basic && data.basic.character_name) {
+        try {
+            window.localStorage.setItem(`omni_searched_basic_${slotIdx}`, JSON.stringify(data.basic));
+            if (data.stat) {
+                window.localStorage.setItem(`omni_searched_stat_${slotIdx}`, JSON.stringify(data.stat));
+            } else {
+                window.localStorage.removeItem(`omni_searched_stat_${slotIdx}`);
+            }
+            window.localStorage.setItem('omni_last_searched_basic', JSON.stringify(data.basic));
+            if (data.stat) window.localStorage.setItem('omni_last_searched_stat', JSON.stringify(data.stat));
+        } catch(e) { console.error("데이터 로컬 캐싱 실패:", e); }
+    }
+
+    // [초보자용 주석] 랜더러가 돌 때는 전역 변수 오염을 방지하기 위해 언제나 현재 활성화된 슬롯 번호(slotIdx)의 저장 데이터를 강제로 다시 긁어옵니다.
+    let slotBasicStr = window.localStorage.getItem(`omni_searched_basic_${slotIdx}`);
+    let slotStatStr = window.localStorage.getItem(`omni_searched_stat_${slotIdx}`);
+
+    // 💡 [수정] 데이터가 직접 들어오면 캐시보다 우선시하여 즉시 렌더링합니다.
+    if (data && data.basic) {
+        slotBasicStr = JSON.stringify(data.basic);
+        slotStatStr = data.stat ? JSON.stringify(data.stat) : null;
+    }
+
+    // 1️⃣ 저장된 데이터가 전혀 없는 깨끗한 빈 슬롯 카드 출력 레이아웃
+    if (!slotBasicStr) {
+        window.currentSearchData = null;
         charBox.innerHTML = `
             <div class="char-card" style="padding: 20px; text-align: center; background: #fff; border-radius: 24px; border: 1px solid #eef2f6;">
                 <div class="char-img-box" style="width: 120px; height: 120px; background: #f8fafc; border-radius: 50%; margin: 0 auto 15px; border: 1px dashed #cbd5e1; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 30px;">
                     👤
                 </div>
-                <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #64748b;">캐릭터를 조회해주세요</h3>
-                <p style="margin: 5px 0; font-size: 12px; color: #94a3b8;">오른쪽에서 닉네임 검색 후 정보를 동기화하세요.</p>
+                <div class="char-info" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+                    <input type="text" id="sidebarSearchInput_${slotIdx}" placeholder="닉네임 입력 후 엔터" 
+       oninput="const cfg = JSON.parse(localStorage.getItem('maple_config_${slotIdx}') || '{}'); cfg.name = this.value; localStorage.setItem('maple_config_${slotIdx}', JSON.stringify(cfg));"
+       onkeypress="if(event.key === 'Enter') { fetchMapleData(${slotIdx}); }"
+                           style="width: 100%; box-sizing: border-box; padding: 10px; margin-bottom: 8px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 15px; font-weight: 900; text-align: center; outline: none; background: #f8fafc; color: #1e293b; transition: all 0.2s;"
+                           onfocus="this.style.borderColor='#3b82f6'; this.style.background='#ffffff';"
+                           onblur="this.style.borderColor='#e2e8f0'; this.style.background='#f8fafc';">
+                    <h3 style="margin: 5px 0 0 0; font-size: 14px; font-weight: 800; color: #64748b;">캐릭터를 조회해주세요</h3>
+                    <p style="margin: 5px 0; font-size: 12px; color: #94a3b8;">닉네임 입력 후 엔터를 눌러 동기화할 수 있습니다.</p>
+                </div>
             </div>
         `;
         return;
     }
 
-    const basic = data.basic;
-    const stat = data.stat;
+    // 2️⃣ 정상 캐싱 데이터가 존재하여 화면에 캐릭터 정보를 바인딩하는 레이아웃
+    const basic = JSON.parse(slotBasicStr);
+    const stat = slotStatStr ? JSON.parse(slotStatStr) : null;
+    window.currentSearchData = { basic, stat };
 
-    // [초보자용 주석] 데이터가 정상적으로 들어왔을 때, 배열에서 '전투력'이나 '스탯공격력' 같은 글자를 찾아 수치를 빼옵니다.
     const power = stat?.final_stat?.find(s => s.stat_name === "전투력")?.stat_value || "0";
     const attack = stat?.final_stat?.find(s => s.stat_name === "스탯공격력")?.stat_value || "0";
     const damage = stat?.final_stat?.find(s => s.stat_name === "데미지")?.stat_value || "0";
 
     charBox.innerHTML = `
         <div class="char-card" style="padding: 20px; text-align: center; background: #fff; border-radius: 24px; border: 1px solid #eef2f6;">
-            <div class="char-img-box" style="width: 120px; height: 120px; background: #f8fafc; border-radius: 50%; margin: 0 auto 15px; border: 1px solid #f1f5f9; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-                <img src="${basic.character_image}" class="char-img-optimized">
+            <div class="char-img-box" style="width: 160px; height: 160px; background: #f8fafc; border-radius: 50%; margin: 0 auto 15px; border: 1px solid #f1f5f9; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                <img src="${basic.character_image}" id="profileImg" referrerpolicy="no-referrer" style="display: block; width: 100%; height: 100%; object-fit: contain; transform: scale(1.8); margin-top: -25px; image-rendering: -webkit-optimize-contrast; opacity: 1 !important; visibility: visible !important;">
             </div>
 
-            <div class="char-info">
-                <h3 style="margin: 0; font-size: 18px; font-weight: 900; color: #1e293b;">${basic.character_name}</h3>
+            <div class="char-info" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+                <input type="text" id="sidebarSearchInput_${slotIdx}" value="${basic.character_name}" placeholder="닉네임 입력 후 엔터" 
+                       oninput="const cfg = JSON.parse(localStorage.getItem('maple_config_${slotIdx}') || '{}'); cfg.name = this.value; localStorage.setItem('maple_config_${slotIdx}', JSON.stringify(cfg));"
+                       onkeypress="if(event.key === 'Enter') { fetchMapleData(${slotIdx}); }" 
+                       style="width: 100%; box-sizing: border-box; padding: 10px; margin-bottom: 8px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 15px; font-weight: 900; text-align: center; outline: none; background: #f8fafc; color: #1e293b; transition: all 0.2s;"
+                       onfocus="this.style.borderColor='#3b82f6'; this.style.background='#ffffff';"
+                       onblur="this.style.borderColor='#e2e8f0'; this.style.background='#f8fafc';">
                 <p style="margin: 5px 0; font-size: 13px; color: #faa266; font-weight: 800;">${basic.world_name} | ${basic.character_guild_name || '길드 없음'}</p>
                 <p style="margin: 0; font-size: 12px; color: #64748b; font-weight: 700;">Lv.${basic.character_level} <span style="color: #cbd5e1; margin-left: 4px;">${basic.character_class}</span></p>
             </div>
@@ -50,19 +91,19 @@ window.renderHuntCharacterCard = function(data) {
             <div style="margin-top: 20px; background: #f8fafc; padding: 15px; border-radius: 16px; border: 1px solid #f1f5f9; text-align: left;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
                     <span style="font-size: 11px; color: #64748b; font-weight: 700;">전투력</span>
-                    <span style="font-size: 13px; color: #7aa3f5; font-weight: 900;">${Number(power).toLocaleString()}</span>
+                    <span style="font-size: 13px; color: #7aa3f5; font-weight: 900;">${isNaN(power) ? power : Number(power).toLocaleString()}</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
                     <span style="font-size: 11px; color: #64748b; font-weight: 700;">스탯공격력</span>
-                    <span style="font-size: 11px; color: #1e293b; font-weight: 800;">${Number(attack).toLocaleString()}</span>
+                    <span style="font-size: 11px; color: #1e293b; font-weight: 800;">${isNaN(attack) ? attack : Number(attack).toLocaleString()}</span>
                 </div>
                 <div style="display: flex; justify-content: space-between;">
                     <span style="font-size: 11px; color: #64748b; font-weight: 700;">데미지</span>
-                    <span style="font-size: 11px; color: #1e293b; font-weight: 800;">${damage}%</span>
+                    <span style="font-size: 11px; color: #1e293b; font-weight: 800;">${String(damage).includes('%') ? damage : damage + '%'}</span>
                 </div>
             </div>
 
-            <button type="button" onclick="if(typeof searchCharacter === 'function') searchCharacter(null, true)" 
+            <button type="button" onclick="if(typeof window.renderHuntCharacterCard === 'function') window.renderHuntCharacterCard(); if(typeof showToast === 'function') showToast('캐릭터 정보가 실시간으로 동기화되었습니다! 🔄');" 
                     style="width: 100%; margin-top: 15px; padding: 10px; background: #f1f5f9; border: none; border-radius: 10px; color: #475569; font-weight: 800; font-size: 12px; cursor: pointer;">
                 🔄 정보 동기화
             </button>
@@ -117,7 +158,7 @@ window.renderTopToolbar = function() {
 
 /**
  * 🛠️ [Omni] 개별 캐릭터의 실시간 사냥 기록판(가운데 화면)을 통째로 그려내는 기능
- * [초보자용 주석] 요청하신 대로 도핑 리스트(💊)가 상세 스탯 입력 칸 바로 아래에 위치하도록 렌더링 됩니다.
+ * [초보자용 주석] 요청하신 대로 도핑 리스트(💊)가 상세 스탯 설정 바로 아래에 위치하도록 렌더링 됩니다.
  */
 window.renderHuntTabContent = function(i, savedConfig) {
     const dopingNames = ["VIP 버프", "경험치 쿠폰(50%)", "경험치 3배 쿠폰", "경험치 4배 쿠폰", "재물 획득의 비약", "경험 축적의 비약", "유니온의 행운", "유니온의 부", "익스트림 골드"];
@@ -127,7 +168,7 @@ window.renderHuntTabContent = function(i, savedConfig) {
     const savedName = (savedConfig.name && !savedConfig.name.includes('캐릭터 ')) ? savedConfig.name : '';
 
     return `
-    <div id="tab_${i}" class="content" style="display: ${i === 1 ? 'block' : 'none'}; width: 100%; padding: 0 5px;">
+    <div id="tab_${i}" class="content" style="display: ${i === window.currentIdx ? 'block' : 'none'}; width: 100%; padding: 0 5px;">
         
         <div style="background: #ffffff; padding: 15px 20px; border-radius: 18px; margin-top: 5px; margin-bottom: 12px; border: 1px solid #f1f5f9; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
@@ -163,16 +204,9 @@ window.renderHuntTabContent = function(i, savedConfig) {
 
         <div style="padding: 15px 20px; background: #ffffff; border: 1px solid #f1f5f9; border-radius: 18px; margin-bottom: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
             <div style="font-size: 12px; font-weight: 800; color: #94a3b8; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
-                <span>⚙️</span> CHARACTER CONFIG
+                <span>⚙️</span> CHARACTER CONFIG (시작/목표 설정)
             </div>
             
-            <div style="margin-bottom: 10px;">
-                <input type="text" placeholder="🏷️ 탭에 표시될 캐릭터 이름 설정 (입력 시 바로 탭 이름 변경)" value="${savedName}" 
-                       oninput="let cfg=JSON.parse(localStorage.getItem('maple_config_${i}')||'{}'); cfg.name=this.value || '캐릭터 ${i}'; localStorage.setItem('maple_config_${i}', JSON.stringify(cfg)); if(typeof reRenderTabs === 'function') reRenderTabs();"
-                       style="width:100%; padding:10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; font-size:13px; font-weight:800; color:#334155; box-sizing: border-box; outline:none; transition:0.2s;"
-                       onfocus="this.style.borderColor='#8b5cf6'; this.style.background='#ffffff';">
-            </div>
-
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
                 <input type="text" id="startMeso_${i}" placeholder="💰 시작 메소" value="${savedConfig.startMeso || ''}" onkeyup="if(typeof window.onMeso === 'function') window.onMeso(this);" oninput="if(typeof saveCharConfig === 'function') saveCharConfig(${i}); if(typeof updateAll === 'function') updateAll(${i});" style="width:100%; padding:10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; font-size:12px; box-sizing: border-box; outline:none;">
                 <input type="text" id="targetMeso_${i}" placeholder="🎯 목표 메소" value="${savedConfig.targetMeso || ''}" onkeyup="if(typeof window.onMeso === 'function') window.onMeso(this);" oninput="if(typeof saveCharConfig === 'function') saveCharConfig(${i}); if(typeof updateAll === 'function') updateAll(${i});" style="width:100%; padding:10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; font-size:12px; box-sizing: border-box; outline:none;">
@@ -626,9 +660,11 @@ window.reRenderTabs = function() {
         const savedConfig = JSON.parse(localStorage.getItem(`maple_config_${i}`) || '{}');
         const savedName = savedConfig.name || `캐릭터 ${i}`;
         
-        tabContainer.innerHTML += `<button class="tab-btn ${i === currentTab ? 'active' : ''}" id="tab_btn_${i}" onclick="if(typeof openTab === 'function') openTab(${i})">${savedName}</button>`;
+        // [초보자용 주석] 캐릭터 상단 탭 버튼 클릭 시, 전역 인덱스 변수(window.currentIdx)와 세션 백업 공간을 즉시 선택한 번호(i)로 치환합니다.
+        // 그리고 빈 탭으로 이동 시 이전 탭 캐릭터의 캐시 정보 잔상이 남지 않도록 완벽하게 데이터를 격리합니다.
+        tabContainer.innerHTML += `<button class="tab-btn ${i === currentTab ? 'active' : ''}" id="tab_btn_${i}" onclick="window.currentIdx=${i}; sessionStorage.setItem('omni_current_tab_idx', ${i}); if(typeof openTab === 'function') openTab(${i}); if(typeof window.renderHuntCharacterCard === 'function') window.renderHuntCharacterCard(null); if(typeof window.renderAttendance === 'function') window.renderAttendance(); if(typeof window.reRenderTabs === 'function') window.reRenderTabs();">${savedName}</button>`;
         if (historyTabContainer) {
-            historyTabContainer.innerHTML += `<button type="button" class="nav-btn ${i === currentHistTab ? 'active' : ''}" id="hist_tab_btn_${i}" onclick="if(typeof openHistTab === 'function') openHistTab(${i})">${savedName}</button>`;
+            historyTabContainer.innerHTML += `<button type="button" class="nav-btn ${i === currentHistTab ? 'active' : ''}" id="hist_tab_btn_${i}" onclick="window.currentHistChar=${i}; if(typeof openHistTab === 'function') openHistTab(${i}); if(typeof window.renderHistory === 'function') window.renderHistory(); if(typeof window.reRenderTabs === 'function') window.reRenderTabs();">${savedName}</button>`;
         }
     }
 };
@@ -781,3 +817,9 @@ window.deleteDayRecords = function(dateStr, charId) {
         alert("기록과 출석 정보가 삭제되었습니다.");
     }
 };
+
+// 🚀 [초기화] 페이지가 로드될 때 마지막으로 저장된 데이터를 불러옵니다.
+window.addEventListener('DOMContentLoaded', () => {
+    window.currentIdx = parseInt(sessionStorage.getItem('omni_current_tab_idx')) || 1;
+    window.renderHuntCharacterCard();
+});

@@ -1,35 +1,45 @@
 /**
  * ============================================================================
- * 👤 MAPLE OMNI - search_core.js (내실)
+ * 👤 MAPLE OMNI - search_core.js (내실 및 뷰 제어 모듈)
  * 설명: 기본 프로필 렌더링, 장비 슬롯, 프리셋, 심볼 계산, 어빌리티 기능 담당
+ * 보정 사항: 중복 버튼 방지를 위해 탭 목록에서 불필요한 중복 키워드('코디') 원천 제거
+ * [정보 없음] 현상 방지를 위한 스킬/링크/헥사스탯 데이터 파이프라인 완전 연동
  * ============================================================================
- * 💡 [초보자 가이드]
- * 이 파일은 검색 완료된 캐릭터 정보를 바탕으로 메인 스탯 대시보드 화면을 채워주며,
- * 사용자가 메뉴 안의 '내실' 이나 '유니온' 서브 탭을 클릭해 넘나들 수 있는 다리 역할을 수행합니다.
- * * 💡 [업데이트 내역]
- * 옴니 빌더(builder.js)와 완벽히 동일한 5x6 인게임 장비 슬롯 레이아웃과 
- * 빈 슬롯(비활성화 슬롯 포함) 디자인이 적용되었습니다.
  */
 
 // ==========================================
 // 1. 메인 렌더링 (검색 완료 후 데이터 적용)
 // ==========================================
-window.renderSearchDetail = function(basic, stat, item, ability, symbol, dojang, union, ranking) {
+// 💡 [초보자 가이드] 파라미터 뒷단에 링크, 헥사, 기본스킬, 헥사스탯 오브젝트를 정식 수령하도록 인터페이스를 보정했습니다.
+window.renderSearchDetail = function(basic, stat, item, ability, symbol, dojang, union, ranking, link_skill, hexa_skill, skill, hexa_stat) {
     const container = document.getElementById('charDetailContainer');
     if (!container) return; 
+
+    if (!basic || !basic.character_name) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 100px 0; color: #64748b; font-weight: 800; font-size: 16px;">
+                <div style="font-size: 30px; margin-bottom: 10px;">⏳</div>
+                 데이터를 불러오고 있습니다... 잠시만 기다려 주세요.
+            </div>`;
+        return;
+    }
 
     const classRank = ranking?.class || 0;
     const worldRank = ranking?.world || 0;
 
     window.saveRecentSearch(basic.character_name);
-    window.currentSearchData = { basic, stat, item, ability, symbol, dojang, union, ranking };
+    
+    // 💡 [데이터 영속화 보정] 스킬 탭을 눌러 renderSkill()이 재호출될 때 꺼내 쓸 수 있도록 넥슨 스킬 원본셋을 통째로 전역 바인딩합니다.
+    // 여기서 누락이 없어야 search_skill.js에서 [정보 없음] 대신 인게임 데이터가 완벽하게 표기됩니다.
+    window.currentSearchData = { basic, stat, item, ability, symbol, dojang, union, ranking, link_skill, hexa_skill, skill, hexa_stat };
 
     const power = stat?.final_stat?.find(s => s.stat_name === "전투력")?.stat_value || "0";
     const mainStat = stat?.final_stat?.find(s => s.stat_name === "주스탯")?.stat_value || "-";
     const hp = stat?.final_stat?.find(s => s.stat_name === "HP")?.stat_value || "-";
     const worldGuildText = basic.character_guild_name ? `${basic.world_name} / ${basic.character_guild_name}` : basic.world_name;
     
-    const tabs = ['내실', '유니온', '코디', '업적', '부캐'];
+    // 💡 [중복 제거] 중복 생성을 막기 위해 처음부터 완벽한 독립 단일 배열로 정의합니다.
+    const tabs = ['내실', '유니온', '헥사/스킬', '업적', '부캐'];
     const cardStyle = "background: white; border-radius: 20px; padding: 20px; border: 1px solid #f1f5f9; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);";
     const h4Style = "margin: 0 0 16px 0; font-size: 14px; font-weight: 800; color: #1e293b; display: flex; align-items: center; gap: 8px;";
 
@@ -72,8 +82,7 @@ window.renderSearchDetail = function(basic, stat, item, ability, symbol, dojang,
                     `).join('')}
                 </div>
                 
-                <div id="dopingListContainer" style="margin-top: 10px;">
-                </div>
+                <div id="dopingListContainer" style="margin-top: 10px;"></div>
             </div>
         </div>
 
@@ -81,7 +90,7 @@ window.renderSearchDetail = function(basic, stat, item, ability, symbol, dojang,
             ${tabs.map(tab => `<button class="tab-btn" onclick="window.switchTab('${tab}')" style="padding: 8px 20px; border:none; background:white; border-radius:10px; font-weight:700; cursor:pointer; font-size:13px; color:#64748b; border:1px solid #e2e8f0;">${tab}</button>`).join('')}
         </div>
         
-        <div id="tabContentContainer"></div>
+        <div id="tabContentContainer" style="margin-bottom: 20px; display: none;"></div>
 
         <div id="mainGridContent" style="display: grid; grid-template-columns: 250px 1fr 250px; gap: 20px; align-items: start; width: 100%;">
             <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -125,12 +134,61 @@ window.renderSearchDetail = function(basic, stat, item, ability, symbol, dojang,
         window.renderRecentSearchesMain();
         window.renderSymbols(symbol);     
         window.updateFavoriteBtnState(basic.character_name); 
-        window.switchTab('내실'); // 처음 화면 로드 시 '내실' 내용을 활성화합니다.
+        window.switchTab('내실'); 
     } catch (e) { 
         console.error("Rendering Error:", e);
     }
 };
 
+/**
+ * 💡 [초보자 가이드] 서브 탭 스위칭 컨트롤러 함수
+ */
+window.switchTab = function(tabName) {
+    const contentBox = document.getElementById('tabContentContainer');
+    const mainGrid = document.getElementById('mainGridContent');
+    if (!contentBox || !mainGrid) return;
+
+    // 모든 탭 버튼의 색상을 초기화하고 누른 버튼만 주황색으로 강조합니다.
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        if (btn.innerText.trim() === tabName) {
+            btn.style.background = '#ea580c';
+            btn.style.color = '#ffffff';
+            btn.style.borderColor = '#ea580c';
+        } else {
+            btn.style.background = '#ffffff';
+            btn.style.color = '#64748b';
+            btn.style.borderColor = '#e2e8f0';
+        }
+    });
+
+    const data = window.currentSearchData;
+    if (!data) return;
+
+    if (tabName === '유니온') {
+        contentBox.style.display = 'block';
+        mainGrid.style.display = 'none'; 
+        contentBox.innerHTML = typeof window.renderUnion === 'function' ? window.renderUnion(data.union) : '';
+        
+        const initialPreset = parseInt(data.union?.use_preset_no) || 1;
+        if (typeof window.changeUnionPreset === 'function') window.changeUnionPreset(initialPreset);
+    } else if (tabName === '내실') {
+        contentBox.style.display = 'none';
+        mainGrid.style.display = 'grid'; 
+    } else if (tabName === '헥사/스킬') {
+        contentBox.style.display = 'block';
+        mainGrid.style.display = 'none';
+        
+        // 💡 [핵심 연동 보정] 탭 전환 시 window.currentSearchData에 동기화된 모든 스킬셋 컨텍스트가
+        // search_skill.js 내부 렌더러로 원활하게 공급되도록 싱크 처리를 완벽히 보장합니다.
+        contentBox.innerHTML = typeof window.renderSkill === 'function' 
+            ? window.renderSkill() 
+            : `<div style="padding: 40px; text-align: center; color: #94a3b8; font-weight: 700;">🔮 스킬 모듈을 찾을 수 없습니다.</div>`;
+    } else {
+        contentBox.style.display = 'block';
+        mainGrid.style.display = 'none';
+        contentBox.innerHTML = `<div style="padding: 50px; text-align: center; color: #94a3b8; font-weight: 700; font-size:14px; background:white; border-radius:16px; border:1px solid #e2e8f0;">🚧 [${tabName}] 서브 컴포넌트 탭 모듈 준비 중입니다.</div>`;
+    }
+};
 
 // ==========================================
 // 2. 장비 및 어빌리티 프리셋 기능
@@ -138,7 +196,7 @@ window.renderSearchDetail = function(basic, stat, item, ability, symbol, dojang,
 window.switchItemPreset = function(num) {
     document.querySelectorAll('#itemPresetBtns .preset-btn').forEach((btn, i) => { 
         btn.classList.toggle('active', i + 1 === num); 
-        btn.style.background = (i + 1 === num) ? 'var(--point-orange)' : '#f1f5f9';
+        btn.style.background = (i + 1 === num) ? '#ea580c' : '#f1f5f9';
         btn.style.color = (i + 1 === num) ? 'white' : '#64748b';
     });
 
@@ -153,7 +211,6 @@ window.switchItemPreset = function(num) {
     const borderGradeColor = { "레전드리": "#22c55e", "유니크": "#f59e0b", "에픽": "#a855f7", "레어": "#0ea5e9" };
     const gradeColor = { "레전드리": "#15803d", "유니크": "#b45309", "에픽": "#6b21a8", "레어": "#0369a1" };
     
-    // 💡 [변경됨] builder.js 와 동일한 인게임 5x6 장비 슬롯 레이아웃 (총 30칸)
     const slotOrder = [
         "반지1", "눈장식", null, "모자", "망토",
         "반지2", "얼굴장식", null, "상의", "장갑",
@@ -179,7 +236,6 @@ window.switchItemPreset = function(num) {
         let gHtml = ""; 
         slotOrder.forEach(sName => {
             if (sName) {
-                // 상의/한벌옷, 펜던트1, 뱃지 등 예외 매핑 처리 포함
                 let item = equipList.find(eq => 
                     eq.item_equipment_slot === sName || 
                     (sName === "상의" && eq.item_equipment_slot === "한벌옷") || 
@@ -191,7 +247,6 @@ window.switchItemPreset = function(num) {
                     let bColor = borderGradeColor[item.potential_option_grade] || "#e2e8f0"; 
                     gHtml += `<div onmouseenter="window.showTooltip(event, '${sName}', ${num})" onmousemove="window.moveTooltip(event)" onmouseleave="window.hideTooltip()" style="background:#ffffff; border-radius:10px; border:1.5px solid ${bColor}; display:flex; align-items:center; justify-content:center; aspect-ratio:1/1; cursor:pointer; overflow:hidden;"><img src="${item.item_icon}" style="max-width:85%; max-height:85%; object-fit:contain; pointer-events:none;"></div>`; 
                 } else { 
-                    // 💡 장착되지 않은 유효 슬롯 (옴니 빌더 스타일 렌더링)
                     let shortName = sName.length > 3 ? sName.substring(0, 2) : sName;
                     if (sName === "포켓 아이템") shortName = "포켓";
                     if (sName === "기계 심장") shortName = "심장";
@@ -201,7 +256,6 @@ window.switchItemPreset = function(num) {
                     </div>`; 
                 }
             } else {
-                // 💡 사용하지 않는 빈 공간(null) 슬롯 디자인
                 gHtml += `<div style="background:#cbd5e1; border-radius:10px; border:1px dashed #94a3b8; opacity:0.15; aspect-ratio:1/1;"></div>`;
             }
         });
@@ -241,11 +295,14 @@ window.switchItemPreset = function(num) {
 };
 
 window.switchAbilityPreset = function(num) {
-    document.querySelectorAll('#abilityPresetBtns .preset-btn').forEach((btn, i) => { 
-        btn.classList.toggle('active', i + 1 === num);
-        btn.style.background = (i + 1 === num) ? 'var(--point-blue)' : '#f1f5f9'; 
-        btn.style.color = (i + 1 === num) ? '#fff' : '#64748b'; 
-    });
+    const pBtns = document.getElementById('abilityPresetBtns');
+    if (pBtns) {
+        pBtns.querySelectorAll('.preset-btn').forEach((btn, i) => { 
+            btn.classList.toggle('active', i + 1 === num);
+            btn.style.background = (i + 1 === num) ? '#0284c7' : '#f1f5f9'; 
+            btn.style.color = (i + 1 === num) ? '#fff' : '#64748b'; 
+        });
+    }
 
     const data = window.currentSearchData;
     if (!data || !data.ability) return;

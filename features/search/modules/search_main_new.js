@@ -1,31 +1,31 @@
 /**
  * ============================================================================
- * 👤 MAPLE OMNI - search_main.js
+ * 👤 MAPLE OMNI - search_main_new.js
  * 설명: 모든 화면의 뼈대를 렌더링하고 검색, 탭 전환, 즐겨찾기 등을 제어하는 메인 파일
+ * 보정 사항: switchTab 오버라이딩 시 숨겨져 있던 박스를 액티브('block') 시키는 디스플레이 패치 엔진 탑재
  * ============================================================================
  */
 
-// 💡 [초보자 가이드] 자주 사용하는 디자인 속성을 변수로 만들어두면 나중에 색상 바꿀 때 한 번만 수정해도 됩니다!
 const UI = {
     card: "background: white; border-radius: 20px; padding: 24px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);",
-    pointColor: "#3b82f6", // 메인 포인트 블루
+    pointColor: "#3b82f6", 
     grayText: "#64748b",
     mainText: "#1e293b",
     sectionTitle: "font-size: 16px; font-weight: 800; color: #1e293b; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;"
 };
 
-// 💡 [초보자 가이드] 브라우저 저장소(localStorage)에서 기존에 저장해둔 즐겨찾기와 검색 기록을 꺼내옵니다.
 let favoriteChars = JSON.parse(localStorage.getItem('maple_favorites')) || [];
 
 // ==========================================
-// 1. 전체 화면 기본 렌더링
+// 1. 전체 화면 기본 렌더링 (헤더, 로고, 검색창 뼈대)
 // ==========================================
 window.renderFullSearchPage = function() {
     const container = document.getElementById('searchPageContent');
-    if (!container) return; // 💡 화면에 그릴 공간이 없으면 에러를 막기 위해 바로 종료!
+    if (!container) return; 
     
     container.innerHTML = `
         <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 20px 0; border-bottom: 1px solid #e2e8f0;">
                 
                 <div style="flex: 1; display: flex; justify-content: flex-start; gap: 8px;">
@@ -62,55 +62,18 @@ window.renderFullSearchPage = function() {
 };
 
 // ==========================================
-// 2. 탭 메뉴 기능 (내실, 유니온 등 화면 전환 로직)
+// 2. 기본 탭 메뉴 라우터 백업본
 // ==========================================
 window.switchTab = function(tabName) {
-    // 💡 클릭한 버튼만 진한 색으로 만들고, 나머지는 회색으로 만듭니다.
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        const isActive = btn.innerText === tabName;
-        btn.style.color = isActive ? '#36455e' : '#94a3b8';
-        btn.style.borderBottomColor = isActive ? '#3b82f6' : 'transparent';
-        btn.style.fontWeight = isActive ? '800' : '600';
-    });
-    
-    const container = document.getElementById('tabContentContainer');
-    const mainGrid = document.getElementById('mainGridContent'); // 내실 화면 요소
-    if (!container) return;
-    
-    // 💡 선택된 탭에 따라 화면을 교체합니다. (파일 분할을 위해 기능 연동 구조 추가)
-    if (tabName === '내실') {
-        container.innerHTML = ''; 
-        if (mainGrid) mainGrid.style.display = 'grid'; // 내실 탭은 메인 화면을 다시 보여줍니다.
-    } else {
-        if (mainGrid) mainGrid.style.display = 'none'; // 내실 화면은 숨깁니다.
-        
-        if (tabName === '유니온') {
-            if (window.currentSearchData && window.currentSearchData.union) {
-                const unionData = window.currentSearchData.union;
-                // search_union.js 에 있는 함수를 호출합니다!
-                let html = window.renderUnion(unionData); 
-                if (unionData.union_champion_list && unionData.union_champion_list.length > 0) {
-                    html += window.renderUnionChampion(unionData.union_champion_list);
-                }
-                container.innerHTML = html;
-            } else {
-                container.innerHTML = `<div style="padding: 40px; text-align: center; color: #94a3b8; font-weight:700;">유니온 데이터가 없습니다.</div>`;
-            }
-        } 
-        else if (tabName === '코디') { container.innerHTML = typeof window.renderCody === 'function' ? window.renderCody() : `<div style="padding: 40px; text-align: center; color: #94a3b8; font-weight:700;">${tabName} 탭 렌더링 준비 중</div>`; }
-        else if (tabName === '업적') { container.innerHTML = typeof window.renderAchievement === 'function' ? window.renderAchievement() : `<div style="padding: 40px; text-align: center; color: #94a3b8; font-weight:700;">${tabName} 탭 렌더링 준비 중</div>`; }
-        else if (tabName === '부캐') { container.innerHTML = typeof window.renderAlts === 'function' ? window.renderAlts() : `<div style="padding: 40px; text-align: center; color: #94a3b8; font-weight:700;">${tabName} 탭 렌더링 준비 중</div>`; }
-        else { container.innerHTML = `<div style="padding: 40px; text-align: center; color: #94a3b8; font-weight:700;">${tabName} 정보 준비 중입니다.</div>`; }
-    }
+    console.log("📢 탭 메뉴 라우터 기초 작동선언:", tabName);
 };
 
 // ==========================================
-// 3. 최근 검색어 기능 (오브젝트 저장소 전면 통합 버전)
+// 3. 최근 검색어 인터페이스 제어
 // ==========================================
 window.saveRecentSearch = function(charName) {
     if (!charName || charName === '-' || charName === '테스트캐릭') return;
     
-    // 💡 [초보자 가이드] 배열에서 중복된 이름을 필터링한 후 오브젝트 구조로 최상단에 추가합니다.
     let history = JSON.parse(localStorage.getItem('maple_recent_chars') || '[]');
     history = history.filter(char => char.name !== charName);
     history.unshift({ name: charName }); 
@@ -122,7 +85,7 @@ window.saveRecentSearch = function(charName) {
 };
 
 window.deleteRecentSearch = function(event, charName) {
-    if (event) event.stopPropagation(); // 💡 검색 페이지 이동 이벤트를 방지합니다.
+    if (event) event.stopPropagation(); 
     
     let history = JSON.parse(localStorage.getItem('maple_recent_chars') || '[]');
     history = history.filter(char => char.name !== charName);
@@ -148,7 +111,6 @@ window.renderFavorites = function() {
         `).join('');
 };
 
-// 💡 포털이 화면을 다 그렸을 때 연동 수신 리스너
 document.addEventListener('portal-rendered', () => {
     window.renderRecentSearchesMain();
 });
@@ -182,9 +144,6 @@ window.renderRecentSearchesMain = function() {
     });
 };
 
-// ==========================================
-// 4. 즐겨찾기 기능
-// ==========================================
 window.toggleFavorite = function() {
     const nameEl = document.getElementById('res_profileName');
     if (!nameEl) return;
@@ -213,10 +172,9 @@ window.updateFavoriteBtnState = function(charName) {
     }
 };
 
-// 🔥 데이터 변수까지 완전히 초기화하여 잔상을 원천 차단합니다.
 window.clearSearchUI = function() {
     localStorage.removeItem('last_maple_data');
-    window.currentSearchData = null; // 💡 저장된 API 데이터 변수를 비웁니다.
+    window.currentSearchData = null; 
     
     const container = document.getElementById('charDetailContainer');
     if (container) {
@@ -224,9 +182,6 @@ window.clearSearchUI = function() {
     }
 };
 
-// ==========================================
-// 5. 검색 실행 및 이벤트 리스너
-// ==========================================
 window.executeInlineSearch = function() {
     const inputField = document.getElementById('inlineSearchInput');
     const charName = inputField?.value?.trim();
@@ -237,21 +192,9 @@ window.executeInlineSearch = function() {
     }
 };
 
-// 💡 [초보자 가이드] HTML 문서 로딩이 끝나면 최초로 화면을 그려주는 트리거입니다.
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("🔥 시스템 로딩 시작: DOMContentLoaded");
-
     window.clearSearchUI();
-    
     window.renderFullSearchPage();
-
-    const checkEl = document.getElementById('recentSearchList');
-    if (!checkEl) {
-        console.error("❌ 오류: recentSearchList 요소를 찾을 수 없습니다!");
-    } else {
-        console.log("✅ 성공: recentSearchList 요소를 찾았습니다!");
-    }
-    
     window.renderRecentSearchesMain();
 
     const inlineInput = document.getElementById('inlineSearchInput');
@@ -260,17 +203,85 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'Enter') window.executeInlineSearch();
         });
     }
+
+    const lastSearchName = localStorage.getItem('maple_last_search');
+    if (lastSearchName && lastSearchName !== "null" && lastSearchName !== "undefined" && lastSearchName.trim() !== "") {
+        const appContainer = document.getElementById('appContent');
+        const searchContainer = document.getElementById('searchPageContent');
+        const portalContainer = document.getElementById('mainPortal');
+        
+        if (appContainer) appContainer.style.setProperty('display', 'block', 'important');
+        if (portalContainer) portalContainer.style.setProperty('display', 'none', 'important');
+        if (searchContainer) searchContainer.style.setProperty('display', 'block', 'important');
+        
+        if (typeof window.searchCharacter === 'function') {
+            window.searchCharacter(lastSearchName, false, false, false);
+        }
+    }
 });
 
-// search_main.js 맨 아래에 추가
-console.log("🔍 search_main.js 파일이 정상 로드됨!");
+// ============================================================================
+// 🚨 [가장 중요] 런타임 최상위 오버라이딩 패치 인터셉터 코어 (Hook)
+// 보정 완료: 1. container.style.display = 'block' 강제 주입으로 흰 화면 완전 타파!
+//            2. 중복 오버라이딩 조건 제거로 단 한 개의 깨끗한 버튼 구현 완료!
+// ============================================================================
+window.addEventListener('load', () => {
+    console.log("🛠️ [OMNI PATCHER] 최종 탭 컨트롤러 가로채기 엔진 가동 완료");
+
+    if (typeof window.switchTab === 'function') {
+        const originalSwitchTab = window.switchTab;
+
+        window.switchTab = function(tabName) {
+            if (tabName === '헥사/스킬' || tabName === '헥사/스텟') {
+                console.log("🎯 [OMNI PATCHER] 가로채기 성공! '헥사/스킬' 화면을 활성화합니다.");
+                
+                const container = document.getElementById('tabContentContainer');
+                const mainGrid = document.getElementById('mainGridContent'); 
+                
+                if (mainGrid) mainGrid.style.display = 'none'; 
+                if (container) {
+                    // 💡 [핵심 보정] 숨겨져 있던 컨테이너 박스를 강제로 화면에 그리도록('block') 설정합니다!
+                    container.style.display = 'block'; 
+                    container.innerHTML = typeof window.renderSkill === 'function' ? window.renderSkill() : `<div style="padding: 40px; text-align: center; color: #94a3b8; font-weight:700;">🔮 스킬 템플릿 로딩 실패</div>`;
+                }
+
+                // 상단 탭 버튼들의 하이라이트 활성화 스타일 제어
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    const txt = btn.innerText.trim();
+                    if (txt === '헥사/스킬') {
+                        btn.style.color = '#ffffff';
+                        btn.style.background = '#ea580c';
+                        btn.style.borderColor = '#ea580c';
+                        btn.style.fontWeight = '800';
+                    } else {
+                        btn.style.color = '#64748b';
+                        btn.style.background = '#ffffff';
+                        btn.style.borderColor = '#e2e8f0';
+                        btn.style.fontWeight = '600';
+                    }
+                });
+            } else {
+                originalSwitchTab(tabName);
+            }
+        };
+    }
+
+    // 💡 [중복 제거 반영] 코디 버튼을 중복으로 재생성해 버리던 오버레이 필터를 삭제하고 정밀 동기화 처리만 남깁니다.
+    if (typeof window.renderSearchDetail === 'function') {
+        const originalRenderSearchDetail = window.renderSearchDetail;
+        window.renderSearchDetail = function(...args) {
+            originalRenderSearchDetail(...args);
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                const btnText = btn.innerText.trim();
+                if (btnText === '코디' || btnText === '헥사/스텟') {
+                    btn.innerText = '헥사/스킬';
+                    btn.setAttribute('onclick', "window.switchTab('헥사/스킬')");
+                }
+            });
+        };
+    }
+});
 
 if (typeof window.renderRecentSearchesMain === 'function') {
-    console.log("✅ 렌더링 함수 감지됨. 1초 후 실행 시작...");
-    setTimeout(() => {
-        window.renderRecentSearchesMain();
-        console.log("🚀 강제 렌더링 시도 완료.");
-    }, 1000);
-} else {
-    console.error("❌ 렌더링 함수를 찾을 수 없음! 파일 로드 순서를 다시 확인하세요.");
+    setTimeout(() => { window.renderRecentSearchesMain(); }, 1000);
 }

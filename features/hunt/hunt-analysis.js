@@ -418,10 +418,41 @@ window.renderGrowthChart = function() {
         });
     };
 
-    // [초보자용 주석] 수정된 마지막 부분
     setTimeout(() => {
         initProChart('expChartCanvas', expValues, '%');
         initProChart('mesoGrowthChart', mesoValues, '억', mesoFullValues);
         initProChart('fragGrowthChart', fragValues, '개');
     }, 50);
+};
+
+
+window.refreshWeekly = function() {
+    const container = document.getElementById('weeklySummaryContainer');
+    if (!container) return;
+
+    const allRecords = JSON.parse(localStorage.getItem('maple_hunt_records') || '[]');
+    const currentCharId = window.currentIdx || 1;
+    
+    // 최근 7일간의 데이터 계산
+    let weeklyMeso = 0;
+    const today = new Date();
+    for (let i = 0; i < 7; i++) {
+        const d = new Date(today);
+        d.setDate(today.getDate() - i);
+        const dateStr = d.toISOString().split('T')[0];
+        
+        allRecords.filter(r => r.charId == currentCharId && r.date === dateStr).forEach(r => {
+            weeklyMeso += parseInt(String(r.meso).replace(/,/g, "")) || 0;
+        });
+    }
+
+    container.innerHTML = `
+        <div style="background: #ffffff; padding: 20px; border-radius: 20px; border: 1px solid #eef2f6; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+            <div style="font-size: 12px; font-weight: 800; color: #64748b; margin-bottom: 10px;">📅 주간 정산 요약</div>
+            <div style="font-size: 20px; font-weight: 900; color: #0f172a;">
+                ${(weeklyMeso / 100000000).toFixed(2)} <span style="font-size: 14px; color: #94a3b8;">억 메소</span>
+            </div>
+            <div style="font-size: 11px; color: #94a3b8; margin-top: 5px;">최근 7일간 획득한 총액입니다.</div>
+        </div>
+    `;
 };

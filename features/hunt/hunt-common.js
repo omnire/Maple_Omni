@@ -41,6 +41,7 @@ function _getSafeTodayStr() {
 }
 window.getTodayStr = function() { return _getSafeTodayStr(); };
 
+// [초보자용 주석] ✨ 핵심 버그 수정: 탭 전환 시 닉네임이 날아가지 않도록 localStorage에서 불러오게 했습니다.
 window.init = function() {
     if (typeof window.renderTopToolbar === 'function') {
         window.renderTopToolbar();
@@ -59,9 +60,15 @@ window.init = function() {
         }
     }
 
+    // 🔥 [수정] 닉네임 입력 창에 기존 검색했던 아이디가 유지되도록 복구합니다.
     const sidebarInput = document.getElementById('sidebarSearchInput');
-    if (sidebarInput && window.autoSearchDisabled) {
-        sidebarInput.value = '';
+    const savedCharName = localStorage.getItem('search_character_name');
+    if (sidebarInput) {
+        if (savedCharName) {
+            sidebarInput.value = savedCharName;
+        } else if (window.autoSearchDisabled) {
+            sidebarInput.value = '';
+        }
     }
 
     if (typeof window.resetSidebarUI === 'function') {
@@ -70,7 +77,7 @@ window.init = function() {
             img.style.transition = 'none';
             img.style.visibility = 'hidden';
         }
-        window.resetSidebarUI("닉네임 입력 후 엔터");
+        window.resetSidebarUI(savedCharName ? savedCharName : "닉네임 입력 후 엔터");
     }
     
     console.log("🚀 [성능] 사냥 페이지 로드 - 검색 데이터와 독립적으로 실행합니다.");
@@ -255,7 +262,7 @@ window.exportData = function() {
             huntRecords: JSON.parse(localStorage.getItem('maple_hunt_records') || '[]'),
             attendance: JSON.parse(localStorage.getItem('mapleAttendance') || '[]'),
             configs: [1, 2, 3, 4].map(i => JSON.parse(localStorage.getItem(`maple_config_${i}`)))
-        };
+        }
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -285,6 +292,7 @@ window.updateHuntPageByDate = function() {
     console.log(`[시스템] ${selectedDate} 바구니로 전환되었습니다.`);
 };
 
+// [초보자용 주석] ✨ 핵심 버그 수정: 주간 사냥 내역 컨테이너(weeklySummaryContainer) 내부에 사라졌던 HTML 코드를 원복했습니다.
 window.renderFullLayout = function() {
     const huntContainer = document.getElementById('huntLayoutContainer');
     if (huntContainer) {
@@ -388,7 +396,31 @@ window.renderFullLayout = function() {
                 </div>
                 <aside class="right-sidebar" style="width: 240px; flex-shrink: 0; display: flex; flex-direction: column; gap: 20px;">
                     <div id="attendanceContainer"></div>
-                    <div id="weeklySummaryContainer"></div>
+                    
+                    <div id="weeklySummaryContainer" style="background: #ffffff; border-radius: 20px; border: 1px solid #eef2f6; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+                        <div style="font-size: 13px; color: #1e293b; font-weight: 900; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 16px;">🔥</span> 주간 사냥 요약
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 12px; color: #64748b; font-weight: 700;">💰 누적 메소</span>
+                                <span id="weekly-hunt-meso" style="font-size: 14px; font-weight: 900; color: #0284c7;">0.00 억</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 12px; color: #64748b; font-weight: 700;">📈 경험치</span>
+                                <span id="weekly-hunt-exp" style="font-size: 14px; font-weight: 900; color: #475569;">0.000 %</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 12px; color: #64748b; font-weight: 700;">🧊 코어/조각</span>
+                                <span id="weekly-hunt-frag" style="font-size: 14px; font-weight: 900; color: #8b5cf6;">0 개</span>
+                            </div>
+                            <div style="border-top: 1px dashed #e2e8f0; padding-top: 12px; margin-top: 4px; display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 12px; color: #1e293b; font-weight: 800;">총합 가치</span>
+                                <span id="weekly-total-sum" style="font-size: 15px; font-weight: 900; color: #f59f00;">0.00 억</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </aside>
             </div>
         `;

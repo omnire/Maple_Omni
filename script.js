@@ -100,6 +100,10 @@ window.openTab = function(idx, forceRefresh = false) {
             window.renderGrowthChart();
         }, 100);
     }
+
+    // 💡 [추가 보정] 탭 전환 후 입력 필드와 사냥 기록을 즉시 강제로 새로고침합니다.
+    restoreCharConfig();
+    if (typeof window.renderSubRecords === 'function') window.renderSubRecords(idx);
 };
 
 window.showPage = function(pageNum) {
@@ -279,8 +283,8 @@ function init() {
         }
     }
 
-    // 💡 초기 로딩 시 데이터를 자동으로 불러오지 않도록 주석 처리합니다.
-    // restoreCharConfig(); 
+    // 💡 [수정] 페이지 로드 시 저장된 캐릭터 설정을 자동으로 복원합니다.
+    restoreCharConfig(); 
     
     const sidebarInput = document.getElementById('sidebarSearchInput');
     if (sidebarInput && window.autoSearchDisabled) {

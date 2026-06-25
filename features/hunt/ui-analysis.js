@@ -6,47 +6,47 @@
  */
 
 window.renderGrowthChart = function() {
-    // [초보자용 주석] 차트를 그릴 도화지(canvas)를 HTML에서 찾습니다.
+    // [초보자용 주석] 차트를 그릴 도화지(canvas)를 HTML에서 찾습니다. 없으면 바로 종료합니다.
     const canvas = document.getElementById('growthChart');
-    if (!canvas) return; // 캔버스가 없으면 함수를 종료합니다.
+    if (!canvas) return;
 
-    // 1. 데이터 수집 로직 (저장된 기록 + 현재 작성 중인 임시 기록 통합)
+    // [초보자용 주석] 로컬 저장소에 확정된 전체 사냥 기록과 현재 선택된 캐릭터(탭) 정보를 불러옵니다.
     const allRecords = JSON.parse(localStorage.getItem('maple_hunt_records') || '[]');
     const currentTabIdx = parseInt(window.currentIdx) || 1;
     const globalDateVal = document.getElementById('huntGlobalDate')?.value || new Date().toISOString().split('T')[0];
 
-    // [초보자용 주석] 차트(최근 7일)에 넣을 데이터들을 담을 바구니를 만듭니다.
+    // [초보자용 주석] 최근 7일간의 데이터를 담아둘 빈 바구니(배열)들을 준비합니다.
     const labels = []; 
     const mesoValues = []; 
-    const mesoFullValues = []; // 7일간의 1원 단위 원본 저장용 (툴팁에서 정확한 숫자를 보여주기 위함)
+    const mesoFullValues = []; // 툴팁에 정확한 1원 단위 숫자를 보여주기 위해 원본을 따로 저장합니다.
     const expValues = []; 
     const fragValues = []; 
     const today = new Date();
 
-    // [초보자용 주석] 이번 달(1일~오늘) 누적 메소 금액을 담을 변수를 만듭니다.
+    // [초보자용 주석] 이번 달(1일~오늘) 누적 메소 금액을 담을 변수를 0으로 초기화합니다.
     let monthlySumMeso = 0;
     const currentYear = today.getFullYear();
-    const currentMonth = today.getMonth(); // 자바스크립트는 0이 1월, 4가 5월을 뜻합니다.
+    const currentMonth = today.getMonth(); // 자바스크립트 달력은 0이 1월을 뜻합니다.
 
     // ==========================================
-    // 억 단위 7일 차트 데이터 및 이번 달 누적 데이터 추출 루프
+    // 최근 7일 차트 데이터 및 이번 달 누적 데이터 추출 루프
     // ==========================================
     for (let i = 6; i >= 0; i--) {
         const d = new Date(today);
         d.setDate(today.getDate() - i);
-        const dateStr = d.toISOString().split('T')[0]; // YYYY-MM-DD 형식으로 변환
-        labels.push(`${d.getMonth() + 1}/${d.getDate()}`);
+        const dateStr = d.toISOString().split('T')[0]; // 날짜를 YYYY-MM-DD 형태로 예쁘게 만듭니다.
+        labels.push(`${d.getMonth() + 1}/${d.getDate()}`); // X축에 표시될 날짜 (예: 5/24)
 
         let dSumMeso = 0, dSumExp = 0, dSumFrag = 0;
 
-        // 확정된 전체 기록에서 해당 날짜 데이터만 골라내어 합산
+        // [초보자용 주석] 확정된 전체 기록 중, 현재 탭의 캐릭터이면서 날짜가 일치하는 것만 더해줍니다.
         allRecords.filter(r => r.charId == currentTabIdx && r.date === dateStr).forEach(r => {
             dSumMeso += parseInt(String(r.meso).replace(/,/g, "")) || 0;
             dSumExp += parseFloat(r.exp) || 0;
             dSumFrag += parseInt(r.frag) || 0;
         });
 
-        // 임시 기록(subHistory)에서 아직 전송 안 된 데이터도 함께 합산
+        // [초보자용 주석] 아직 확정 전송을 안 한 '바구니(임시 기록)' 데이터도 차트에 포함시킵니다.
         const sKey = `${currentTabIdx}_${dateStr}`;
         if (window.subHistory && window.subHistory[sKey]) {
             window.subHistory[sKey].forEach(tempRec => {
@@ -58,7 +58,7 @@ window.renderGrowthChart = function() {
             });
         }
 
-        // 최근 7일 그래프용 바구니에 데이터를 예쁘게 가공해서 주입
+        // [초보자용 주석] 다 더해진 하루치 데이터를 각각의 바구니에 밀어 넣습니다 (메소는 억 단위로 변환).
         mesoValues.push(dSumMeso / 100000000); 
         mesoFullValues.push(dSumMeso);         
         expValues.push(parseFloat(dSumExp.toFixed(3)));
@@ -79,7 +79,7 @@ window.renderGrowthChart = function() {
     // 2) 임시 기록 중 이번 달 데이터 필터링
     if (window.subHistory) {
         Object.keys(window.subHistory).forEach(key => {
-            const parts = key.split('_'); // [charId, YYYY-MM-DD] 형태로 분리됨
+            const parts = key.split('_'); // [charId, YYYY-MM-DD] 형태로 분리
             if (parts[0] == currentTabIdx && parts[1]) {
                 const rDate = new Date(parts[1]);
                 if (rDate.getFullYear() === currentYear && rDate.getMonth() === currentMonth) {
@@ -93,7 +93,7 @@ window.renderGrowthChart = function() {
         });
     }
 
-    // 2. HTML 뼈대 만들기 (2x2 그리드 프레임워크 적용)
+    // [초보자용 주석] HTML 뼈대를 구성합니다 (2x2 그리드 적용).
     const chartWrapper = canvas.parentElement;
     chartWrapper.style.backgroundColor = "#f8fafc"; 
     chartWrapper.style.padding = "30px 15px 60px 15px"; 
@@ -126,7 +126,7 @@ window.renderGrowthChart = function() {
         </div>
     `;
 
-    // 📊 그래프 카드를 손쉽게 찍어내는 붕어빵 틀(함수)
+    // 📊 그래프 카드를 찍어내는 함수 (코드 중복 방지)
     function renderProCard(title, value, unit, canvasId) {
         return `
             <div style="background: #ffffff; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between;">
@@ -141,7 +141,7 @@ window.renderGrowthChart = function() {
         `;
     }
 
-    // 💰 [신규 위젯] 이달의 누적 사냥 월급 정산 카드를 만드는 기능
+    // 💰 [신규 위젯] 이번 달 사냥을 현금 가치로 환산해주는 카드
     function renderMonthlySalaryCard(monthlyMesoFull) {
         const mesoRate = 2500; // 💡 1억당 현금 시세 (기본값 설정)
         
@@ -267,4 +267,51 @@ window.renderGrowthChart = function() {
         initProChart('mesoChartCanvas', mesoValues, '억', mesoFullValues); // 메소는 원본 데이터(fullData)도 전달
         initProChart('fragChartCanvas', fragValues, '개');
     }, 50);
+};
+
+/**
+ * 📅 [주간 정산 요약] 최근 7일간의 메소 획득량을 계산하여 화면에 표시합니다.
+ * 이 함수는 탭 전환이나 기록 저장 시 호출됩니다.
+ */
+window.refreshWeekly = function() {
+    const container = document.getElementById('weeklySummaryContainer');
+    if (!container) return;
+
+    const allRecords = JSON.parse(localStorage.getItem('maple_hunt_records') || '[]');
+    const currentCharId = window.currentIdx || 1;
+    const config = JSON.parse(localStorage.getItem(`maple_config_${currentCharId}`) || '{}');
+    
+    // 목표 메소 설정값이 있다면 가져오기 (없으면 0)
+    const targetMeso = parseInt(String(config.targetMeso || 0).replace(/[^0-9]/g, "")) || 0;
+    
+    // 최근 7일간 데이터 집계
+    let weeklyMeso = 0;
+    const today = new Date();
+    for (let i = 0; i < 7; i++) {
+        const d = new Date(today);
+        d.setDate(today.getDate() - i);
+        const dateStr = d.toISOString().split('T')[0];
+        
+        allRecords.filter(r => r.charId == currentCharId && r.date === dateStr).forEach(r => {
+            weeklyMeso += parseInt(String(r.meso || 0).replace(/,/g, "")) || 0;
+        });
+    }
+
+    const progress = targetMeso > 0 ? ((weeklyMeso / targetMeso) * 100).toFixed(1) : 0;
+
+    // 요약 UI 렌더링
+    container.innerHTML = `
+        <div style="background: #ffffff; padding: 20px; border-radius: 20px; border: 1px solid #eef2f6; box-shadow: 0 4px 12px rgba(0,0,0,0.02); margin-top: 10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <div style="font-size: 12px; font-weight: 800; color: #64748b;">📅 주간 정산 (최근 7일)</div>
+                <div style="font-size: 12px; font-weight: 900; color: #3b82f6;">${progress}% 달성</div>
+            </div>
+            <div style="font-size: 24px; font-weight: 900; color: #0f172a;">
+                ${(weeklyMeso / 100000000).toLocaleString(undefined, {maximumFractionDigits: 2})} <span style="font-size: 14px; color: #94a3b8;">억 메소</span>
+            </div>
+            <div style="margin-top:10px; height:6px; background:#f1f5f9; border-radius:3px; overflow:hidden;">
+                <div style="width:${Math.min(progress, 100)}%; height:100%; background:#3b82f6;"></div>
+            </div>
+        </div>
+    `;
 };
