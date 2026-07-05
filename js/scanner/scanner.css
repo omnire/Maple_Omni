@@ -1,0 +1,99 @@
+/* ============================================================================
+ * 🎨 MAPLE OMNI V14 - js/scanner/scanner.css [PREMIUM SCANNER SKIN]
+ * 설명: 아바타 대형 뷰포트 스펙 가이드 및 5열 격자 아이템 레이아웃 스타일 무결성 유지 본체
+ * ============================================================================
+ */
+
+/* 📊 옴니 스캐너 캐릭터 조회 연동 인게임 격자 스펙 */
+.scanner-grid-container {
+    display: grid !important;
+    grid-template-columns: 44px 44px 150px 44px 44px !important;
+    grid-template-rows: repeat(6, 44px) !important;
+    gap: 8px !important;
+    width: fit-content !important;
+    margin: 20px auto !important;
+    position: relative !important;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+}
+
+/* 👤 장비창 정중앙 아바타 홀딩 구역 포지셔닝 */
+.scanner-char-container {
+    grid-column: 3 / 4 !important;
+    grid-row: 1 / 6 !important;
+    display: flex !important;
+    align-items: center !important; 
+    justify-content: center !important;
+    background: #fdfdfd !important; 
+    border-radius: 8px;
+    position: relative !important;
+    height: 210px !important; 
+}
+
+/* 🖼️ 캐릭터 아바타 160% 가독 스케일 규격 완전 고정 */
+.scanner-char-img {
+    width: auto !important;
+    height: 180px !important;
+    max-width: 140px !important;
+    pointer-events: none !important;
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.12)) !important;
+    z-index: 5 !important; 
+    position: absolute !important;
+    bottom: 10px !important; 
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+}
+
+/* 🔲 표준 아이템 격자 슬롯 규격 */
+.scanner-item-slot {
+    width: 44px !important;
+    height: 44px !important;
+    border: 1px solid #cbd5e1 !important;
+    background: #ffffff !important;
+    border-radius: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+}
+
+.scanner-item-slot img {
+    width: 32px !important;
+    height: 32px !important;
+    object-fit: contain !important;
+}
+
+.scanner-item-slot:hover {
+    background: #f8fafc !important;
+    border-color: #2563eb !important; 
+    transform: scale(1.06);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15) !important;
+    cursor: pointer !important;
+}
+
+/* 📋 대조 분석 다차원 테이블 구조 가이드 */
+.scanner-compare-table {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.font-num { 
+    font-family: 'Consolas', monospace; 
+    font-size: 12px; 
+    font-weight: 800;
+}
+.font-gray {
+    color: #64748b !important;
+}
+.font-blue {
+    color: #2563eb !important;
+    cursor: pointer;
+    font-weight: 800;
+}

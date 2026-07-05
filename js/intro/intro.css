@@ -1,0 +1,278 @@
+/* ============================================================================
+ * 🏹 MAPLE OMNI V14 - js/intro/intro.css [SKY BLUE GATEWAY SKIN]
+ * 설명: API Key 단일 폼 카드 팩 및 기능 가이드 정중앙 결착 2분할 린(Lean) 스킨
+ * 규칙: 중략 및 생략 없는 완전판 코드로 제공, 화사하고 산뜻한 푸른빛 연출
+ * ============================================================================
+ */
+
+/* 🌌 전체 화면을 완벽하게 덮는 초정밀 인트로 레이어 마스터 프레임 (정중앙 상속형 배치) */
+#omniIntroOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 50% 50%, #ffffff 0%, #F0F9FF 100%);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif;
+    overflow: hidden;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 🍁 배경의 은은함을 채워줄 배경 장식용 부드러운 곡선 파도 곡면 */
+#omniIntroOverlay::before {
+    content: "";
+    position: absolute;
+    bottom: -10%;
+    left: -10%;
+    width: 120%;
+    height: 40%;
+    background: rgba(2, 132, 199, 0.05);
+    border-radius: 50% 50% 0 0;
+    z-index: 1;
+    filter: blur(20px);
+    pointer-events: none;
+}
+
+/* 🧱 균형을 맞춘 좌우 2분할 통합 컨테이너 격자 트랙 */
+.intro-split-container {
+    display: flex;
+    width: 90%;
+    max-width: 920px;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    margin-bottom: 50px;
+}
+
+/* 👤 [좌측]: 로고 및 API 키 연동 카드 패널 영역 */
+.intro-left {
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* 🎨 디자인 테마 그라데이션 결합형 로고 그래픽 래퍼 */
+.intro-logo-wrapper {
+    width: 68px;
+    height: 68px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 6px 12px rgba(2, 132, 199, 0.15));
+    animation: introLogoFloat 3s ease-in-out infinite;
+}
+
+/* 🔠 BRAND TITLE TEXT DESIGN */
+.intro-brand-title {
+    font-size: 34px;
+    font-weight: 900;
+    color: #0F172A;
+    margin: 0 0 18px 0;
+    letter-spacing: -0.5px;
+}
+.intro-brand-title span {
+    color: #0284C7; /* 포인트 스카이 블루 지정 */
+}
+
+/* 🔒 내부 API 입력 폼 컨테이너 소형 카드 디자인 */
+.intro-login-card {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #E0F2FE;
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.02);
+    box-sizing: border-box;
+}
+
+.intro-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+.intro-form-label {
+    font-size: 11px;
+    font-weight: 800;
+    color: #64748B;
+    letter-spacing: 0.3px;
+}
+.intro-form-input {
+    width: 100%;
+    padding: 12px 14px;
+    background: #F0F9FF;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0F172A;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+.intro-form-input:focus {
+    border-color: #0284C7;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.08);
+}
+
+/* 🖱️ [API 저장/진입] 아웃라인 투명 마스터 액션 버튼 변경 */
+.intro-submit-btn {
+    width: 100%;
+    padding: 13px 0;
+    background: transparent;
+    color: #64748B;
+    border: 1px solid #64748B;
+    font-size: 14px;
+    font-weight: 800;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.5px;
+}
+.intro-submit-btn:hover {
+    background: #F0F9FF;
+    color: #0284C7;
+    border-color: #0284C7;
+    transform: translateY(-1.5px);
+}
+.intro-submit-btn:active {
+    transform: translateY(0.5px);
+}
+
+/* 📦 [우측]: 기능 소개 카드 리스트 래퍼 프레임 */
+.intro-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* 🔘 가이드 박스 형태의 구조 정렬 스킨 */
+.intro-feature-box {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #E0F2FE;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.005);
+    box-sizing: border-box;
+}
+
+.intro-icon-circle {
+    width: 42px;
+    height: 42px;
+    background: #F0F9FF;
+    border: 1px solid #E0F2FE;
+    color: #0284C7;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.feature-text-node h4 {
+    margin: 0 0 3px 0;
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #0F172A;
+}
+.feature-text-node p {
+    margin: 0;
+    font-size: 11.5px;
+    color: #475569;
+    font-weight: 600;
+    line-height: 1.4;
+    word-break: keep-all;
+}
+
+/* 📑 하단 이용약관 및 오픈 API 고지문 영역 */
+.intro-footer-area {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* 🔗 한 줄 링크 정렬 */
+.intro-footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #94A3B8;
+}
+.intro-footer-links span {
+    cursor: pointer;
+    transition: color 0.15s ease;
+}
+.intro-footer-links span:hover {
+    color: #0284C7;
+}
+
+/* 📜 서브 법적 공지 가이드 텍스트 */
+.intro-footer-notice {
+    font-size: 10px;
+    color: #94A3B8;
+    line-height: 1.5;
+    max-width: 500px;
+    margin: 0 auto;
+    word-break: keep-all;
+}
+
+/* 💨 페이드아웃 효과 트리거 */
+#omniIntroOverlay.fade-out {
+    opacity: 0;
+    transform: scale(1.01);
+    pointer-events: none;
+}
+
+/* 🔄 부드러운 로고 위아래 부유 모션 */
+@keyframes introLogoFloat {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0); }
+}
+
+/* 팝업 모달 스타일 추가 */
+.omni-modal {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(15, 23, 42, 0.3); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    z-index: 999999;
+}
+.omni-modal-content {
+    background: white; 
+    padding: 30px; 
+    border-radius: 16px; 
+    width: 320px;
+    box-shadow: 0 20px 25px -5px rgba(2, 132, 199, 0.05); 
+    text-align: center;
+}
+.omni-modal-content h3 { margin-top: 0; }
+.omni-modal-content p { font-size: 13px; line-height: 1.6; color: #475569; text-align: left; }
