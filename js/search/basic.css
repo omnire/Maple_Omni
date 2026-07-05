@@ -1,0 +1,87 @@
+/* ============================================================================
+ * 🔍 MAPLE OMNI - js/search/basic.css [PREMIUM COMPACT SKIN]
+ * 설명: 캐릭터 상세 정보 조회 페이지의 기본 레이아웃 및 눈보호 무채색 스킨 정의
+ * 규칙: 기존 디자인과 프레임워크 형태를 완벽히 유지하며 중략 없이 제공
+ * ============================================================================
+ */
+
+/* 🌌 캐릭터 내실 조회 메인 컨테이너 투명화 기본 베이스 설정 */
+#search-basic { 
+    background: transparent; 
+}
+
+/* 🖼️ 마스터 아바타 이미지 고정 비율 스케일 조정 프로필 뷰 */
+.char-profile-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    transform: scale(1.8) !important; /* 해상도 깨짐 없는 최적의 배율 스케일 가이드 */
+    transform-origin: center 55% !important;
+}
+
+/* 🔄 장비 슬롯 프리셋 연동 토글 단추 공통 디자인 스펙 (마우스 호버 시 부드러운 색상 전환) */
+.preset-toggle-btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.preset-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.8) !important;
+    color: #0f172a !important;
+}
+
+/* 🗂️ 내부 서브 네비게이션 버튼 리디자인 스킨 구조 */
+.search-tab-trigger-btn {
+    font-family: 'Pretendard', sans-serif;
+}
+.search-tab-trigger-btn:hover {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+}
+
+/* 📜 서브 모듈 리스트 세부 컴포넌트 캡슐 스크롤바 미학적 정밀화 */
+.compact-scroll-list::-webkit-scrollbar {
+    width: 5px;
+}
+.compact-scroll-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+.compact-scroll-list::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+.compact-scroll-list::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* 🔮 유니온 프리셋 선택 버튼 전용 트래커 효과 정의 */
+.union-preset-trigger-tab {
+    transition: all 0.2s ease;
+}
+.union-preset-trigger-tab:hover {
+    background: #f1f5f9 !important;
+    border-color: #94a3b8 !important;
+}
+
+/* 🏆 리더보드 랭킹 행 아이템 호버 시 부드러운 밀림 임팩트 완충 제어 */
+.rank-row-item {
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.rank-row-item:hover {
+    transform: translateX(2px);
+    border-color: var(--point-moss) !important;
+}
+
+/* 📊 보조 능력치 및 디테일 스탯 출력용 테이블 가이드 그리드 레이아웃 */
+.stat-grid-layout-box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+.stat-grid-item-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: #f8fafc;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}

@@ -1,0 +1,233 @@
+/* ============================================================================
+ * 📑 MAPLE OMNI V14 - js/todo/todo.css [PREMIUM CONSULATED HYBRID SKIN]
+ * 설명: 스코프 격리 전용 스킨과 글로벌 변수 명세판을 하나로 결합한 통합 CSS입니다.
+ * 구조보존: 중략 없이 오리지널 라벤더-무채색 디자인의 아웃라인을 완벽히 보전합니다.
+ * ============================================================================
+ */
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+
+:root {
+    --omni-bg-color: #f4f6fa;        /* 차분하고 은은한 그레이시 화이트 배경 */
+    --omni-card-bg: #ffffff;        /* 순백의 완벽한 카드 배경색 */
+    --omni-border: #eef1f6;          /* 극도로 얇고 투명도 높은 미세 경계선 */
+    --omni-text-main: #1e293b;       /* 정갈한 네이비 다크 차콜 */
+    --omni-text-sub: #8e9cae;        /* 뮤트 계열의 서브 흐린 그레이 */
+    
+    /* 💜 파스텔 라벤더/연보라 포인트 명세 */
+    --omni-lavender-main: #7c3aed;   /* 메인 연보라 액센트 */
+    --omni-lavender-light: #ece9fe;  /* 배경용 페일 라벤더 */
+    --omni-lavender-muted: #f3f0ff;  /* 둥근 태그용 초경량 파스텔 퍼플 */
+    
+    --omni-done-bg: #f8fafc;
+    --omni-done-text: #94a3b8;
+}
+
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
+}
+
+/* 📊 [철저한 범위 격리]: 메인 대시보드 박스 내부 요소만 지정하도록 부모 관계 강제 고정 */
+#page-todo .omni-summary-dashboard, .omni-summary-dashboard {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+    gap: 16px !important;
+    margin-bottom: 24px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+#page-todo .omni-summary-card, .omni-summary-card {
+    background: var(--omni-card-bg) !important;
+    border: 1px solid var(--omni-border) !important;
+    border-radius: 20px !important;
+    padding: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015) !important;
+    box-sizing: border-box !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+#page-todo .omni-summary-card:hover, .omni-summary-card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 24px rgba(124, 58, 237, 0.04) !important;
+}
+
+/* 🛡️ 상단 글로벌 헤더바를 붕괴시켰던 전역 유출 범인을 완벽하게 사살 및 제어 격리 */
+#page-todo .omni-summary-card .text-box, .text-box { 
+    display: flex !important; 
+    flex-direction: column !important; 
+    text-align: left !important; 
+}
+#page-todo .omni-summary-card .text-box .label, .text-box .label { 
+    font-size: 11.5px !important; 
+    font-weight: 700 !important; 
+    color: var(--omni-text-sub) !important; 
+    margin-bottom: 6px !important; 
+}
+#page-todo .omni-summary-card .text-box .value, .text-box .value { 
+    font-size: 19px !important; 
+    font-weight: 800 !important; 
+    color: var(--omni-text-main) !important; 
+    font-family: 'Inter', sans-serif !important; 
+}
+
+#page-todo .omni-summary-card.primary-highlight, .omni-summary-card.primary-highlight {
+    background: var(--omni-card-bg) !important;
+    border: 1px solid #ddd6fe !important;
+}
+#page-todo .color-indigo, .color-indigo { color: var(--omni-lavender-main) !important; }
+#page-todo .text-box .unit, .text-box .unit { font-size: 12px !important; font-weight: 600 !important; color: var(--omni-text-sub) !important; margin-left: 3px !important; }
+#page-todo .text-box .unit-meso, .text-box .unit-meso { font-size: 12px !important; font-weight: 700 !important; color: var(--omni-lavender-main) !important; margin-left: 4px !important; }
+
+/* 🚀 반응형 캐릭터 그리드 인프라 스코핑 */
+#page-todo .omni-character-grid, .omni-character-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)) !important;
+    gap: 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+#page-todo .omni-char-card, .omni-char-card {
+    background: var(--omni-card-bg) !important;
+    border: 1px solid var(--omni-border) !important;
+    border-radius: 24px !important;
+    padding: 22px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.01) !important;
+    box-sizing: border-box !important;
+}
+
+#page-todo .char-header, .char-header {
+    display: flex !important;
+    align-items: center !important;
+    padding-bottom: 14px !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    margin-bottom: 14px !important;
+}
+#page-todo .char-info, .char-info { display: flex !important; flex-direction: column !important; text-align: left !important; flex: 1 !important; }
+#page-todo .char-name, .char-name { font-size: 15px !important; font-weight: 800 !important; color: var(--omni-text-main) !important; }
+#page-todo .char-spec, .char-spec { font-size: 11.5px !important; color: var(--omni-text-sub) !important; font-weight: 600 !important; margin-top: 3px !important; }
+
+#page-todo .btn-delete-char, .btn-delete-char {
+    background: none !important; border: none !important; font-size: 19px !important;
+    color: #cbd5e1 !important; cursor: pointer !important; font-weight: 500 !important; margin-left: auto !important;
+}
+#page-todo .btn-delete-char:hover, .btn-delete-char:hover { color: #ef4444 !important; }
+
+#page-todo .hw-scroll-list, .hw-scroll-list {
+    display: flex !important; flex-direction: column !important; gap: 6px !important;
+}
+
+#page-todo .hw-item-row, .hw-item-row {
+    background: #ffffff !important; border: 1px solid #f1f5f9 !important; border-radius: 12px !important;
+    padding: 10px 12px !important; display: flex !important; align-items: center !important;
+    justify-content: space-between !important; cursor: pointer !important; transition: all 0.15s ease !important;
+}
+#page-todo .hw-item-row:hover, .hw-item-row:hover { background: #fafbfc !important; border-color: #e2e8f0 !important; }
+#page-todo .hw-item-row.is-done, .hw-item-row.is-done {
+    background: var(--omni-done-bg) !important;
+    border-color: var(--omni-border) !important;
+}
+
+#page-todo .hw-left, .hw-left { display: flex !important; align-items: center !important; gap: 10px !important; flex: 1 !important; overflow: hidden !important; }
+
+#page-todo .custom-premium-checkbox, .custom-premium-checkbox {
+    width: 16px !important; height: 16px !important; border: 2px solid #cbd5e1 !important; border-radius: 5px !important;
+    display: flex !important; align-items: center !important; justify-content: center !important;
+    font-size: 10px !important; font-weight: 900 !important; color: transparent !important; background: #ffffff !important;
+    transition: all 0.1s ease !important; flex-shrink: 0 !important;
+}
+#page-todo .custom-premium-checkbox.checked, .custom-premium-checkbox.checked {
+    background: var(--omni-lavender-main) !important;
+    border-color: var(--omni-lavender-main) !important;
+    color: #ffffff !important;
+}
+
+#page-todo .hw-title, .hw-title { font-size: 12px !important; font-weight: 600 !important; color: var(--omni-text-main) !important; text-align: left !important; }
+#page-todo .hw-item-row.is-done .hw-title, .hw-item-row.is-done .hw-title { color: var(--omni-done-text) !important; text-decoration: line-through !important; }
+#page-todo .hw-counter, .hw-counter { font-size: 11.5px !important; font-weight: 700 !important; color: #475569 !important; font-family: 'Inter', sans-serif !important; }
+#page-todo .hw-item-row.is-done .hw-counter, .hw-item-row.is-done .hw-counter { color: var(--omni-done-text) !important; }
+
+#page-todo .boss-image-placeholder-blank, .boss-image-placeholder-blank { width: 6px !important; height: 6px !important; background: var(--omni-lavender-main) !important; border-radius: 50% !important; flex-shrink: 0 !important; }
+#page-todo .boss-badge-pastel, .boss-badge-pastel { font-size: 9px !important; color: var(--omni-lavender-main) !important; background: var(--omni-lavender-muted) !important; padding: 1px 5px !important; border-radius: 4px !important; font-weight: 700 !important; margin-left: 5px !important; }
+#page-todo .clean-num, .clean-num { font-family: 'Inter', sans-serif !important; }
+
+#page-todo .omni-empty-state, .omni-empty-state {
+    background: var(--omni-card-bg) !important; border: 1px dashed #cbd5e1 !important; border-radius: 24px !important;
+    padding: 50px 20px !important; text-align: center !important; font-size: 13px !important; font-weight: 600 !important; color: var(--omni-text-sub) !important; width: 100% !important; box-sizing: border-box !important;
+}
+
+/* ⚙️ 5대 서브 메뉴 전용 관제 바 레이아웃 트랙 */
+#page-todo .sub-tab-menu, .sub-tab-menu { 
+    display: flex !important; 
+    visibility: visible !important; 
+    opacity: 1 !important; 
+    gap: 8px !important; 
+    margin-bottom: 20px !important; 
+    border-bottom: 2px solid #f1f5f9 !important; 
+    padding-bottom: 8px !important; 
+    width: 100% !important; 
+    justify-content: flex-start !important; 
+}
+#page-todo .sub-tab-menu .tab-btn, .sub-tab-menu .tab-btn { 
+    background: #ffffff !important; 
+    border: 1px solid #e2e8f0 !important; 
+    padding: 8px 18px !important; 
+    border-radius: 12px !important; 
+    font-size: 12.5px !important; 
+    font-weight: 700 !important; 
+    color: #64748b !important; 
+    cursor: pointer !important; 
+    transition: all 0.15s ease !important; 
+}
+#page-todo .sub-tab-menu .tab-btn:hover, .sub-tab-menu .tab-btn:hover { background: #fafbfc !important; color: var(--omni-text-main) !important; }
+#page-todo .sub-tab-menu .tab-btn.active, .sub-tab-menu .tab-btn.active { 
+    background: var(--omni-lavender-main) !important; 
+    border-color: var(--omni-lavender-main) !important; 
+    color: #ffffff !important; 
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15) !important; 
+}
+
+/* 💡 SPA 단락 출력 제어 명세 */
+#page-todo .sub-section, .sub-section { display: none !important; width: 100% !important; }
+#page-todo .sub-section.active, .sub-section.active { display: block !important; }
+
+/* ────────────────────────────────────────────────────────────────────────
+ * 📅 OMNI STRATEGY PLANNER 및 미니 달력 체크 스킨 명세 스코핑
+ * ──────────────────────────────────────────────────────────────────────── */
+#page-todo .omni-planner-container, .omni-planner-container {
+    width: 100% !important; background: var(--omni-card-bg) !important; border: 1px solid var(--omni-border) !important;
+    border-radius: 24px !important; padding: 24px !important; box-sizing: border-box !important;
+}
+#page-todo .planner-header-flex, .planner-header-flex { display: flex !important; flex-direction: column !important; gap: 10px !important; padding-bottom: 14px !important; border-bottom: 1px dashed #e2e8f0 !important; text-align: left !important; }
+#page-todo .planner-badge, .planner-badge { display: inline-block !important; font-size: 10px !important; font-weight: 800 !important; color: var(--omni-lavender-main) !important; background: var(--omni-lavender-muted) !important; padding: 3px 8px !important; border-radius: 6px !important; width: fit-content !important; }
+#page-todo .planner-main-title, .planner-main-title { margin: 0 !important; font-size: 14px !important; font-weight: 800 !important; color: var(--omni-text-main) !important; }
+
+#page-todo .planner-form-row, .planner-form-row { display: flex !important; gap: 10px !important; align-items: center !important; width: 100% !important; margin-top: 8px !important; box-sizing: border-box !important; }
+#page-todo .planner-select-box, .planner-select-box { border: 1px solid #e2e8f0 !important; background: #fafbfc !important; padding: 0 12px !important; border-radius: 10px !important; font-size: 12px !important; color: var(--omni-text-main) !important; font-weight: 700 !important; height: 38px !important; outline: none !important; }
+#page-todo .planner-input-field, .planner-input-field { border: 1px solid #e2e8f0 !important; background: #fafbfc !important; padding: 0 14px !important; border-radius: 10px !important; font-size: 12px !important; color: var(--omni-text-main) !important; font-weight: 600 !important; flex: 1 !important; height: 38px !important; outline: none !important; box-sizing: border-box !important; }
+#page-todo .planner-btn-submit, .planner-btn-submit { background: var(--omni-lavender-main) !important; color: #ffffff !important; border: none !important; padding: 0 20px !important; border-radius: 10px !important; font-size: 12px !important; font-weight: 800 !important; cursor: pointer !important; height: 38px !important; }
+
+#page-todo .omni-planner-dashboard-layout { display: grid !important; grid-template-columns: 1.2fr 0.8fr !important; gap: 20px !important; margin-top: 20px !important; width: 100% !important; }
+#page-todo .planner-grid-cards, .planner-grid-cards { display: flex !important; flex-direction: column !important; gap: 12px !important; width: 100% !important; }
+#page-todo .planner-card-item, .planner-card-item { background: #fafbfc !important; border: 1px solid #f1f5f9 !important; border-radius: 18px !important; padding: 16px !important; text-align: left !important; }
+#page-todo .planner-card-meta, .planner-card-meta { display: flex !important; justify-content: space-between !important; align-items: center !important; margin-bottom: 8px !important; }
+#page-todo .planner-card-tag, .planner-card-tag { font-size: 11px !important; font-weight: 800 !important; color: var(--omni-lavender-main) !important; }
+#page-todo .planner-card-del-action, .planner-card-del-action { background: none !important; border: none !important; font-size: 11px !important; font-weight: 700 !important; color: #94a3b8 !important; cursor: pointer !important; }
+#page-todo .planner-card-del-action:hover, .planner-card-del-action:hover { color: #ef4444 !important; }
+
+#page-todo .planner-card-goal, #page-todo .planner-card-route { margin: 4px 0 !important; font-size: 12px !important; font-weight: 700 !important; color: var(--omni-text-main) !important; text-align: left !important; }
+#page-todo .plan-label-mini { font-size: 9.5px !important; font-weight: 800 !important; color: #e11d48 !important; background: #fff1f2 !important; padding: 2px 5px !important; border-radius: 4px !important; margin-right: 6px !important; }
+#page-todo .plan-label-mini-route { font-size: 9.5px !important; font-weight: 800 !important; color: #16a34a !important; background: #f0fdf4 !important; padding: 2px 5px !important; border-radius: 4px !important; margin-right: 6px !important; }
+
+/* 🗓️ 미니 캘린더 인터랙티브 스킨 스코핑 */
+#page-todo .omni-mini-calendar-widget, .omni-mini-calendar-widget { background: #ffffff !important; border: 1px solid var(--omni-border) !important; border-radius: 20px !important; padding: 16px !important; display: flex !important; flex-direction: column !important; gap: 12px !important; }
+#page-todo .calendar-header-title, .calendar-header-title { font-size: 12.5px !important; font-weight: 800 !important; color: var(--omni-text-main) !important; border-bottom: 1px solid #f1f5f9 !important; padding-bottom: 6px !important; text-align: left !important; }
+#page-todo .calendar-days-grid, .calendar-days-grid { display: grid !important; grid-template-columns: repeat(7, 1fr) !important; gap: 4px !important; }
+#page-todo .calendar-day-label, .calendar-day-label { font-size: 10px !important; font-weight: 700 !important; color: var(--omni-text-sub) !important; padding: 4px 0 !important; }
+#page-todo .calendar-date-cell, .calendar-date-cell { font-size: 11px !important; font-weight: 600 !important; color: #475569 !important; padding: 8px 0 !important; border-radius: 8px !important; font-family: 'Inter', sans-serif !important; cursor: pointer !important; transition: background 0.15s !important; }
+#page-todo .calendar-date-cell:not(.empty-cell):hover, .calendar-date-cell:not(.empty-cell):hover { background: #f3f4f6 !important; }
+#page-todo .calendar-date-cell.is-checked, .calendar-date-cell.is-checked { background: var(--omni-lavender-main) !important; color: #ffffff !important; font-weight: 800 !important; box-shadow: 0 3px 8px rgba(124, 58, 237, 0.3) !important; }

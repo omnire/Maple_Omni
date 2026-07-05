@@ -1,0 +1,184 @@
+/* ============================================================================
+ * 📊 MAPLE OMNI V14 - js/mvp/mvp.css [PREMIUM 3-TAB MVP CONTROL SKIN]
+ * 설명: 시뮬레이션, 구매/재고 관리, 판매기록장 독립형 3개 탭 통합 컨트롤 스킨
+ * 규칙: 중략 및 생략 없는 완전판 코드로 제공
+ * ============================================================================
+ */
+
+/* 📦 MVP 모듈 전체 배치 프레임 */
+#mvpContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif;
+}
+
+/* 📑 옴니 전용 서브 탭 내비게이션 바 */
+.mvp-tab-nav-bar {
+    display: flex;
+    gap: 8px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 4px;
+    margin-bottom: 12px;
+}
+
+/* 🖱️ 개별 서브 탭 컨트롤 버튼 */
+.mvp-tab-btn {
+    padding: 10px 20px;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    font-size: 13px;
+    font-weight: 800;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    margin-bottom: -6px;
+}
+.mvp-tab-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+.mvp-tab-btn.tab-active {
+    background: #ffffff;
+    color: #0f766e; /* 옴니 포인트 모스그린 */
+    border-color: #cbd5e1;
+    border-bottom: 2px solid #ffffff;
+    padding-top: 12px;
+    box-shadow: 0 -4px 6px -4px rgba(0, 0, 0, 0.05);
+}
+
+/* 💳 모듈별 독립 화이트 프리미엄 대시보드 카드 */
+.mvp-board-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+}
+
+/* 📊 탭 내부 데이터 분할 컴포넌트 그리드 */
+.mvp-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 24px;
+    width: 100%;
+    align-items: start;
+}
+
+/* 📥 입력 폼 통합 가이드 스킨 */
+.mvp-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+.mvp-form-group label {
+    font-size: 12px;
+    font-weight: 800;
+    color: #475569;
+}
+.mvp-input-box {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+    background: #f8fafc;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+.mvp-input-box:focus {
+    border-color: #0f766e;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}
+
+/* 🖥️ 실시간 반영 디지털 리포트 전광판 */
+.mvp-digital-panel {
+    background: #0f172a;
+    color: #ffffff;
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.panel-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 8px;
+}
+.panel-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* 🔢 묶음 기하학 특화 표기 판넬 스킨 */
+.mvp-notation-panel {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+    font-family: 'Consolas', monospace;
+    font-size: 15px;
+    font-weight: 900;
+    text-align: center;
+    padding: 12px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* 📉 변동 가중치 컬러 매핑 */
+.value-plus { color: #4ade80 !important; font-weight: 900; }
+.value-minus { color: #f87171 !important; font-weight: 900; }
+.value-stable { color: #94a3b8 !important; }
+
+/* 🧾 데이터 그리드 테이블 내실 레이아웃 스타일 */
+.mvp-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    text-align: left;
+}
+.mvp-data-table th {
+    background: #f8fafc;
+    color: #475569;
+    font-weight: 800;
+    padding: 12px;
+    border-bottom: 2px solid #e2e8f0;
+}
+.mvp-data-table td {
+    padding: 12px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+    font-weight: 600;
+}
+.mvp-data-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* 🕹️ 시스템 기능 액션 실행 버튼 스타일 */
+.mvp-action-btn {
+    width: 100%;
+    padding: 12px;
+    background: #0f766e;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 13px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+.mvp-action-btn:hover {
+    background: #115e59;
+}
