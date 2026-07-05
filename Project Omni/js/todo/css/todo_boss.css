@@ -1,0 +1,11 @@
+/* ============================================================================
+ * 📑 MAPLE OMNI V14 - js/todo/todo_boss.css [😈 BOSS RAID CASHIER SKIN]
+ * 설명: 보스 라인 구분선 텍스트 스킨 및 파스텔 배지용 타이포그래피 스킨입니다.
+ * ============================================================================
+ */
+.boss-tier-indicator-row { font-size: 10px; font-weight: 900; color: #475569; padding: 4px 6px; background: #f1f5f9; border-radius: 4px; margin-bottom: 6px; text-align: left; }
+.boss-tier-indicator-row-high { font-size: 10px; font-weight: 900; color: #b45309; padding: 4px 6px; background: #fff7ed; border-radius: 4px; margin: 10px 0 6px 0; text-align: left; }
+
+.boss-image-placeholder-blank { width: 20px; height: 20px; background: #f1f5f9; border-radius: 5px; flex-shrink: 0; }
+.boss-badge-pastel { font-size: 9px; color: var(--omni-lavender-main); background: var(--omni-lavender-muted); padding: 1px 5px; border-radius: 4px; font-weight: 700; margin-left: 5px; }
+.clean-num { font-weight: 800 !important; }

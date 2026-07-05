@@ -1,0 +1,38 @@
+/* ============================================================================
+ * 🔍 MAPLE OMNI - js/search/search_skill.css
+ * 설명: 5차 V매트릭스 및 6차 HEXA 코어 성장 대시보드 전용 스크롤바 바인딩 및 호버 액션
+ * 규칙: 레이아웃 규격을 흐트러뜨리지 않고 가독성 최적화를 위한 완전판 제공
+ * ============================================================================
+ */
+
+/* 🔗 링크 프리셋 선택 탭 인터페이스 호버 튜닝 (마우스 진입 시 색상 반응 트랜지션) */
+.link-preset-tab {
+    border: 1px solid #e2e8f0;
+    font-family: inherit;
+    transition: all 0.2s ease-in-out;
+}
+
+.link-preset-tab:hover {
+    background: #f1f5f9 !important;
+    color: #1e293b !important;
+}
+
+/* 📊 스킬 다중 격자 배치 구역(.omni-skill-scroll-grid) 전용 슬림 웹킷 스크롤바 디자인 */
+.omni-skill-scroll-grid::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.omni-skill-scroll-grid::-webkit-scrollbar-track {
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.omni-skill-scroll-grid::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 8px;
+}
+
+.omni-skill-scroll-grid::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
