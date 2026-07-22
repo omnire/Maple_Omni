@@ -1,0 +1,773 @@
+/* ============================================================================
+ * 🎨 MAPLE OMNI V15 - js/dashboard/dashboard.css [PURE DASHED EYE-COMFORT EDITION]
+ * 설명: 눈부심 없는 화이트/컬러 스킨 및 지정 다크모드 변수(--builder-*) 100% 바인딩 모듈
+ * 초보자 가이드: 테마 전환 시 모든 카드가 점선(dashed) 및 다크/라이트 색상 변수와 유기적으로 동기화됩니다.
+ * ============================================================================
+ */
+
+/* ☀️ [기본 테마] 라이트모드 눈이 편안한 럭셔리 화이트 라벤더 스킨 변수 */
+:root {
+    --omni-base-font-size: 15.5px;
+    --omni-slate-primary: #8372d6;        /* 차분하고 단정한 라벤더 포인트 */
+    --omni-sky-highlight: #5c4ca8;        /* 강조 텍스트 */
+    --omni-bg-clean: #ffffff;             /* 순백색 바탕 */
+    --omni-card-bg: #ffffff;              /* 전체 카드 기본 바탕 */
+    --omni-sidebar-bg: #f8fafc;            /* 사이드바 전용 은은한 슬레이트 백그라운드 */
+    --omni-text-dark: #1e293b;            /* 메인 텍스트 (눈이 편안한 어두운 슬레이트) */
+    --omni-text-muted: #475569;           /* 중간 서브 텍스트 */
+    --omni-text-sub: #64748b;              /* 연한 설명 텍스트 */
+    --omni-card-border-line: #cbd5e1;      /* 단정한 은색 점선(dashed) 테두리 */
+    --omni-inner-shadow: none;             /* 눈에 자극을 주는 강한 그림자 제거 */
+    --omni-glow-effect: transparent; 
+    --omni-hover-point: #f1f5f9;          /* 마우스 호버 시 소프트 그레이 */
+
+    /* 상태 변동 제어 컬러 스쿼드 */
+    --omni-emerald: #059669; --omni-emerald-light: #ecfdf5;
+    --omni-amber: #d97706; --omni-amber-light: #fffbeb;
+    --omni-coral: #dc2626; --omni-coral-light: #fef2f2;
+    --omni-badge-text: #ffffff;
+    --omni-point-amber-text: #b45309; --omni-point-amber-bg: #fef3c7; --omni-point-amber-border: #fde68a;
+    --omni-point-purple-bg: #f3f0ff;
+}
+
+/* 🌸 [확장 테마 01] 은은한 핑크 화이트 스킨 (눈부심 방지 파스텔 톤) */
+body.light-pink {
+    --omni-slate-primary: #d36eb7;        
+    --omni-sky-highlight: #a6438b;
+    --omni-card-bg: #ffffff;              
+    --omni-sidebar-bg: #fdf2f8;            
+    --omni-card-border-line: #fbcfe8;      
+    --omni-hover-point: #fce7f3;
+    --omni-text-dark: #291a24;            
+    --omni-text-muted: #422d3b;            
+    --omni-text-sub: #5c4254;              
+    --omni-point-purple-bg: #fdf2f8;
+}
+
+/* 🌀 [확장 테마 02] 청량한 블루 화이트 스킨 (눈이 편안한 소프티 블루) */
+body.light-blue {
+    --omni-slate-primary: #6e8ed3;        
+    --omni-sky-highlight: #4363a6;
+    --omni-card-bg: #ffffff;              
+    --omni-sidebar-bg: #f0f9ff;            
+    --omni-card-border-line: #bae6fd;      
+    --omni-hover-point: #e0f2fe;
+    --omni-text-dark: #0f172a;            
+    --omni-text-muted: #1e293b;            
+    --omni-text-sub: #334155;              
+    --omni-point-purple-bg: #f0f9ff;
+}
+
+/* 🌙 [요청하신 다크모드 색상 규격 100% 바인딩] */
+body.dark-theme {
+    /* 사용자 지정 다크모드 핵심 변수 */
+    --builder-bg: #12121a;             /* 전체 시뮬레이터 외부 도화지 레이어 배경 */
+    --builder-card-bg: #181721;        /* 상세 스탯, 인벤토리, 제어 패널 개별 박스 배경 */
+    --builder-text-main: #BCBCC7;      /* 장비 이름, 핵심 스탯 수치 등 하이라이트 글꼴 색상 */
+    --builder-text-sub: #747285;       /* 아이템 설명, 스탯 라벨 등 눈이 편안한 서브 글꼴 색상 */
+    --builder-text-accent: #a78bfa;    /* 실시간 변동치 타이틀 및 활성화된 프리셋 강조 색상 */
+    --builder-border: #262438;         /* 경계선 테두리 */
+    --builder-border-dashed: #423f5e;  /* 장비 옵션 분해 창 및 내부 입력 박스 점선 가이드라인 */
+    --builder-input-bg: #212030;       /* 추옵 숫자 기입 란 및 드롭다운 메뉴 내부 기본 배경 */
+
+    /* 옴니 디자인 모듈 동기화 연결 */
+    --omni-slate-primary: var(--builder-text-accent);        
+    --omni-sky-highlight: var(--builder-text-accent);        
+    --omni-bg-clean: var(--builder-card-bg);             
+    --omni-card-bg: var(--builder-card-bg);              
+    --omni-sidebar-bg: var(--builder-bg);           
+    --omni-hover-point: var(--builder-input-bg);          
+    --omni-text-dark: var(--builder-text-main);            
+    --omni-text-muted: var(--builder-text-sub);           
+    --omni-text-sub: var(--builder-text-sub);              
+    --omni-card-border-line: var(--builder-border-dashed);     
+    --omni-inner-shadow: none;
+    --omni-glow-effect: transparent;
+    --omni-point-amber-text: #a78bfa; 
+    --omni-point-amber-bg: #212030; 
+    --omni-point-amber-border: #423f5e;
+    --omni-badge-text: #12121a;
+    --omni-point-purple-bg: #212030;
+
+    --omni-emerald: #34d399; --omni-emerald-light: #182622;
+    --omni-amber: #fbbf24; --omni-amber-light: #28231a;
+    --omni-coral: #f87171; --omni-coral-light: #2a1b20;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    background: #f8fafc;
+    margin: 0;
+    color: var(--omni-text-dark);
+}
+
+body.light-pink { background: #fff5f7; }
+body.light-blue { background: #f0f7ff; }
+body.dark-theme { background: var(--builder-bg, #12121a); }
+
+/* ----------------------------------------------------------------------------
+ * ⏳ [API 즉시 갱신 전용 풀스크린 로딩 레이어 오버레이]
+ * ---------------------------------------------------------------------------- */
+.omni-loading-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(18, 18, 26, 0.85) !important;
+    backdrop-filter: blur(5px) !important;
+    z-index: 999999 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 16px !important;
+}
+
+.omni-spinner-ring {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(167, 139, 250, 0.2);
+    border-top: 4px solid var(--omni-slate-primary, #a78bfa);
+    border-radius: 50%;
+    animation: omniSpin 0.8s linear infinite;
+}
+
+@keyframes omniSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.omni-loading-text {
+    color: #ffffff !important;
+    font-size: 14.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.3px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    margin: 0;
+}
+
+/* ----------------------------------------------------------------------------
+ * 🎚️ [스크롤바 커스텀 엔진]
+ * ---------------------------------------------------------------------------- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--omni-card-border-line); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--omni-slate-primary); }
+
+body.dark-theme ::-webkit-scrollbar-track { background: var(--builder-card-bg, #181721); }
+body.dark-theme ::-webkit-scrollbar-thumb { background: var(--builder-border-dashed, #423f5e); border-radius: 10px; }
+body.dark-theme ::-webkit-scrollbar-thumb:hover { background: var(--builder-text-accent, #a78bfa); }
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--omni-card-border-line) transparent;
+}
+body.dark-theme * {
+    scrollbar-color: var(--builder-border-dashed, #423f5e) var(--builder-card-bg, #181721);
+}
+
+/* ----------------------------------------------------------------------------
+ * 🎨 대시보드 상단 마스터 테마 제어 도크 바
+ * ---------------------------------------------------------------------------- */
+.dashboard-master-control-header {
+    display: flex; 
+    justify-content: flex-end; 
+    align-items: center; 
+    border-left: none; 
+    padding-left: 0; 
+    margin-bottom: 20px; 
+    margin-top: -10px;
+    gap: 20px;
+    width: 100%;
+}
+
+.dashboard-core-title {
+    margin: 0; 
+    font-size: calc(var(--omni-base-font-size) * 1.43); 
+    font-weight: 900; 
+    color: var(--omni-text-dark); 
+    letter-spacing: -0.5px;
+}
+
+.dashboard-action-trigger-box { display: flex; gap: 8px; align-items: center; }
+
+.dashboard-head-action-btn {
+    padding: 6px 12px; 
+    font-weight: 800; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: calc(var(--omni-base-font-size) * 0.77); 
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.dashboard-head-action-btn.logout-btn {
+    border: 1px dashed var(--omni-card-border-line); 
+    background: var(--omni-card-bg); 
+    color: var(--omni-text-muted);
+}
+.dashboard-head-action-btn.logout-btn:hover {
+    background: var(--omni-coral-light);
+    color: var(--omni-coral);
+    border-color: rgba(220, 38, 38, 0.4);
+}
+
+.omni-theme-toggle-container {
+    position: relative; 
+    display: inline-block;
+    z-index: 2147483647 !important;
+}
+
+.omni-theme-toggle-dock {
+    display: flex;
+    background: var(--omni-card-bg);
+    border: 1px dashed var(--omni-card-border-line);
+    padding: 3px;
+    border-radius: 8px;
+    gap: 2px;
+}
+
+.theme-btn-unit {
+    background: none;
+    border: none;
+    padding: 4px 10px;
+    font-size: calc(var(--omni-base-font-size) * 0.77); 
+    font-weight: 800;
+    color: var(--omni-text-sub);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.theme-btn-unit:hover { color: var(--omni-text-dark); }
+.theme-btn-unit.active {
+    background: var(--omni-slate-primary);
+    color: var(--omni-badge-text) !important; 
+}
+
+.omni-light-palette-dots {
+    position: absolute;
+    top: calc(100% + 8px); 
+    left: 50%;                
+    transform: translateX(-50%);
+    background: var(--omni-card-bg);
+    border: 1px dashed var(--omni-card-border-line);
+    padding: 6px 10px;
+    border-radius: 8px;
+    display: none;             
+    gap: 8px;
+    z-index: 2147483647 !important;
+    align-items: center;
+    transition: all 0.15s ease-in-out;
+}
+
+.omni-light-palette-dots::after {
+    content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+    border-width: 6px; border-style: solid; border-color: transparent transparent var(--omni-card-bg) transparent;
+}
+.omni-light-palette-dots::before {
+    content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+    border-width: 7px; border-style: solid; border-color: transparent transparent var(--omni-card-border-line) transparent; z-index: -1;
+}
+
+.palette-dot {
+    display: inline-block; width: 13px; height: 13px; border-radius: 50%; cursor: pointer;
+    transition: transform 0.15s ease;
+}
+.palette-dot:hover { transform: scale(1.2) !important; }
+
+/* ----------------------------------------------------------------------------
+ * 1. 좌측 제어 사이드바 워크스페이스 구조 및 API 갱신 버튼
+ * ---------------------------------------------------------------------------- */
+.sidebar-workspace-wrapper {
+    display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 16px;
+    background: var(--omni-sidebar-bg) !important; border-radius: 16px;
+    border: 1px dashed var(--omni-card-border-line) !important;
+}
+
+.workspace-notice-card {
+    background: var(--omni-card-bg) !important; 
+    border: 1px dashed var(--omni-card-border-line) !important; 
+    padding: 20px; 
+    border-radius: 14px;
+}
+
+.notice-badge-title {
+    display: inline-block; font-size: calc(var(--omni-base-font-size) * 0.71); font-weight: 900; color: var(--omni-text-dark); 
+    background: var(--omni-card-bg) !important; border: 1px dashed var(--omni-card-border-line); padding: 3px 8px; border-radius: 6px;
+}
+
+.workspace-notice-card h4 { margin: 0 0 6px 0; font-size: calc(var(--omni-base-font-size) * 0.93); font-weight: 900; color: var(--omni-text-dark) !important; }
+.workspace-notice-card p { margin: 0; font-size: calc(var(--omni-base-font-size) * 0.82); color: var(--omni-text-muted) !important; font-weight: 600; line-height: 1.6; }
+
+.sidebar-api-refresh-box { width: 100%; }
+.sidebar-global-refresh-btn {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--omni-card-bg);
+    color: var(--omni-slate-primary) !important;
+    border: 1px dashed var(--omni-card-border-line);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease-in-out;
+}
+.sidebar-global-refresh-btn:hover {
+    background: var(--omni-slate-primary);
+    color: var(--omni-badge-text) !important;
+    border-color: var(--omni-slate-primary);
+}
+
+.sidebar-sub-action-btn {
+    flex: 1;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 7px 0;
+    text-align: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: var(--omni-card-bg) !important;
+    border: 1px dashed var(--omni-card-border-line) !important;
+    color: var(--omni-text-dark) !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.sidebar-sub-action-btn:hover {
+    background: var(--omni-hover-point) !important;
+    border-color: var(--omni-slate-primary) !important;
+}
+
+.workspace-meta-status { margin-top: 16px; border-top: 1px dashed var(--omni-card-border-line) !important; padding-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.meta-status-row { display: flex; justify-content: space-between; font-size: calc(var(--omni-base-font-size) * 0.82); font-weight: 700; }
+.meta-status-row span { color: var(--omni-text-sub) !important; }
+.meta-status-row strong { color: var(--omni-sky-highlight) !important; }
+.workspace-secure-anchor { margin-top: 15px; font-size: calc(var(--omni-base-font-size) * 0.79); font-weight: 800; color: var(--omni-text-muted) !important; display: flex; align-items: center; gap: 8px; padding-top: 12px; border-top: 1px dashed var(--omni-card-border-line) !important; }
+
+/* ----------------------------------------------------------------------------
+ * 2. 우측 대시보드 위젯 그리드 - 점선(dashed) 테두리와 화이트/다크 동기화
+ * ---------------------------------------------------------------------------- */
+.widget-grid-layout { 
+    display: grid; 
+    grid-template-columns: repeat(12, 1fr) !important; 
+    gap: 16px; 
+    width: 100%; 
+}
+
+@media (max-width: 1024px) {
+    .widget-grid-layout {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.omni-dashboard-widget-card {
+    background: var(--omni-card-bg) !important; 
+    border: 1px solid var(--omni-card-border-line) !important; 
+    border-radius: 16px; 
+    padding: 16px;
+    box-shadow: none !important; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+    min-width: 0; 
+    overflow: hidden;
+}
+
+.wdg-hdr { 
+    font-size: calc(var(--omni-base-font-size) * 0.86); 
+    font-weight: 900; 
+    padding-bottom: 10px; 
+    padding-left: 2px; 
+    border-bottom: 1px dashed var(--omni-card-border-line); 
+    color: var(--omni-text-dark); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.premium-tracker-row { background: var(--omni-card-bg) !important; border: 1px dashed var(--omni-card-border-line) !important; margin-bottom: 8px; border-radius: 8px; padding: 10px 12px; transition: all 0.2s ease; width: 100%; }
+.premium-tracker-row:last-child { margin-bottom: 0; }
+.premium-tracker-row:hover { background: var(--omni-hover-point) !important; border-color: var(--omni-slate-primary) !important; }
+.premium-tracker-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; gap: 8px; }
+.premium-tracker-title { font-size: calc(var(--omni-base-font-size) * 0.82); font-weight: 800; color: var(--omni-text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
+.premium-tracker-badge { font-size: calc(var(--omni-base-font-size) * 0.71); font-weight: 800; padding: 2px 6px; border-radius: 4px; background: var(--omni-slate-primary); color: var(--omni-badge-text) !important; }
+.tracker-progress-track { height: 4px; background: var(--omni-hover-point); border-radius: 2px; overflow: hidden; width: 100%; border: 1px dashed var(--omni-card-border-line); }
+
+.daily-reset-scroll-viewport {
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr) !important; 
+    gap: 12px; 
+    overflow: hidden !important; 
+    height: auto !important; 
+    max-height: none !important; 
+    padding-right: 0px;
+    width: 100%;
+}
+
+/* ----------------------------------------------------------------------------
+ * 👤 캐릭터 스케쥴러 카드 - 점선 테두리 & 깔끔한 순백색 바탕
+ * ---------------------------------------------------------------------------- */
+.expert-char-profile-card { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center;
+    gap: 12px; 
+    padding: 16px; 
+    background: var(--omni-card-bg) !important; 
+    border: 1px dashed var(--omni-card-border-line) !important; 
+    border-radius: 12px; 
+    transition: all 0.2s ease; 
+    width: 100%; 
+    min-height: 330px; 
+}
+.expert-char-profile-card:hover { 
+    background: var(--omni-hover-point) !important; 
+    border-color: var(--omni-slate-primary) !important; 
+    transform: translateY(-2px); 
+}
+
+.expert-avatar-frame-large { 
+    width: 90px; 
+    height: 90px; 
+    overflow: hidden; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    background: var(--omni-card-bg); 
+    border: 2px solid var(--omni-slate-primary); 
+    flex-shrink: 0; 
+}
+.expert-avatar-frame-large img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
+    transform: scale(1.8); 
+    transform-origin: center center; 
+}
+
+.expert-char-profile-card.empty-placeholder-slot {
+    border: 1.5px dashed var(--omni-card-border-line) !important;
+    background: var(--omni-card-bg) !important;
+    opacity: 0.9;
+}
+.expert-avatar-frame-large.empty-avatar-frame {
+    border: 2px dashed var(--omni-slate-primary);
+    background: var(--omni-card-bg);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.expert-avatar-frame-large.empty-avatar-frame:hover {
+    background: var(--omni-hover-point);
+    border-color: var(--omni-slate-primary);
+}
+.placeholder-plus-icon {
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--omni-slate-primary);
+}
+.placeholder-text {
+    color: var(--omni-text-sub) !important;
+}
+
+.placeholder-reg-btn {
+    width: 100%; 
+    padding: 8px 12px; 
+    font-size: 11.5px !important; 
+    background: var(--omni-point-purple-bg) !important; 
+    border: 1px dashed var(--omni-card-border-line) !important; 
+    color: var(--omni-slate-primary) !important;
+    font-weight: 800;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+.placeholder-reg-btn:hover {
+    background: var(--omni-slate-primary) !important;
+    color: var(--omni-badge-text) !important;
+    border-color: var(--omni-slate-primary) !important;
+}
+
+.expert-reset-meta { display: flex; flex-direction: column; gap: 3px; align-items: center; }
+.expert-char-name-txt-large { font-size: calc(var(--omni-base-font-size) * 0.9); font-weight: 900; color: var(--omni-text-dark); }
+.expert-char-job-level-txt { font-size: calc(var(--omni-base-font-size) * 0.72); color: var(--omni-text-sub); font-weight: 700; }
+
+.expert-char-details-box { 
+    width: 100%; 
+    border-top: 1px dashed var(--omni-card-border-line); 
+    padding-top: 10px; 
+    margin-top: 4px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 6px; 
+    text-align: left; 
+}
+
+.expert-detail-label { 
+    font-size: calc(var(--omni-base-font-size) * 0.72); 
+    font-weight: 800; 
+    color: var(--omni-text-muted); 
+}
+
+.expert-daily-quest-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 4px; 
+    width: 100%; 
+}
+
+.expert-quest-dot-chip { 
+    font-size: calc(var(--omni-base-font-size) * 0.64); 
+    font-weight: 800; 
+    padding: 3px 2px; 
+    border-radius: 4px; 
+    text-align: center; 
+    white-space: nowrap;
+    background: var(--omni-card-bg); 
+    color: var(--omni-text-sub); 
+    border: 1px dashed var(--omni-card-border-line); 
+}
+.expert-quest-dot-chip.done { 
+    background: var(--omni-emerald-light) !important; 
+    color: var(--omni-emerald) !important; 
+    border: 1px dashed var(--omni-card-border-line) !important; 
+}
+
+.expert-boss-counter-row { 
+    display: flex; 
+    justify-content: space-between; 
+    width: 100%; 
+    font-size: calc(var(--omni-base-font-size) * 0.72); 
+    font-weight: 700; 
+    color: var(--omni-text-muted); 
+}
+.expert-boss-counter-row strong { 
+    color: var(--omni-slate-primary); 
+    font-weight: 800; 
+}
+
+.omni-accumulated-stats-panel { 
+    background: var(--omni-card-bg) !important; 
+    padding: 10px 12px; 
+    border-radius: 8px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 4px; 
+    border: 1px dashed var(--omni-card-border-line) !important; 
+    margin-bottom: 10px; 
+}
+.omni-hunting-mvp-character-dock { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 6px; 
+    padding: 10px 12px; 
+    border: 1px dashed var(--omni-card-border-line) !important; 
+    border-radius: 8px; 
+    background: var(--omni-card-bg) !important; 
+    margin-bottom: 10px; 
+}
+
+.dashboard-secondary-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-top: 32px; width: 100%; }
+.secondary-left-column { display: flex; flex-direction: column; gap: 32px; min-width: 0; }
+.secondary-right-column { display: flex; flex-direction: column; gap: 32px; min-width: 0; width: 100%; }
+
+.omni-extended-panel { 
+    background: var(--omni-card-bg) !important; 
+    border: 1px solid var(--omni-card-border-line) !important; 
+    border-radius: 16px; 
+    padding: 20px; 
+}
+
+.half-height-panel-split { flex: 1; display: flex; flex-direction: column; }
+.panel-hdr { font-size: calc(var(--omni-base-font-size) * 0.89); font-weight: 800; margin-bottom: 14px; text-align: left; padding-left: 10px; color: var(--omni-text-dark); }
+.split-box-scroll-viewport { max-height: 145px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; } 
+
+.notice-list-wrapper { display: flex; flex-direction: column; gap: 6px; } 
+.notice-list-item { display: flex; align-items: center; padding: 11px 12px; text-decoration: none; border-radius: 10px; border: 1px dashed var(--omni-card-border-line) !important; background: var(--omni-card-bg); transition: all 0.2s; }
+.notice-list-item:hover { background: var(--omni-hover-point) !important; border-color: var(--omni-slate-primary) !important; transform: translateX(2px); }
+
+.notice-badge { 
+    font-size: calc(var(--omni-base-font-size) * 0.74); 
+    font-weight: 800; 
+    padding: 3px 8px; 
+    border-radius: 6px; 
+    margin-right: 12px; 
+    flex-shrink: 0; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: -0.3px;
+}
+.notice-badge.type-inspect { background: var(--omni-coral-light) !important; color: var(--omni-coral) !important; border: 1px dashed var(--omni-card-border-line) !important; }
+.notice-badge.type-event { background: var(--omni-amber-light) !important; color: var(--omni-amber) !important; border: 1px dashed var(--omni-card-border-line) !important; }
+.notice-badge.type-update { background: var(--omni-emerald-light) !important; color: var(--omni-emerald) !important; border: 1px dashed var(--omni-card-border-line) !important; }
+.notice-badge.type-info { background: var(--omni-point-purple-bg) !important; color: var(--omni-slate-primary) !important; border: 1px dashed var(--omni-card-border-line) !important; }
+
+.notice-title { margin: 0; font-size: calc(var(--omni-base-font-size) * 0.86); font-weight: 700; color: var(--omni-text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; text-align: left; margin-right: 15px; }
+.notice-date { font-size: calc(var(--omni-base-font-size) * 0.79); font-weight: 600; color: var(--omni-text-sub); flex-shrink: 0; }
+
+.panel-hdr-with-action { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; width: 100%; }
+.panel-hdr-title { font-size: calc(var(--omni-base-font-size) * 0.89); font-weight: 800; color: var(--omni-text-dark); padding-left: 10px; }
+.memo-input-group { display: flex; gap: 8px; align-items: center; }
+
+#dashboardMemoInput { 
+    border: 1px dashed var(--omni-card-border-line); 
+    background: var(--builder-input-bg, var(--omni-card-bg)) !important; 
+    padding: 6px 12px; 
+    border-radius: 8px; 
+    font-size: calc(var(--omni-base-font-size) * 0.82); 
+    width: 190px; 
+    color: var(--omni-text-dark); 
+    outline: none; 
+}
+#dashboardMemoInput:focus { border-color: var(--omni-slate-primary); }
+
+.mvp-action-btn-custom { padding: 6px 12px; font-size: calc(var(--omni-base-font-size) * 0.82); font-weight: 800; border-radius: 8px; border: none; background: var(--omni-slate-primary); color: var(--omni-badge-text) !important; cursor: pointer; }
+.dashboard-memo-scroll-area { max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+.dashboard-memo-item-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 8px; background: var(--omni-card-bg) !important; border: 1px dashed var(--omni-card-border-line) !important; border-radius: 10px; }
+.dashboard-memo-item-row:hover { background: var(--omni-hover-point) !important; border-color: var(--omni-slate-primary) !important; }
+.memo-left-content { display: flex; align-items: center; gap: 10px; flex: 1; overflow: hidden; }
+.pulse-purple-dot { width: 5px; height: 5px; background: var(--omni-slate-primary); border-radius: 50%; flex-shrink: 0; }
+.memo-main-text-line { margin: 0; font-size: calc(var(--omni-base-font-size) * 0.86); font-weight: 600; color: var(--omni-text-dark); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.memo-right-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.memo-date-badge { font-size: calc(var(--omni-base-font-size) * 0.75); color: var(--omni-text-sub); }
+.memo-inline-del-btn { background: none; border: none; font-size: calc(var(--omni-base-font-size) * 1.14); color: var(--omni-text-sub); cursor: pointer; }
+.memo-inline-del-btn:hover { color: #ef4444; }
+
+.event-slider-container { width: 100%; overflow: hidden; position: relative; border-radius: 16px; }
+.event-slider-track { display: flex; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); width: 100%; }
+
+.banner-wrapper-slot { flex: 0 0 33.3333%; padding: 4px !important; box-sizing: border-box; text-decoration: none; display: block; }
+.banner-placeholder-box { display: flex; flex-direction: column; border: 1px dashed var(--omni-card-border-line); border-radius: 14px; overflow: hidden; background: var(--omni-card-bg); width: 100%; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
+.banner-placeholder-box:hover { transform: translateY(-4px); border-color: var(--omni-slate-primary); }
+
+.banner-image-crop-layer { 
+    width: 100%; 
+    height: 100px !important; 
+    overflow: hidden; 
+    background: var(--omni-hover-point); 
+    position: relative; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.banner-img-core { width: 100%; height: 100%; object-fit: cover; object-position: center; background: var(--omni-hover-point); }
+.event-info-box { padding: 10px; display: flex; flex-direction: column; gap: 3px; text-align: left; background: var(--omni-card-bg); }
+.event-info-title { display: block; font-size: calc(var(--omni-base-font-size) * 0.82); font-weight: 800; color: var(--omni-text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.event-info-date { display: block; font-size: calc(var(--omni-base-font-size) * 0.71); color: var(--omni-text-sub); }
+
+.event-slider-dots { display: flex; justify-content: center; gap: 6px; margin-top: 12px; margin-bottom: 2px; width: 100%; }
+.event-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--omni-card-border-line); cursor: pointer; transition: all 0.2s ease; }
+.event-dot.active { background: var(--omni-slate-primary); transform: scale(1.3); }
+
+/* ----------------------------------------------------------------------------
+ * 📅 OMNI STRATEGY PLANNER - 점선 테두리 적용
+ * ---------------------------------------------------------------------------- */
+.dashboard-third-row-planner { margin-top: 32px; margin-bottom: 32px; width: 100%; box-sizing: border-box; }
+
+.full-width-planner-panel { 
+    width: 100%; 
+    background: var(--omni-card-bg) !important; 
+    border: 1px solid var(--omni-card-border-line) !important; 
+    border-radius: 16px; 
+    padding: 24px; 
+}
+
+.planner-header-panel-layout { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+    padding-bottom: 16px; 
+    border-bottom: 1px dashed var(--omni-card-border-line); 
+    width: 100%; 
+}
+.planner-header-txt-box { text-align: left; }
+
+.planner-main-title-txt { 
+    margin: 0;
+    font-size: calc(var(--omni-base-font-size) * 0.86); 
+    font-weight: 800; 
+    color: var(--omni-text-dark); 
+}
+
+.planner-interactive-form-grid { 
+    display: grid; 
+    grid-template-columns: 140px 1fr 1fr auto; 
+    gap: 6px; 
+    align-items: center; 
+    width: 100%; 
+}
+
+.mvp-inline-input-custom { 
+    border: 1px dashed var(--omni-card-border-line); 
+    background: var(--builder-input-bg, var(--omni-card-bg)) !important; 
+    padding: 6px 12px; 
+    border-radius: 8px; 
+    font-size: calc(var(--omni-base-font-size) * 0.77); 
+    font-weight: 800; 
+    color: var(--omni-text-dark); 
+    outline: none; 
+    height: 34px; 
+    width: 100%; 
+}
+.mvp-inline-input-custom:focus { border-color: var(--omni-slate-primary); }
+
+.mvp-action-btn-custom-planner { 
+    height: 34px; 
+    padding: 0 16px; 
+    font-size: calc(var(--omni-base-font-size) * 0.77); 
+    font-weight: 900; 
+    border-radius: 8px; 
+    border: none; 
+    background: var(--omni-slate-primary); 
+    color: var(--omni-badge-text) !important; 
+    cursor: pointer; 
+}
+
+.strategy-cards-display-board-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+    gap: 8px; 
+    margin-top: 14px; 
+    width: 100%; 
+}
+
+.strategy-plan-card-item { 
+    background: var(--omni-card-bg) !important; 
+    border: 1px dashed var(--omni-card-border-line) !important; 
+    border-radius: 8px; 
+    padding: 10px 12px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 4px; 
+    text-align: left; 
+    transition: all 0.2s; 
+}
+.strategy-plan-card-item:hover { transform: translateY(-2px); background: var(--omni-hover-point) !important; border-color: var(--omni-slate-primary) !important; }
+.plan-card-top-bar { display: flex; justify-content: space-between; align-items: center; }
+.plan-char-target-tag { font-size: calc(var(--omni-base-font-size) * 0.71); font-weight: 800; color: var(--omni-text-dark); background: var(--omni-hover-point); border: 1px dashed var(--omni-card-border-line); padding: 2px 6px; border-radius: 4px; }
+.plan-card-del-btn { background: none; border: none; font-size: calc(var(--omni-base-font-size) * 0.71); font-weight: 700; color: var(--omni-text-sub); cursor: pointer; }
+.plan-card-del-btn:hover { color: #ef4444; }
+.plan-card-goal-title { margin: 0; font-size: calc(var(--omni-base-font-size) * 0.79); font-weight: 800; color: var(--omni-text-dark); }
+.plan-card-route-desc { margin: 0; font-size: calc(var(--omni-base-font-size) * 0.75); color: var(--omni-text-muted); line-height: 1.5; }
+
+.omni-global-footer-panel { width: 100%; padding: 25px; text-align: center; font-size: calc(var(--omni-base-font-size) * 0.79); color: var(--omni-text-sub); background: var(--omni-card-bg); border-top: 1px dashed var(--omni-card-border-line); margin-top: 40px; }
+.footer-links-row a { color: var(--omni-text-dark); text-decoration: none; margin: 0 10px; font-weight: 700; }
+.footer-copyright-txt { margin-top: 6px; }

@@ -1,0 +1,75 @@
+/* ============================================================================
+ * 📑 MAPLE OMNI V14 - js/todo/todo_boss.css [😈 BOSS RAID CASHIER SKIN]
+ * 설명: 보스 라인 구분선 텍스트 스킨 및 파스텔 배지용 타이포그래피 스킨입니다.
+ * 초보자 가이드: 라이트모드는 대시보드 화이트톤, 다크모드는 눈시림 없는 회색빛 다크톤과 연동됩니다.
+ * ============================================================================
+ */
+
+.boss-tier-indicator-row { 
+    font-size: 10px; 
+    font-weight: 900; 
+    color: #475569; 
+    padding: 4px 6px; 
+    background: #f1f5f9; 
+    border-radius: 4px; 
+    margin-bottom: 6px; 
+    text-align: left; 
+}
+
+.boss-tier-indicator-row-high { 
+    font-size: 10px; 
+    font-weight: 900; 
+    color: #8372d6; 
+    padding: 4px 6px; 
+    background: #f5f3ff; 
+    border-radius: 4px; 
+    margin: 10px 0 6px 0; 
+    text-align: left; 
+}
+
+.boss-image-placeholder-blank { 
+    width: 20px; 
+    height: 20px; 
+    background: #f1f5f9; 
+    border-radius: 5px; 
+    flex-shrink: 0; 
+}
+
+.boss-badge-pastel { 
+    font-size: 9px; 
+    color: var(--omni-lavender-main, #8372d6); 
+    background: var(--omni-lavender-muted, #f5f3ff); 
+    padding: 1px 5px; 
+    border-radius: 4px; 
+    font-weight: 700; 
+    margin-left: 5px; 
+}
+
+.clean-num { 
+    font-weight: 800 !important; 
+}
+
+/* ============================================================================
+ * 🌙 [🔥 OMNI DARK THEME OVERRIDE]
+ * 설명: 청록/초록빛 완전 제거 및 대시보드 다크모드 전용 변수 바인딩
+ * ============================================================================
+ */
+body.dark-theme .boss-tier-indicator-row {
+    color: #747285 !important; /* --builder-text-sub */
+    background: #212030 !important; /* --builder-input-bg */
+}
+
+body.dark-theme .boss-tier-indicator-row-high {
+    color: #a78bfa !important; /* --builder-text-accent */
+    background: #212030 !important; /* --builder-input-bg */
+    border: 1px dashed #423f5e !important;
+}
+
+body.dark-theme .boss-image-placeholder-blank {
+    background: #212030 !important; /* --builder-input-bg */
+}
+
+body.dark-theme .boss-badge-pastel {
+    background: #262438 !important; /* --builder-border */
+    color: #BCBCC7 !important; /* --builder-text-main */
+}

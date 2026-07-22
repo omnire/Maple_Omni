@@ -1,0 +1,229 @@
+/* ============================================================================
+ * 🎨 MAPLE OMNI V14 - js/hunt/overview.css [라벤더 엘리트 프리미엄 에디션]
+ * 설명: 모든 화면 테마(화이트, 다크, 핑크, 블루)에서 편안한 대비와 뛰어난 가독성을 제공합니다.
+ * 규칙: 코드를 쓸 때는 항상 초보자도 이해할 수 있게 상세한 주석을 달아줍니다.
+ * ============================================================================ */
+
+/* 전역 헬퍼 변수 컬러풀 기본값 설계 (White Mode) */
+:root {
+    --bg-main: #faf9fe;
+    --card-bg: #ffffff;
+    --border-color: #e8e3f8;
+    --text-main: #2e2a38;
+    --text-muted: #7c7489;
+    --accent-purple: #7c3aed;
+    --accent-dark-purple: #4c1d95;
+    --btn-active-bg: #ede9f8;
+    --table-header-bg: #f5f2fc;
+}
+
+.v14-overview-wrapper {
+    width: 100%;
+    padding: 24px;
+    box-sizing: border-box;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    background-color: var(--bg-main);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: var(--text-main);
+}
+
+.v14-inner-tab-bar {
+    display: flex;
+    gap: 8px;
+    border-bottom: 2px solid #e1dbf7;
+    padding-bottom: 6px;
+    width: 100%;
+}
+
+.v14-inner-tab-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px 8px 0 0;
+    padding: 12px 26px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.18s ease-in-out;
+}
+.v14-inner-tab-btn:hover { background: #f4efff; color: var(--accent-purple); }
+.v14-inner-tab-btn.active { background: var(--accent-purple); color: #ffffff; border-color: var(--accent-purple); }
+
+.v14-char-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 18px;
+    width: 100%;
+}
+
+.v14-selector-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.02);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+.v14-selector-card:hover { transform: translateY(-3px); border-color: #a78bfa; box-shadow: 0 6px 16px rgba(124, 58, 237, 0.06); }
+
+.v14-slot-delete-btn { position: absolute; top: 10px; left: 10px; background: #fff1f2; border: 1px solid #ffe4e6; color: #f43f5e; font-size: 10px; padding: 3px 7px; border-radius: 5px; cursor: pointer; font-weight: 700; z-index: 10; }
+.v14-slot-delete-btn:hover { background: #f43f5e; color: #ffffff; }
+.v14-slot-edit-btn { position: absolute; top: 10px; right: 10px; background: #f5f3ff; border: 1px solid #e0d7ff; color: var(--accent-purple); font-size: 10px; padding: 3px 7px; border-radius: 5px; cursor: pointer; font-weight: 700; z-index: 10; }
+.v14-slot-edit-btn:hover { background: var(--accent-purple); color: #ffffff; }
+
+.v14-top-flex-zone { display: flex; gap: 18px; align-items: stretch; width: 100%; }
+@media (max-width: 992px) { .v14-top-flex-zone { flex-direction: column; } }
+
+.v14-char-profile-card { flex: 0 0 260px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box; }
+.v14-avatar-square-box { width: 120px; height: 120px; background: #f6f4fe; border: 1px dashed #c0b2f0; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; overflow: hidden; }
+.v14-avatar-square-box img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.45); transform-origin: center center; }
+
+.v14-char-meta-name { font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+.v14-char-meta-job { font-size: 11px; font-weight: 700; color: #6d28d9; background: #f0eaff; padding: 3px 9px; border-radius: 5px; margin-bottom: 8px; }
+.v14-char-meta-minimal-info { font-size: 12px; font-weight: 600; color: var(--text-muted); }
+.v14-char-embedded-action-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; width: 100%; margin-top: 16px; border-top: 1px dashed #e8e3f8; padding-top: 14px; }
+.v14-action-trigger-btn { background: var(--card-bg); border: 1px solid #dcd3f5; border-radius: 6px; padding: 9px 2px; font-size: 11.5px; font-weight: 700; color: #5c5374; cursor: pointer; text-align: center; transition: all 0.15s ease; }
+.v14-action-trigger-btn:hover { background: var(--accent-purple); color: #ffffff; border-color: var(--accent-purple); }
+
+.v14-timeline-data-card { flex: 1; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 20px; box-sizing: border-box; }
+.v14-section-title-bar { font-size: 14px; font-weight: 700; color: var(--accent-dark-purple); margin-bottom: 16px; border-left: 4px solid #a855f7; padding-left: 12px; display: flex; align-items: center; gap: 6px; letter-spacing: -0.3px; }
+.v14-section-title-bar-noborder { font-size: 14px; font-weight: 700; color: var(--accent-dark-purple); margin-bottom: 16px; padding-left: 2px; display: flex; align-items: center; gap: 6px; letter-spacing: -0.3px; }
+
+.v14-timeline-table { width: 100%; border-collapse: collapse; }
+.v14-timeline-table th { background: var(--table-header-bg); color: #5c4d9a; font-weight: 700; font-size: 12px; padding: 12px 8px; border-bottom: 1px solid #ddd6fe; position: sticky; top: 0; z-index: 5; }
+.v14-timeline-table td { padding: 10px 8px; font-size: 12px; font-weight: 600; color: var(--text-main); border-bottom: 1px solid #f5f2fa; text-align: center; }
+
+.v14-card-metric-divider { font-size:11px; color:var(--text-main); margin-top:8px; font-weight:700; border-top:1px solid #ebdffc; width:100%; padding-top:6px; text-align:left; display:flex; flex-direction:column; gap:3px; }
+.v14-card-stat-val { color: var(--text-muted); font-weight: 800; }
+.v14-table-subtext { font-size: 10px; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
+.v14-table-subtext-purple { font-size: 10px; font-weight: 700; color: var(--accent-purple); margin-top: 2px; }
+.v14-map-badge { font-size: 11.5px; font-weight: 700; color: #594491; background: #f3effc; padding: 4px 8px; border-radius: 6px; border: 1px solid #e6dffa; display: inline-block; max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.v14-action-mini-btn { background: var(--card-bg); border: 1px solid #c7bdf2; color: var(--accent-purple); font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 5px; cursor: pointer; transition: all 0.12s ease; }
+.v14-action-mini-btn:hover { background: var(--accent-purple); color: #ffffff; border-color: var(--accent-purple); }
+
+.v14-interactive-row:hover { background: var(--bg-main); }
+.v14-td-date { color: var(--accent-purple); font-weight: 700; }
+.v14-td-meso { font-weight: 700; color: #1e1b4b; text-align: right !important; padding-right: 16px !important; }
+.v14-empty-table-notice { text-align:center; padding:40px; color:var(--text-muted); font-weight:600; font-size:13px; background:var(--card-bg); }
+
+.v14-bottom-summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; width: 100%; }
+@media (max-width: 768px) { .v14-bottom-summary-grid { grid-template-columns: repeat(2, 1fr); } }
+.v14-summary-bento-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; box-shadow: 0 2px 8px rgba(124, 58, 237, 0.02); }
+.v14-bento-label { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
+.v14-bento-value { font-size: 16px; font-weight: 700; color: var(--text-main); }
+.total-meso-color { color: var(--accent-purple); }
+.total-avg-color { color: #5c5374; }
+.total-gem-color { color: #4338ca; }
+.total-frag-color { color: #059669; }
+
+.v14-bento-integrated-text-grid { font-size:13px; font-weight:500; color:var(--text-main); display:grid; grid-template-columns:1fr 1fr; gap:8px 16px; line-height:1.5; }
+.v14-stat-accent-p { color: #7e22ce; font-weight: 600; }
+.v14-stat-accent-b { color: #2563eb; font-weight: 600; }
+.v14-stat-accent-o { color: #b45309; font-weight: 600; }
+.v14-stat-accent-g { color: #059669; font-weight: 600; }
+.v14-stat-accent-v { color: #9333ea; font-weight: 600; }
+
+.v14-back-list-btn { background: var(--card-bg); border: 1px solid #c7bdf2; color: var(--accent-purple); padding: 7px 16px; border-radius: 6px; font-size: 12.5px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.v14-back-list-btn:hover { background: #f5f2fc; border-color: var(--accent-purple); }
+
+.v14-leaderboard-twin-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; margin-top: 8px; }
+@media (max-width: 768px) { .v14-leaderboard-twin-grid { grid-template-columns: 1fr; } }
+.v14-leaderboard-panel-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; }
+.v14-leaderboard-panel-title { font-size: 13px; font-weight: 700; color: var(--text-main); border-bottom: 1px solid var(--bg-main); padding-bottom: 8px; margin-bottom: 14px; }
+.v14-rank-chart-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; width: 100%; }
+.v14-rank-identity { flex: 0 0 140px; display: flex; align-items: center; gap: 6px; overflow: hidden; }
+.v14-rank-number { font-size: 11px; font-weight: 700; color: var(--text-muted); }
+.v14-rank-face { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--border-color); background: var(--bg-main); object-fit: contain; }
+.v14-rank-name-text { font-size: 12px; font-weight: 700; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.v14-rank-graph-area { flex: 1; display: flex; align-items: center; }
+.v14-rank-bar-bg { width: 100%; height: 8px; background: var(--bg-main); border-radius: 4px; overflow: hidden; }
+.v14-rank-bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease-out; }
+.v14-rank-bar-fill.income { background: #8b5cf6; }
+.v14-rank-bar-fill.grind { background: #3b82f6; }
+.v14-rank-value-metrics { flex: 0 0 100px; font-size: 12px; font-weight: 700; color: var(--text-main); text-align: right; }
+
+.v14-embedded-calendar-frame { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+.v14-cal-stepper-row { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); border: 1px solid var(--border-color); padding: 12px 18px; border-radius: 8px; }
+.v14-cal-step-btn { background: var(--card-bg); border: 1px solid #d0c7f2; padding: 6px 16px; border-radius: 5px; cursor: pointer; font-weight: 700; font-size: 12.5px; color: var(--accent-purple); }
+.v14-cal-step-btn:hover { background: #f5f2fc; }
+.v14-cal-month-text { font-size: 15px; font-weight: 700; color: var(--text-main); }
+.v14-cal-weekdays-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; border-bottom: 1px solid #ddd6fe; padding-bottom: 8px; }
+.v14-cal-header-cell { font-size: 12.5px; font-weight: 700; color: var(--text-muted); padding: 4px 0; }
+.v14-cal-cell-sun { color: #e11d48; }
+.v14-cal-cell-sat { color: #2563eb; }
+.v14-cal-days-matrix-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; width: 100%; }
+.v14-cal-day-blank { background: transparent; }
+
+.v14-cal-day-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; min-height: 108px; padding: 10px; box-sizing: border-box; position: relative; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-start; }
+.v14-cal-day-item:hover { border-color: var(--accent-purple); background: #faf8ff; }
+.v14-cal-day-item.is-attended-active { background: #f5fdf8; border-color: #10b981; }
+.v14-cal-number-lbl { font-size: 12px; font-weight: 700; color: var(--text-muted); }
+.v14-cal-stamp-icon { position: absolute; top: 8px; right: 8px; font-size: 12px; }
+.v14-cal-stamp-pad-zone { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; align-items: center; margin-top: 6px; width: 100%; flex: 1; }
+.v14-cal-stamp-avatar-node { width: 38px; height: 38px; border-radius: 50%; border: 2px dashed #a855f7; background: var(--card-bg); overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(168, 85, 247, 0.15); }
+.v14-cal-stamp-avatar-node img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.65); transform-origin: center center; }
+
+.v14-reg-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.45); display: none; align-items: center; justify-content: center; z-index: 9999; }
+.v14-reg-modal-window { background: var(--card-bg); border-radius: 12px; width: 350px; padding: 20px; display: flex; flex-direction: column; gap: 12px; border: 1px solid var(--border-color); box-sizing: border-box; }
+.v14-modal-input { width: 100%; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 12.5px; box-sizing: border-box; font-weight: 600; background: var(--bg-main); color: var(--text-main); }
+
+/* ============================================================================
+ * 🌙 [DARK THEME - 다크 모드 스킨 테마 색상 연동 오버라이드]
+ * ============================================================================ */
+body.dark-theme {
+    --bg-main: #14121f;
+    --card-bg: #1e1b2e;
+    --border-color: #2d2945;
+    --text-main: #e2e0eb;
+    --text-muted: #9fa0b0;
+    --accent-purple: #a78bfa;
+    --accent-dark-purple: #c084fc;
+    --btn-active-bg: #2d2445;
+    --table-header-bg: #25223c;
+}
+body.dark-theme .v14-overview-wrapper { background-color: var(--bg-main); }
+body.dark-theme .v14-inner-tab-btn:hover { background: #2e264d; }
+body.dark-theme .v14-avatar-square-box { background: #14121f; border-color: #4c3e85; }
+body.dark-theme .v14-char-meta-job { background: #3c1e70; color: #e9d5ff; }
+body.dark-theme .v14-map-badge { background: #2a1f42; color: #d8b4fe; border-color: #4338ca; }
+body.dark-theme .v14-rank-bar-bg { background: #14121f; }
+body.dark-theme .v14-cal-day-item:hover { background: #25213b; }
+body.dark-theme .v14-cal-stamp-avatar-node { background: #1e1b2e; }
+
+/* ============================================================================
+ * 🌸 [PINK THEME - 라이트 핑크 테마 색상 연동 오버라이드]
+ * ============================================================================ */
+body.light-pink {
+    --bg-main: #fff5f8;
+    --card-bg: #ffffff;
+    --border-color: #fbcfe8;
+    --text-main: #831843;
+    --text-muted: #b55d7e;
+    --accent-purple: #db2777;
+    --accent-dark-purple: #9d174d;
+    --btn-active-bg: #ffe4e6;
+    --table-header-bg: #ffe4e6;
+}
+
+/* ============================================================================
+ * 🔹 [BLUE THEME - 라이트 블루 테마 색상 연동 오버라이드]
+ * ============================================================================ */
+body.light-blue {
+    --bg-main: #f0f7ff;
+    --card-bg: #ffffff;
+    --border-color: #bae6fd;
+    --text-main: #0c4a6e;
+    --text-muted: #5b759e;
+    --accent-purple: #0284c7;
+    --accent-dark-purple: #0369a1;
+    --btn-active-bg: #e0f2fe;
+    --table-header-bg: #e0f2fe;
+}

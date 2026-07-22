@@ -1,0 +1,178 @@
+/**
+ * ============================================================================
+ * 🎨 MAPLE OMNI V14 - style.css [GLOBAL ENVIRONMENT CORE]
+ * 용도: 전역 환경 설정, 명품 멀티 아이덴티티 색상 글로벌 분기 선언, 2단 레이아웃 완전 고정
+ * 패치노트: 
+ * 1. [외곽선 소프트 터치] 가독성 향상과 눈의 편안함을 위해 글로벌 소프트 경계선의 채도를 매우 은은하게 추가 감쇄
+ * 2. [사이드바 하이엔드 인프라] 스킨이 동적으로 로테이션 변환되더라도 왼쪽 세그먼트 프레임이 일체화되어 완벽 연동
+ * 3. [구조 보존 체제] 단 하나의 폰트 픽셀 오차도 생기지 않도록 기존의 calc 반응형 인프라 골격 완전 유지
+ * 최적화: 대시보드 외부 영역의 인풋 플레이스홀더 및 범용 텍스트 필드의 화이트 모드 흐림 증상 완전 퇴치 가독성 패치 반영
+ * ============================================================================
+ */
+
+/* ☀️ [테마 01-A] 클래식 소프트 라벤더 화이트 모드 스킨 (기본 베이스) */
+:root {
+    --omni-base-font-size: 15.5px;
+    --omni-nav-font-size: 13.5px;
+
+    --bg-main: #fcfaff;                /* 전체 배경: 아주 연한 라벤더 화이트 */
+    --sidebar-bg: #e6dff5;             /* 사이드바: 정돈된 페일 라벤더 기본 싱크 */
+    --top-nav-bg: #ffffff;             /* 헤더: 순백색 고정 */
+    
+    /* 🎨 [가독성 패치] 전체 페이지에 연동되는 본문 및 서브 텍스트 변수를 눈이 편안한 고대비 차콜 슬레이트로 교체 */
+    --text-main: #374151;              /* 눈시림 없는 초고가독성 딥 차콜 */
+    --text-sub: #4b5563;               /* 투명화되지 않는 선명한 서브 실버 차콜 */
+    
+    --border-soft: #eae4f7;            /* 💡 수정 완료: 극도로 은은하게 낮춘 연라벤더 진주빛 경계선 */
+    --point-amber: #b45309;            
+    --point-moss: #0f766e;             
+    --premium-shadow: 0 4px 12px rgba(122, 110, 199, 0.04);
+
+    --nav-active-bg: #3f3b5c;          
+    --nav-active-text: #ffffff;        
+}
+
+/* 🌸 [테마 01-B] 확장 핑크 라벤더 스킨 글로벌 연동 변수 */
+body.light-pink {
+    --bg-main: #fffafd;
+    --sidebar-bg: #f2e1ed;
+    
+    /* 🎨 [가독성 패치] 핑크 색상 테마 분기 시의 시각 스펙트럼 보호 딥 차콜 베리 폰트 */
+    --text-main: #4a3744;
+    --text-sub: #634d5c;
+    
+    --border-soft: #f5e8f1;            /* 💡 수정 완료: 핑크 무드에 맞게 감쇄된 소프트 테두리선 */
+    --premium-shadow: 0 4px 12px rgba(211, 110, 183, 0.04);
+    --nav-active-bg: #6e3a5c;
+}
+
+/* 🌀 [테마 01-C] 확장 블루 라벤더 스킨 글로벌 연동 변수 */
+body.light-blue {
+    --bg-main: #f5f8ff;
+    --sidebar-bg: #dee4f5;
+    
+    /* 🎨 [가독성 패치] 하늘색 블루 스킨 가동 시 가독성 붕괴를 영구 저지하는 차분한 마린 크루 슬레이트 차콜 */
+    --text-main: #2d3748;
+    --text-sub: #4a5568;
+    
+    --border-soft: #e6ebf7;            /* 💡 수정 완료: 블루 무드에 맞게 감쇄된 소프트 테두리선 */
+    --premium-shadow: 0 4px 12px rgba(110, 142, 211, 0.04);
+    --nav-active-bg: #3a4e6e;
+}
+
+/* 🌙 [테마 02] 다크모드 전용 변수 세팅 */
+body.dark-theme {
+    --bg-main: #13121a;               
+    --sidebar-bg: #15141e;            /* 다크모드 가동 시 좌측 사이드바 프레임도 완벽히 동기화 암전 */
+    --top-nav-bg: #181721;            
+    
+    --text-main: #BCBCC7;             /* 눈시림 없는 매트 실버 그레이 */
+    --text-sub: #747285;              
+    
+    --border-soft: #282638;            
+    --point-amber: #c27500;            
+    --point-moss: #0d9488;             
+    --premium-shadow: 0 14px 35px rgba(0, 0, 0, 0.5);
+
+    --nav-active-bg: #252336;          
+    --nav-active-text: #BCBCC7;        
+}
+
+body, html {
+    margin: 0; padding: 0;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-size: var(--omni-base-font-size);
+    height: 100vh; overflow: hidden;
+    letter-spacing: -0.6px;
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+/* 🔝 마스터 상단 네비게이션 헤더 레이아웃 */
+.omni-top-nav {
+    height: 65px; 
+    background: var(--top-nav-bg);
+    display: flex; align-items: center;
+    padding: 0 35px; border-bottom: 1px solid var(--border-soft);
+    position: relative; z-index: 20000; gap: 30px;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+.nav-brand { font-size: calc(var(--omni-base-font-size) * 1.5); font-weight: 900; color: var(--text-main); letter-spacing: -1.2px; }
+.nav-brand span { color: var(--point-amber); }
+
+/* 검색 컨트롤 레이어 */
+.search-container {
+    display: flex; align-items: center;
+    background: var(--bg-main); padding: 9px 15px;
+    border: 1px solid var(--border-soft);
+    border-radius: 12px; width: 250px; transition: all 0.2s ease;
+}
+.search-container:focus-within { border-color: var(--text-sub); background: var(--top-nav-bg); }
+.search-container span { font-size: calc(var(--omni-base-font-size) * 0.93); color: var(--text-sub); }
+.search-container input {
+    border: none; background: transparent; outline: none;
+    width: 100%; margin-left: 8px; font-weight: 700;
+    color: var(--text-main); font-size: calc(var(--omni-base-font-size) * 0.93);
+}
+
+/* 🎨 [가독성 보정] 화이트 모드 입력창들의 힌트 텍스트 플레이스홀더 색상이 흐릿하지 않게 가치 상향 명시 */
+.search-container input::placeholder,
+#dashboardMemoInput::placeholder,
+.mvp-inline-input-custom::placeholder {
+    color: var(--text-sub) !important;
+    opacity: 0.65;
+}
+
+/* 대메뉴 전환 탭 버튼 그룹 */
+.nav-menu { display: flex; gap: 8px; margin-left: auto; align-items: center; }
+
+.nav-btn {
+    background: none; border: none; font-weight: 800;
+    color: var(--text-sub); cursor: pointer; padding: 11px 20px;
+    font-size: var(--omni-nav-font-size); border-radius: 10px; transition: all 0.2s ease;
+}
+.nav-btn:hover { background: var(--bg-main); color: var(--text-main); }
+.nav-btn.active { color: var(--nav-active-text) !important; background: var(--nav-active-bg) !important; }
+
+/* 🖥️ 와이드스크린 2단 그리드 프레임 골격 */
+.omni-widescreen-frame {
+    display: grid; 
+    grid-template-columns: 310px 1fr; 
+    height: calc(100vh - 65px); 
+    width: 100vw;
+}
+
+/* 📱 우측 콘텐츠 뷰포트 내부 스크롤 가이더 */
+.omni-widescreen-viewport {
+    padding: 35px; overflow-y: auto;
+    box-sizing: border-box; height: 100%;
+    background-color: var(--bg-main);
+    transition: background-color 0.3s ease;
+}
+
+/* 🔄 라우터 화면 제어용 온/오프 액티브 유틸리티 클래스 */
+.page-section { display: none; width: 100%; height: auto; }
+.page-section.active { display: block; animation: omniPremiumFade 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
+.sub-section { display: none; width: 100%; margin-top: 20px; }
+.sub-section.active { display: block; }
+
+/* 📑 중앙 서브 탭 메뉴 정렬 마스터 스타일 */
+.sub-tab-menu { display: flex; gap: 8px; border-bottom: 2px solid var(--border-soft); padding-bottom: 10px; }
+.tab-btn {
+    padding: 10px 18px; background: var(--top-nav-bg); border: 1px solid var(--border-soft);
+    border-radius: 10px; font-weight: 800; color: var(--text-sub); cursor: pointer;
+    font-size: calc(var(--omni-base-font-size) * 0.89); transition: all 0.15s ease;
+}
+.tab-btn:hover { background: var(--bg-main); color: var(--text-main); }
+.tab-btn.active { background: var(--point-moss); color: #ffffff; border-color: var(--point-moss); }
+
+.page-header { margin-bottom: 25px; border-bottom: 1px solid var(--border-soft); padding-bottom: 14px; }
+.page-header h2 { margin: 0; font-size: calc(var(--omni-base-font-size) * 1.64); font-weight: 900; color: var(--text-main); }
+
+.hidden { display: none !important; }
+
+@keyframes omniPremiumFade {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}

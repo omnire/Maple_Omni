@@ -1,0 +1,269 @@
+/* ============================================================================
+ * 🎨 features/hunt/analysis.css - 📈 누적 성장분석 리포트 2x2 라벤더 대시보드
+ * 설명: 모든 테마(화이트, 다크, 핑크, 블루)에서 완벽히 호환되도록 색상 가독성을 개선했습니다.
+ * 규칙: 코드를 쓸 때는 항상 초보자도 이해할 수 있게 상세한 주석을 달아줍니다.
+ * ============================================================================ */
+
+/* 📊 [4개 격자 칸 분할 아키텍처 구조 디자인] */
+.omni-analysis-pro-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 정확히 가로 2분할 대칭 매트릭스 구현 */
+    gap: 16px; /* 카드 유닛 간 여백 간격 확보 */
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 14px;
+}
+
+/* 🛡️ 최외곽 보드 카드 프레임 레이어 */
+.v14-plate-card-wrapper {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e1dbf7;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+/* 개별 사각 칸 지표 분석 리포트 카드 플레이트 */
+.analysis-metric-card-plate {
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #ebdffc; /* 눈이 편안한 파스텔 라벤더 외곽선 */
+    padding: 16px;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.01);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s;
+}
+.analysis-metric-card-plate:hover {
+    transform: translateY(-1.5px);
+    border-color: #a78bfa;
+}
+
+/* 📉 차트가 임베디드 안착 마운트되는 내부 캔버스 홀더 컨테이너 */
+.chart-canvas-container-box {
+    height: 190px;
+    width: 100%;
+    position: relative;
+    margin-top: 10px;
+    background: #ffffff;
+    border: 1px solid #f3effa;
+    border-radius: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+/* 대시보드 최상단 타이틀 폰트 */
+.v14-analysis-title-text {
+    font-size: 15px;
+    font-weight: 800;
+    color: #211e2b;
+    letter-spacing: -0.3px;
+}
+
+/* 동기화 수동 업데이트 단추 */
+.v14-analysis-sync-btn {
+    background: #ffffff;
+    border: 1px solid #c7bdf2;
+    color: #6d28d9;
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.12s ease-in-out;
+}
+.v14-analysis-sync-btn:hover {
+    background: #f5f2fc;
+    border-color: #7c3aed;
+}
+
+/* 👤 [캐릭터 프로필 벨트 구역] */
+.v14-analysis-profile-flex {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    background: #fbfaff;
+    border: 1px solid #efeafd;
+    border-radius: 12px;
+    padding: 14px;
+    box-sizing: border-box;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.v14-analysis-avatar-frame {
+    width: 76px;
+    height: 76px;
+    background: #ffffff;
+    border: 1px solid #e2dbf5;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: background 0.2s, border-color 0.2s;
+}
+.v14-analysis-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.v14-analysis-meta-details-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 150px;
+}
+.v14-analysis-text-name {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #2e2a38;
+}
+.v14-analysis-badge-job {
+    font-size: 10px;
+    font-weight: 700;
+    color: #6d28d9;
+    background: #f1eafd;
+    padding: 2px 6px;
+    border-radius: 4px;
+    width: fit-content;
+    margin: 2px 0;
+}
+.v14-analysis-text-sub {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #7c7489;
+}
+
+/* 상단 우측 총합 집계 벤토 매트릭스 */
+.v14-analysis-metrics-summary-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+.v14-metrics-bento-item {
+    background: #ffffff;
+    border: 1px solid #f1eafd;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #72698a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.v14-analysis-b-meso { font-size: 12px; color: #7c3aed; font-weight: 700; }
+.v14-analysis-b-exp  { font-size: 12px; color: #9333ea; font-weight: 700; }
+.v14-analysis-b-gem  { font-size: 12px; color: #6d28d9; font-weight: 700; }
+.v14-analysis-b-frag { font-size: 12px; color: #a855f7; font-weight: 700; }
+
+.v14-chart-inner-title {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: #4c1d95;
+    border-left: 3px solid #a855f7;
+    padding-left: 6px;
+    letter-spacing: -0.2px;
+}
+.v14-analysis-top-flex { display: flex; justify-content: space-between; align-items: center; }
+
+
+/* ============================================================================
+ * 🌙 [DARK THEME - 다크 모드 완벽 연동 스킨 테마 색상 정의]
+ * ============================================================================ */
+body.dark-theme .v14-plate-card-wrapper {
+    background: #181623;
+    border-color: #2e2a45;
+}
+body.dark-theme .v14-analysis-title-text {
+    color: #f1f0f7;
+}
+body.dark-theme .v14-analysis-sync-btn {
+    background: #252235;
+    border-color: #433d5c;
+    color: #a78bfa;
+}
+body.dark-theme .v14-analysis-sync-btn:hover {
+    background: #2e2a42;
+}
+body.dark-theme .v14-analysis-profile-flex {
+    background: #1f1c2c;
+    border-color: #2e2a42;
+}
+body.dark-theme .v14-analysis-avatar-frame {
+    background: #181623;
+    border-color: #38334f;
+}
+body.dark-theme .v14-analysis-text-name {
+    color: #e2e0eb;
+}
+body.dark-theme .v14-analysis-badge-job {
+    background: #38295c;
+    color: #c084fc;
+}
+body.dark-theme .v14-analysis-text-sub {
+    color: #9fa0b0;
+}
+body.dark-theme .v14-metrics-bento-item {
+    background: #252235;
+    border-color: #34304a;
+    color: #a49fb6;
+}
+body.dark-theme .analysis-metric-card-plate {
+    background: #1f1c2c;
+    border-color: #2e2a42;
+}
+body.dark-theme .analysis-metric-card-plate:hover {
+    border-color: #7c3aed;
+}
+body.dark-theme .chart-canvas-container-box {
+    background: #181623;
+    border-color: #29253b;
+}
+body.dark-theme .v14-chart-inner-title {
+    color: #c084fc;
+    border-left-color: #a855f7;
+}
+
+/* ============================================================================
+ * 🌸 [PINK THEME - 라이트 핑크 테마 색상 정의]
+ * ============================================================================ */
+body.light-pink .v14-plate-card-wrapper { background: #fff5f8; border-color: #fbcfe8; }
+body.light-pink .v14-analysis-title-text { color: #831843; }
+body.light-pink .v14-analysis-sync-btn { background: #ffffff; border-color: #f9a8d4; color: #db2777; }
+body.light-pink .v14-analysis-profile-flex { background: #ffe4e6; border-color: #fecdd3; }
+body.light-pink .v14-analysis-avatar-frame { background: #ffffff; border-color: #fbcfe8; }
+body.light-pink .v14-analysis-text-name { color: #9d174d; }
+body.light-pink .v14-analysis-badge-job { background: #fce4f0; color: #db2777; }
+body.light-pink .v14-analysis-text-sub { color: #b55d7e; }
+body.light-pink .v14-metrics-bento-item { background: #ffffff; border-color: #ffe4e6; color: #c2410c; }
+body.light-pink .analysis-metric-card-plate { background: #ffffff; border-color: #fbcfe8; }
+body.light-pink .chart-canvas-container-box { background: #fff9fb; border-color: #ffe4e6; }
+body.light-pink .v14-chart-inner-title { color: #db2777; border-left-color: #f472b6; }
+
+/* ============================================================================
+ * 🔹 [BLUE THEME - 라이트 블루 테마 색상 정의]
+ * ============================================================================ */
+body.light-blue .v14-plate-card-wrapper { background: #f0f7ff; border-color: #bae6fd; }
+body.light-blue .v14-analysis-title-text { color: #0c4a6e; }
+body.light-blue .v14-analysis-sync-btn { background: #ffffff; border-color: #7dd3fc; color: #0284c7; }
+body.light-blue .v14-analysis-profile-flex { background: #e0f2fe; border-color: #bae6fd; }
+body.light-blue .v14-analysis-avatar-frame { background: #ffffff; border-color: #bae6fd; }
+body.light-blue .v14-analysis-text-name { color: #0369a1; }
+body.light-blue .v14-analysis-badge-job { background: #e0e9fe; color: #2563eb; }
+body.light-blue .v14-analysis-text-sub { color: #5b759e; }
+body.light-blue .v14-metrics-bento-item { background: #ffffff; border-color: #e0f2fe; color: #475569; }
+body.light-blue .analysis-metric-card-plate { background: #ffffff; border-color: #bae6fd; }
+body.light-blue .chart-canvas-container-box { background: #f8fafc; border-color: #e2e8f0; }
+body.light-blue .v14-chart-inner-title { color: #0284c7; border-left-color: #38bdf8; }

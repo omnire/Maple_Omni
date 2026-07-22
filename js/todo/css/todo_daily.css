@@ -1,0 +1,271 @@
+/* ============================================================================
+ * 📑 MAPLE OMNI V14 - js/todo/todo_daily.css [☀️ DAILY QUEST LIST SKIN]
+ * 설명: 일과 퀘스트 체크박스 행 및 프로필 카드 스킨입니다.
+ * 초보자 가이드: 청록색 요소를 일절 배제하고 라벤더 및 회색빛 다크톤으로 수렴시켰습니다.
+ * ============================================================================
+ */
+
+/* 초보자 가이드: 캐릭터 카드 박스 자체의 패딩과 너비/높이 여백을 대폭 축소하여 슬림하고 컴팩트하게 만듭니다. */
+.omni-char-card {
+    padding: 10px !important;
+    gap: 4px !important;
+    max-width: 280px !important;
+    width: 100% !important;
+}
+
+/* 초보자 가이드: 상단 캐릭터 프로필 영역의 패딩과 마진을 최소화하여 상하로 길어지는 공간을 없앱니다. */
+.char-header { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+    gap: 1px; 
+    padding-bottom: 4px; 
+    border-bottom: 1px dashed #cbd5e1; 
+    margin-bottom: 4px; 
+    position: relative; 
+}
+
+/* 초보자 가이드: 아바타 이미지를 감싸는 원형 컨테이너 크기를 36픽셀로 축소합니다. */
+.char-avatar-wrapper { 
+    width: 36px; 
+    height: 36px; 
+    overflow: hidden; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    background: #ffffff; 
+    border: 1.5px solid var(--omni-slate-primary, #8372d6); 
+    flex-shrink: 0; 
+}
+
+/* 초보자 가이드: 아바타 내부 이미지 크기와 확대 배율을 조절합니다. */
+.char-avatar-wrapper img { 
+    width: 36px; 
+    height: 36px; 
+    object-fit: contain; 
+    transform: scale(1.9); 
+    transform-origin: center center; 
+}
+
+/* 초보자 가이드: 캐릭터 이름과 직업/레벨 정보 정렬용 래퍼입니다. */
+.char-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 초보자 가이드: 캐릭터 이름 폰트 크기를 컴팩트하게 조절합니다. */
+.char-name { 
+    font-size: 12px; 
+    font-weight: 900; 
+    color: var(--omni-text-main, #1e293b); 
+    text-align: center; 
+}
+
+/* 초보자 가이드: 캐릭터 스펙(레벨·직업) 폰트 크기를 줄입니다. */
+.char-spec { 
+    font-size: 9.5px; 
+    color: var(--omni-text-sub, #64748b); 
+    font-weight: 700; 
+    margin-top: 0px; 
+    text-align: center; 
+}
+
+/* 초보자 가이드: 카드 우측 상단의 캐릭터 삭제 버튼 크기를 줄이고 위치를 정돈합니다. */
+.btn-delete-char { 
+    position: absolute; 
+    top: 1px; 
+    right: 1px; 
+    background: none; 
+    border: none; 
+    font-size: 13px; 
+    color: #cbd5e1; 
+    cursor: pointer; 
+}
+.btn-delete-char:hover { 
+    color: #ef4444; 
+}
+
+/* 초보자 가이드: 숙제 목록 박스의 최대 높이를 제한하고 스크롤을 유도하여 박스 전체가 길어지는 것을 방지합니다. */
+.hw-scroll-list { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 1.5px; 
+    max-height: 240px !important; 
+    overflow-y: auto; 
+    padding-right: 2px; 
+}
+
+/* 초보자 가이드: 심볼 구간 타이틀의 마진을 줄여 컴팩트하게 밀착시킵니다. */
+.hw-section-title {
+    font-size: 9px;
+    font-weight: 800;
+    color: var(--omni-slate-primary, #8372d6);
+    margin: 3px 0 1px 1px;
+    text-align: left;
+    border-bottom: 1px dashed #cbd5e1;
+    padding-bottom: 0px;
+}
+
+/* 초보자 가이드: 개별 일일퀘스트 행의 높이를 줄이기 위해 상하 패딩을 2픽셀로 대폭 축소합니다. */
+.hw-item-row { 
+    background: #ffffff; 
+    border: 1px dashed #cbd5e1; 
+    border-radius: 5px; 
+    padding: 2px 6px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    cursor: pointer; 
+    transition: all 0.15s ease; 
+}
+
+.hw-item-row:hover { 
+    background: #f1f5f9; 
+    border-color: #8372d6; 
+}
+
+.hw-item-row.is-done { 
+    background: #f8fafc !important; 
+    border-color: #cbd5e1 !important; 
+}
+
+/* 초보자 가이드: 체크박스와 퀘스트 이름이 위치하는 좌측 영역입니다. */
+.hw-left { 
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+    flex: 1; 
+    overflow: hidden; 
+}
+
+/* 초보자 가이드: 커스텀 체크박스 크기를 작게 만듭니다. */
+.custom-premium-checkbox { 
+    width: 12px; 
+    height: 12px; 
+    border: 1.5px solid #cbd5e1; 
+    border-radius: 2.5px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 8px; 
+    font-weight: 900; 
+    color: transparent; 
+    background: #ffffff; 
+}
+
+.custom-premium-checkbox.checked { 
+    background: var(--omni-lavender-main, #8372d6); 
+    border-color: var(--omni-lavender-main, #8372d6); 
+    color: #ffffff; 
+}
+
+/* 초보자 가이드: 퀘스트 이름 폰트 크기를 컴팩트하게 조정합니다. */
+.hw-title { 
+    font-size: 10.5px; 
+    font-weight: 700; 
+    color: var(--omni-text-main, #1e293b); 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    text-align: left; 
+}
+
+.hw-item-row.is-done .hw-title { 
+    color: #94a3b8; 
+    text-decoration: line-through; 
+    font-weight: 500; 
+}
+
+/* 초보자 가이드: 우측 완료 상태 및 카운터 텍스트 크기입니다. */
+.hw-counter { 
+    font-size: 10px; 
+    font-weight: 700; 
+    color: #475569; 
+}
+
+.hw-item-row.is-done .hw-counter { 
+    color: #94a3b8; 
+}
+
+/* ============================================================================
+ * 🌙 [🔥 OMNI DARK THEME OVERRIDE]
+ * 설명: 대시보드 다크모드 표준 스펙 연동 (#181721 카드 배경, #212030 입력창, #BCBCC7 본문 텍스트)
+ * ============================================================================
+ */
+body.dark-theme .char-header {
+    border-bottom: 1px dashed #423f5e !important;
+}
+
+body.dark-theme .char-avatar-wrapper {
+    background: #212030 !important;
+    border: 2px solid #a78bfa !important;
+}
+
+body.dark-theme .char-name {
+    color: #BCBCC7 !important;
+}
+
+body.dark-theme .char-spec {
+    color: #747285 !important;
+}
+
+body.dark-theme .btn-delete-char {
+    color: #747285 !important;
+}
+body.dark-theme .btn-delete-char:hover {
+    color: #ef4444 !important;
+}
+
+body.dark-theme .hw-item-row {
+    background: #181721 !important;
+    border: 1px dashed #423f5e !important;
+}
+body.dark-theme .hw-item-row:hover {
+    background: #212030 !important;
+    border-color: #a78bfa !important;
+}
+
+body.dark-theme .hw-item-row.is-done {
+    background: #212030 !important;
+    border-color: #262438 !important;
+}
+
+body.dark-theme .custom-premium-checkbox {
+    border: 2px solid #423f5e !important;
+    background: #212030 !important;
+}
+
+body.dark-theme .custom-premium-checkbox.checked {
+    background: #a78bfa !important;
+    border-color: #a78bfa !important;
+    color: #12121a !important; 
+}
+
+body.dark-theme .hw-title {
+    color: #BCBCC7 !important;
+}
+
+body.dark-theme .hw-item-row.is-done .hw-title {
+    color: #747285 !important;
+}
+
+body.dark-theme .hw-counter {
+    color: #747285 !important;
+}
+
+/* 🟢 청록/초록 칩 요소 오버라이드 정제 */
+body.dark-theme .expert-quest-dot-chip,
+body.dark-theme .hw-quest-chip {
+    background: #212030 !important;
+    border: 1px dashed #423f5e !important;
+    color: #BCBCC7 !important;
+}
+body.dark-theme .expert-quest-dot-chip.done,
+body.dark-theme .hw-quest-chip.done {
+    background: rgba(167, 139, 250, 0.15) !important;
+    border: 1px dashed #a78bfa !important;
+    color: #a78bfa !important;
+}

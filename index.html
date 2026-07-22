@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAPLE OMNI V14 - Widescreen Ultimate Premium</title>
+    
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" href="css/style.css"> 
+    <link rel="stylesheet" href="js/intro/intro.css">         
+    <link rel="stylesheet" href="js/dashboard/dashboard.css"> 
+    <link rel="stylesheet" href="js/todo/todo.css">
+    <link rel="stylesheet" href="js/todo/css/todo_summary.css">
+    <link rel="stylesheet" href="js/todo/css/todo_planner.css">
+    <link rel="stylesheet" href="js/todo/css/todo_daily.css">
+    <link rel="stylesheet" href="js/todo/css/todo_weekly.css">
+    <link rel="stylesheet" href="js/todo/css/todo_boss.css">
+    
+    <link rel="stylesheet" href="js/search/basic.css">
+    <link rel="stylesheet" href="js/search/search.css">
+    <link rel="stylesheet" href="js/search/search_skill.css">
+    <link rel="stylesheet" href="js/search/search_union.css">
+
+    <link rel="stylesheet" href="js/boss/boss.css">
+    
+    <link rel="stylesheet" href="js/scanner/scanner.css">     
+    <link rel="stylesheet" href="js/builder/builder.css">     
+    <link rel="stylesheet" href="js/hunt/overview.css?v=v14_lavender_premium">
+    <link rel="stylesheet" href="js/hunt/hunt.css?v=v14_lavender_premium">
+    <link rel="stylesheet" href="js/hunt/record.css?v=v14_lavender_premium">
+    <link rel="stylesheet" href="js/hunt/history.css?v=v14_lavender_premium">
+    <link rel="stylesheet" href="js/hunt/analysis.css?v=v14_lavender_premium">
+    
+    <link rel="stylesheet" href="js/expense/expense.css?v=v14_lavender_premium">
+    
+    <link rel="stylesheet" href="js/mvp/mvp.css">
+    
+    <link rel="stylesheet" href="js/simulator/simulator.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* 초기 브라우저 렌더링 시 레이아웃 깜빡임 및 은닉 버그 차단용 필터 물리 기믹 */
+        .page-section { display: none !important; }
+        .page-section.active { display: block !important; }
+        
+        /* 🛡️ 하부 서브 섹션 영역도 라우팅 전환 시 붕 뜨지 않도록 기본 격리 규칙 처리 */
+        .sub-section { display: none !important; }
+        .sub-section.active { display: block !important; }
+    </style>
+</head>
+<body>
+
+    <!-- 🧭 [상단 메인 고정 네비게이션 바] 사이트 최상단에 상시 노출되는 핵심 메뉴 헤더 영역입니다. -->
+    <header class="omni-top-nav">
+        <div class="nav-brand">MAPLE <span>OMNI</span></div>
+        
+        <div class="search-container">
+            <span>🔍</span>
+            <input type="text" id="globalSearchInput" placeholder="캐릭터명 검색 후 엔터" onkeypress="if(event.key === 'Enter') startOmniSearch(this.value);">
+        </div>
+        
+        <nav class="nav-menu">
+            <button id="nav-btn-dashboard" onclick="omniSwitchPage('page-dashboard')" class="nav-btn">홈/대시보드</button>
+            <button id="nav-btn-todo" onclick="omniSwitchPage('page-todo')" class="nav-btn">주간 할일</button>
+            <button id="nav-btn-search" onclick="omniSwitchPage('page-search')" class="nav-btn">캐릭터 조회</button>
+            <button id="nav-btn-scanner" onclick="omniSwitchPage('page-scanner')" class="nav-btn">옴니스캐너</button>
+            <button id="nav-btn-builder" onclick="omniSwitchPage('page-builder')" class="nav-btn">옴니빌더</button>
+            
+            <!-- 
+                [초보자 코딩 가이드 🛠️]
+                - 요청하신 자리에 '보스' 메뉴 버튼을 새롭게 추가했습니다! (사냥/재획 바로 왼쪽 자리)
+                - id 규격('nav-btn-boss') 및 클릭 시 화면을 전환시키는 단독 라우터 핸들러 함수('page-boss')를 완벽하게 매핑했습니다.
+            -->
+            <button id="nav-btn-boss" onclick="omniSwitchPage('page-boss')" class="nav-btn">보스</button>
+            
+            <button id="nav-btn-hunt" onclick="omniSwitchPage('page-hunt')" class="nav-btn">사냥/재획</button>
+            <button id="nav-btn-mvp" onclick="omniSwitchPage('page-mvp')" class="nav-btn">MVP 계산기</button>
+            <button id="nav-btn-simulator" onclick="omniSwitchPage('page-simulator')" class="nav-btn">시뮬레이터</button>
+        </nav>
+    </header>
+
+    <div class="omni-widescreen-frame">
+        
+        <aside class="omni-widescreen-sidebar" id="characterCardContainer">
+            <div class="system-interface-sidebar" style="width: 100%; display: flex; flex-direction: column; gap: 16px;">
+                <div class="interface-header" style="font-size: 11px; font-weight: 900; color: #64748b; letter-spacing: 1.5px; padding-bottom: 4px; border-bottom: 1px solid #e2e8f0;">SYSTEM INTERFACE</div>
+                
+                <div class="core-regulation" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+                    <div class="regulation-title" style="font-size: 11px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 6px;">
+                        <span style="color: #0f766e;">⚙️</span> OMNI CORE REGULATION
+                    </div>
+                    <p class="regulation-desc" style="margin: 0; font-size: 11px; color: #475569; line-height: 1.5; word-break: keep-all;">
+                        본 관제 콘솔은 넥슨 OpenAPI 아키텍처의 실시간 파싱 부하 규정을 준수하며 안전 필터 모드로 작동 중입니다.
+                    </p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 🖥️ [우측 메인 콘텐츠 뷰어 존] 탭 메뉴를 누를 때마다 해당하는 콘텐츠 섹션이 동적으로 활성화되는 본문 영역입니다. -->
+        <aside class="omni-widescreen-viewport">
+            
+            <section id="page-dashboard" class="page-section">
+                <div id="dashboardWidgets"></div>
+            </section>
+
+            <section id="page-todo" class="page-section" style="padding-top: 0px; margin-top: -5px; margin-left: -15px;">
+                <div class="sub-tab-menu" style="margin-top: 0px;"></div>
+                <div id="todo-summary" class="sub-section"></div>
+                <div id="todo-planner" class="sub-section"></div>
+                <div id="todo-daily" class="sub-section"></div>
+                <div id="todo-weekly" class="sub-section"></div>
+                <div id="todo-boss" class="sub-section"></div>
+            </section>
+
+            <section id="page-search" class="page-section">
+                <div class="page-header" style="border-left: 4px solid #7c3aed; padding-left: 15px; margin-bottom: 25px;"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: #1e293b;">캐릭터 스펙 다차원 상세 분석</h2></div>
+                <div class="sub-tab-menu">
+                    <button onclick="switchSearchTab('basic')" class="tab-btn">💎 장비 및 내실</button>
+                    <button onclick="switchSearchTab('skill')" class="tab-btn">⚡ 헥사 및 스킬</button>
+                    <button onclick="switchSearchTab('union')" class="tab-btn">🎖️ 유니온 및 업적</button>
+                </div>
+                <div id="search-basic" class="sub-section"></div>
+                <div id="search-skill" class="sub-section"></div>
+                <div id="search-union" class="sub-section"></div>
+            </section>
+
+            <section id="page-scanner" class="page-section">
+                <!-- scanner.js 내부에서 레이아웃 전체가 이곳으로 강제 빌드/주입됩니다. -->
+            </section>
+
+            <section id="page-builder" class="page-section">
+                <div class="page-header" style="border-left: 4px solid #7c3aed; padding-left: 15px; margin-bottom: 25px;"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: #1e293b;">옴니빌더 가상 스탯 시뮬레이터</h2></div>
+                <div id="builderContent"></div>
+            </section>
+
+            <!-- 
+                [초보자 코딩 가이드 🛠️]
+                - 상단 메뉴 바에서 '보스' 버튼을 누르면 화면에 표출될 단독 콘텐츠 섹션 홀더 공간입니다.
+                - 이 공간이 확보되어 있어야 라우터 함수(`omniSwitchPage`) 호출 시 화면이 비어버리거나 깨지는 현상을 완벽하게 방지할 수 있습니다.
+            -->
+            <section id="page-boss" class="page-section">
+                <div class="page-header" style="border-left: 4px solid #7c3aed; padding-left: 15px; margin-bottom: 25px;">
+                    <h2 style="margin: 0; font-size: 20px; font-weight: 900; color: #1e293b;">보스 레이드 및 격파 정산 대시보드</h2>
+                </div>
+                <div id="bossContent" style="padding: 10px; color: var(--omni-text-muted, #475569); font-weight: 600;">
+                    보스 레이드 관제 및 스펙 매칭 모듈이 준비 중입니다. 주간 할일의 보스 탭과 연동됩니다.
+                </div>
+            </section>
+
+            <section id="page-hunt" class="page-section">
+                <div class="page-header" style="display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #7c3aed; padding-left: 15px; margin-bottom: 25px;">
+                    <h2 style="margin: 0; font-size: 20px; font-weight: 900; color: #1e293b;">사냥 및 재획 통합 관리 콘솔</h2>
+                    <button onclick="toggleMiniTimerMode();" class="mini-mode-toggle-btn">⏱️ PWA 간편 미니 타이머 모드 전환</button>
+                </div>
+                <div id="miniTimerContainer" class="mini-timer-panel hidden"></div>
+                
+                <div class="sub-tab-menu">
+                    <button onclick="window.switchHuntTab('overview')" class="tab-btn">📊 사냥 종합 현황 (7일 요약)</button>
+                    <button onclick="window.switchHuntTab('record')" class="tab-btn">✍️ 사냥 기록하기</button>
+                    <button onclick="window.switchHuntTab('expense')" class="tab-btn">💰 지출 기록</button> 
+                    <button onclick="window.switchHuntTab('history')" class="tab-btn">📜 사냥정산센터</button>
+                    <button onclick="window.switchHuntTab('analysis')" class="tab-btn">📈 누적 성장분석 리포트</button>
+                </div>
+                <div id="hunt-overview" class="sub-section"></div> 
+                <div id="hunt-record" class="sub-section"></div>
+                
+                <div id="hunt-expense" class="sub-section">
+                    <div id="expenseContent"></div>
+                </div>
+                
+                <div id="hunt-history" class="sub-section"></div>
+                <div id="hunt-analysis" class="sub-section">
+                    <div class="analysis-chart-container"><canvas id="omniGrowthChart"></canvas></div>
+                </div>
+            </section>
+
+            <section id="page-mvp" class="page-section">
+                <div class="page-header" style="border-left: 4px solid #7c3aed; padding-left: 15px; margin-bottom: 25px;"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: #1e293b;">MVP 등급 손익 비율 트래킹 센터</h2></div>
+                <div id="mvpContent"></div>
+            </section>
+
+            <section id="page-simulator" class="page-section">
+                <div class="page-header" style="border-left: 4px solid #7c3aed; padding-left: 15px; margin-bottom: 25px;">
+                    <h2 style="margin: 0; font-size: 20px; font-weight: 900; color: #1e293b;">큐브 & 스타포스 계정 시뮬레이터 종합 통계</h2>
+                </div>
+                <div id="simulatorContent"></div>
+            </section>
+
+            <script>
+            (function() {
+                let isOmniSearchingNow = false;
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    if (typeof window.startOmniSearch === 'function') {
+                        const originalStartOmniSearch = window.startOmniSearch;
+                        window.startOmniSearch = function(characterName) {
+                            isOmniSearchingNow = true; 
+                            originalStartOmniSearch(characterName);
+                            setTimeout(() => { isOmniSearchingNow = false; }, 1000);
+                        };
+                    }
+
+                    if (typeof window.omniSwitchPage === 'function') {
+                        const originalOmniSwitchPage = window.omniSwitchPage;
+                        window.omniSwitchPage = function(pageId) {
+                            if (isOmniSearchingNow && pageId === 'page-search') {
+                                const currentPage = document.querySelector('.page-section.active');
+                                if (currentPage && currentPage.id !== 'page-search') {
+                                    isOmniSearchingNow = false; 
+                                    return; 
+                                }
+                            }
+                            originalOmniSwitchPage(pageId);
+
+                            if (pageId === 'page-dashboard' && typeof window.renderDashboardMainWidgets === 'function') {
+                                window.renderDashboardMainWidgets();
+                            }
+
+                            if (pageId === 'page-search') {
+                                const searchBasic = document.getElementById('search-basic');
+                                if (searchBasic) searchBasic.classList.add('active');
+                                if (typeof window.switchSearchTab === 'function') window.switchSearchTab('basic');
+                            }
+                        };
+                    }
+                });
+            })();
+            </script>
+        </aside>
+    </div>
+
+    <script src="js/core/data.js"></script>      
+    <script src="js/core/api.js"></script>       
+    <script src="js/core/router.js"></script>    
+    <script src="js/dashboard/dashboard.js"></script>
+    
+    <script src="js/todo/js/todo_state.js"></script>
+    <script src="js/todo/js/todo_summary.js"></script>
+    <script src="js/todo/js/todo_planner.js"></script>
+    <script src="js/todo/js/todo_daily.js"></script>
+    <script src="js/todo/js/todo_weekly.js"></script>
+    <script src="js/todo/js/todo_boss.js"></script>
+    
+    <script src="js/search/basic.js"></script>    
+    <script src="js/search/search.js"></script>   
+    <script src="js/search/search_achievement.js"></script>
+    <script src="js/search/search_skill.js"></script> 
+    <script src="js/search/search_union.js"></script> 
+    
+    <script src="item_db.js"></script>
+    <script src="js/scanner/scanner.js"></script>
+    <script src="js/builder/builder.js"></script>
+
+    <script src="js/boss/boss.js"></script>
+    
+    <script src="js/hunt/hunt.js?v=v14_lavender_premium"></script>       
+    <script src="js/hunt/overview.js?v=v14_lavender_premium"></script> 
+    <script src="js/hunt/record.js?v=v14_lavender_premium"></script>     
+    <script src="js/hunt/history.js?v=v14_lavender_premium"></script>    
+    <script src="js/hunt/analysis.js?v=v14_lavender_premium"></script>   
+    
+    <script src="js/expense/expense.js?v=v14_lavender_premium"></script>
+    
+    <script src="js/mvp/mvp.js"></script>
+    <script src="js/intro/intro.js"></script>
+    
+    <script src="js/simulator/simulator.js"></script>
+    
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(function(err) { 
+                console.log("ServiceWorker 빌드 완료"); 
+            });
+        }
+    </script>
+</body>
+</html>

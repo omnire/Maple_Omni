@@ -1,0 +1,263 @@
+/* ============================================================================
+ * 📑 MAPLE OMNI V14 - js/todo/todo_summary.css [📋 COMPACT & LEDGER SKIN]
+ * 설명: 요약 탭 화면 점유율 대폭 축소(컴팩트화) 및 메이플 가계부/물욕템 리포트 스타일링
+ * 초보자 가이드: 부담스러운 초대형 아바타를 한눈에 들어오는 슬림형 카드로 재설계했습니다.
+ * ============================================================================
+ */
+
+/* 💡 상단 슬림 공지바 */
+.omni-summary-compact-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--omni-card-bg, #ffffff);
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1);
+    border-radius: 10px;
+    padding: 8px 14px;
+    margin-bottom: 12px;
+    font-size: 12px;
+}
+.notice-badge {
+    font-weight: 800;
+    color: var(--omni-slate-primary, #8372d6);
+    background: rgba(131, 114, 214, 0.1);
+    padding: 2px 8px;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+.notice-text {
+    color: var(--omni-text-sub, #64748b);
+    font-weight: 600;
+}
+
+/* 💰 메이플 가계부 & 물욕템 리포트 현황판 */
+.omni-ledger-dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.ledger-card {
+    background: var(--omni-card-bg, #ffffff);
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.ledger-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--omni-slate-primary, #8372d6);
+}
+.ledger-icon {
+    font-size: 22px;
+    background: var(--omni-hover-point, #f8fafc);
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.ledger-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden;
+}
+.ledger-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--omni-text-sub, #64748b);
+}
+.ledger-value {
+    font-size: 15px;
+    font-weight: 900;
+}
+.ledger-value.positive { color: #10b981; }
+.ledger-value.negative { color: #ef4444; }
+.ledger-value.highlight { color: var(--omni-slate-primary, #8372d6); }
+.ledger-sub {
+    font-size: 10px;
+    color: #94a3b8;
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* 물욕템 태그 리스트 */
+.ledger-drops-tag-list {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+}
+.rare-drop-chip {
+    font-size: 10px;
+    font-weight: 800;
+    background: #fef3c7;
+    color: #d97706;
+    padding: 2px 6px;
+    border-radius: 6px;
+    border: 1px solid #fde68a;
+}
+.no-drops-txt {
+    font-size: 11px;
+    color: #cbd5e1;
+    font-weight: 600;
+}
+
+/* 📦 컴팩트 캐릭터 요약 카드 그리드 */
+.omni-summary-grid-compact {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    width: 100%;
+}
+
+.omni-char-summary-card.compact-card {
+    background: var(--omni-card-bg, #ffffff) !important;
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1) !important;
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: all 0.2s ease;
+}
+.omni-char-summary-card.compact-card:hover {
+    background: var(--omni-hover-point, #f8fafc) !important;
+    border-color: var(--omni-slate-primary, #8372d6) !important;
+    transform: translateY(-2px);
+}
+
+.char-compact-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--omni-card-border-line, #cbd5e1);
+}
+
+.char-avatar-frame-compact {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--omni-hover-point, #f1f5f9);
+    border: 1.5px solid var(--omni-slate-primary, #8372d6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.char-avatar-frame-compact img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: translateY(-5%) scale(2.2);
+}
+
+.char-compact-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.char-name-tag-compact {
+    font-weight: 900;
+    color: var(--omni-text-dark, #1e293b);
+    font-size: 14px;
+}
+.char-spec-tag-compact {
+    font-size: 11px;
+    color: var(--omni-text-sub, #64748b);
+    font-weight: 700;
+}
+
+.summary-details-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.summary-item-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.summary-label-compact {
+    font-size: 11px;
+    font-weight: 750;
+    color: var(--omni-text-dark, #1e293b);
+    display: flex;
+    justify-content: space-between;
+}
+.percent-txt-compact {
+    color: var(--omni-slate-primary, #8372d6);
+    font-weight: 850;
+}
+
+.summary-progress-track-compact {
+    height: 4px;
+    background: var(--omni-hover-point, #f1f5f9);
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1);
+}
+.summary-progress-bar-compact {
+    height: 100%;
+    background: var(--omni-slate-primary, #8372d6);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.summary-sub-info-compact {
+    border-top: 1px dashed var(--omni-card-border-line, #cbd5e1);
+    padding-top: 6px;
+    margin-top: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 750;
+    color: var(--omni-text-sub, #64748b);
+}
+.meso-txt-compact {
+    color: var(--omni-slate-primary, #8372d6);
+    font-weight: 900;
+}
+
+/* 🌙 [다크모드 완벽 연동] */
+body.dark-theme .omni-summary-compact-bar,
+body.dark-theme .ledger-card,
+body.dark-theme .omni-char-summary-card.compact-card {
+    background: var(--builder-card-bg, #181721) !important;
+    border-color: var(--builder-border-dashed, #423f5e) !important;
+}
+body.dark-theme .ledger-card:hover,
+body.dark-theme .omni-char-summary-card.compact-card:hover {
+    background: var(--builder-input-bg, #212030) !important;
+    border-color: var(--builder-text-accent, #a78bfa) !important;
+}
+body.dark-theme .notice-text,
+body.dark-theme .ledger-label,
+body.dark-theme .char-spec-tag-compact,
+body.dark-theme .summary-sub-info-compact {
+    color: var(--builder-text-sub, #747285) !important;
+}
+body.dark-theme .char-name-tag-compact,
+body.dark-theme .summary-label-compact {
+    color: var(--builder-text-main, #BCBCC7) !important;
+}
+body.dark-theme .char-avatar-frame-compact {
+    background: var(--builder-input-bg, #212030) !important;
+    border-color: var(--builder-text-accent, #a78bfa) !important;
+}
+body.dark-theme .rare-drop-chip {
+    background: #312e81;
+    color: #c7d2fe;
+    border-color: #4338ca;
+}

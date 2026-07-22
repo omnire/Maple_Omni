@@ -1,0 +1,710 @@
+/**
+ * ============================================================================
+ * 📑 MAPLE OMNI V14 - js/todo/todo.css [DYNAMIC AUTO-THEME COMPATIBLE ENGINE]
+ * 역할: 투두/플래너 페이지 전용 다크/라이트 테마 통합 스타일시트
+ * 초보자 가이드:
+ *  1. 메인 대시보드의 테마 상태(Light/Dark)에 맞춰 CSS 변수(--omni-*)가 자동 전환됩니다.
+ *  2. 각 클래스 끝의 !important 키워드는 외부 전역 스타일과의 충돌을 방지하여 레이아웃을 안전하게 보호합니다.
+ * ============================================================================
+ */
+
+/* ----------------------------------------------------------------------------
+ * 1. 기본 폰트 및 폰트 페이스 설정
+ * Pretendard 폰트를 연동하여 모든 UI 요소에 일관되고 깔끔한 가독성을 제공합니다.
+ * ---------------------------------------------------------------------------- */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
+}
+
+/* ============================================================================
+ * 2. ☀️ [MODE 1]: 라이트 모드 (기본 테마 변수)
+ * ============================================================================ */
+#page-todo {
+    /* 배경 및 카드 색상 명세 */
+    --omni-bg-color: #f8fafc;        /* 순백의 옴니 대시보드 화이트 레이어 배경 */
+    --omni-card-bg: #ffffff;        /* 깔끔한 카드 화이트 배경 */
+    --omni-border: #cbd5e1;          /* 가독성 높은 가이드 경계선 */
+    --omni-text-main: #1e293b;       /* 시인성 좋은 선명한 진한 텍스트 */
+    --omni-text-sub: #64748b;        /* 눈이 편안한 서브 설명용 텍스트 */
+    
+    /* 💜 파스텔 라벤더 액센트 포인트 */
+    --omni-lavender-main: #8372d6;   /* 은은하고 정갈한 메인 라벤더 포인트 */
+    --omni-lavender-light: #f5f3ff;  /* 배경용 라이트 페일 퍼플 */
+    --omni-lavender-muted: #f5f3ff;  /* 초경량 파스텔 퍼플 태그 */
+    
+    /* 상태 및 호버 스타일 */
+    --omni-done-bg: #f8fafc;         /* 완료된 항목의 디밍 배경 */
+    --omni-done-text: #94a3b8;       /* 완료된 항목 취소선 폰트 색상 */
+    --omni-shadow: rgba(0, 0, 0, 0.01); /* 은은한 그림자 효과 */
+    --omni-item-hover: #f1f5f9;      /* 마우스 오버 시 하이라이트 배경 */
+    --omni-item-border-hover: #8372d6; /* 마우스 오버 시 테두리 색상 */
+
+    background-color: var(--omni-bg-color) !important;
+    color: var(--omni-text-main) !important;
+    padding: 20px;
+    border-radius: 24px;
+}
+
+/* ============================================================================
+ * 3. 🌙 [MODE 2]: 다크 모드 (메인 대시보드 감응형 테마 변수)
+ * body 태그에 dark, dark-mode 등 다크 테마 클래스가 부착되면 자동으로 적용됩니다.
+ * ============================================================================ */
+body.dark #page-todo,
+body.dark-mode #page-todo,
+body[data-theme="dark"] #page-todo,
+.dark-theme #page-todo {
+    --omni-bg-color: #12121a;        /* 메인 외부 도화지 어두운 배경 */
+    --omni-card-bg: #181721;        /* 개별 박스 카드의 차분한 다크 배경 */
+    --omni-border: #262438;          /* 카드 및 섹션 실선 경계선 */
+    --omni-text-main: #BCBCC7;       /* 눈이 편안한 회색빛 메인 폰트 */
+    --omni-text-sub: #747285;        /* 가독성이 좋은 서브 회색 폰트 */
+    
+    /* 💜 다크모드 라벤더 포인트 */
+    --omni-lavender-main: #a78bfa;   /* 활성화 및 포인트 강조 라벤더 */
+    --omni-lavender-light: #212030;  /* 입력창 및 보조 영역 배경 */
+    --omni-lavender-muted: #212030;  /* 태그 및 보조 하이라이트 영역 */
+    
+    --omni-done-bg: #12121a;         /* 완료 영역은 외부 배경과 동기화하여 디밍 */
+    --omni-done-text: #747285;       /* 취소선 서브 폰트 색상 */
+    --omni-shadow: rgba(0, 0, 0, 0.3);
+    --omni-item-hover: #212030;
+    --omni-item-border-hover: #423f5e;
+}
+
+/* ============================================================================
+ * 4. 📊 상단 실시간 통합 요약 대시보드 패널
+ * 초보자 가이드: 일일/주간/보스 수행 상황을 한눈에 요약해주는 그리드 카드 스타일입니다.
+ * ============================================================================ */
+#page-todo .omni-summary-dashboard, 
+.omni-summary-dashboard {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+    gap: 16px !important;
+    margin-bottom: 24px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+#page-todo .omni-summary-card, 
+.omni-summary-card {
+    background: var(--omni-card-bg) !important;
+    border: 1px solid var(--omni-border) !important;
+    border-radius: 20px !important;
+    padding: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    box-shadow: 0 4px 20px var(--omni-shadow) !important;
+    box-sizing: border-box !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+#page-todo .omni-summary-card:hover, 
+.omni-summary-card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 24px rgba(167, 139, 250, 0.12) !important;
+}
+
+/* 카드 내부 텍스트 구성 요소 */
+#page-todo .omni-summary-card .text-box, 
+.text-box { 
+    display: flex !important; 
+    flex-direction: column !important; 
+    text-align: left !important; 
+}
+
+#page-todo .omni-summary-card .text-box .label, 
+.text-box .label { 
+    font-size: 11.5px !important; 
+    font-weight: 700 !important; 
+    color: var(--omni-text-sub) !important; 
+    margin-bottom: 6px !important; 
+}
+
+#page-todo .omni-summary-card .text-box .value, 
+.text-box .value { 
+    font-size: 19px !important; 
+    font-weight: 800 !important; 
+    color: var(--omni-text-main) !important; 
+    font-family: 'Inter', sans-serif !important; 
+}
+
+#page-todo .omni-summary-card.primary-highlight, 
+.omni-summary-card.primary-highlight {
+    background: var(--omni-card-bg) !important;
+    border: 1px solid var(--omni-border) !important;
+}
+
+#page-todo .color-indigo, 
+.color-indigo { 
+    color: var(--omni-lavender-main) !important; 
+}
+
+#page-todo .text-box .unit, 
+.text-box .unit { 
+    font-size: 12px !important; 
+    font-weight: 600 !important; 
+    color: var(--omni-text-sub) !important; 
+    margin-left: 3px !important; 
+}
+
+#page-todo .text-box .unit-meso, 
+.text-box .unit-meso { 
+    font-size: 12px !important; 
+    font-weight: 700 !important; 
+    color: var(--omni-lavender-main) !important; 
+    margin-left: 4px !important; 
+}
+
+/* ============================================================================
+ * 5. 🚀 반응형 캐릭터 카드 그리드 및 하이엔드 아이템 리스트
+ * 초보자 가이드: 등록된 캐릭터 카드가 화면 크기에 따라 깔끔하게 정렬되는 그리드 레이아웃입니다.
+ * ============================================================================ */
+#page-todo .omni-character-grid, 
+.omni-character-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)) !important;
+    gap: 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+#page-todo .omni-char-card, 
+.omni-char-card {
+    background: var(--omni-card-bg) !important;
+    border: 1px solid var(--omni-border) !important;
+    border-radius: 24px !important;
+    padding: 22px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-shadow: 0 10px 30px var(--omni-shadow) !important;
+    box-sizing: border-box !important;
+}
+
+/* 캐릭터 헤더 (아바타, 이름, 레벨 정보) */
+#page-todo .char-header, 
+.char-header {
+    display: flex !important;
+    align-items: center !important;
+    padding-bottom: 14px !important;
+    border-bottom: 1px solid var(--omni-border) !important;
+    margin-bottom: 14px !important;
+}
+
+#page-todo .char-info, 
+.char-info { 
+    display: flex !important; 
+    flex-direction: column !important; 
+    text-align: left !important; 
+    flex: 1 !important; 
+}
+
+#page-todo .char-name, 
+.char-name { 
+    font-size: 15px !important; 
+    font-weight: 800 !important; 
+    color: var(--omni-text-main) !important; 
+}
+
+#page-todo .char-spec, 
+.char-spec { 
+    font-size: 11.5px !important; 
+    color: var(--omni-text-sub) !important; 
+    font-weight: 600 !important; 
+    margin-top: 3px !important; 
+}
+
+/* 캐릭터 삭제 버튼 */
+#page-todo .btn-delete-char, 
+.btn-delete-char {
+    background: none !important; 
+    border: none !important; 
+    font-size: 19px !important;
+    color: var(--omni-text-sub) !important; 
+    cursor: pointer !important; 
+    font-weight: 500 !important; 
+    margin-left: auto !important;
+}
+
+#page-todo .btn-delete-char:hover, 
+.btn-delete-char:hover { 
+    color: #ef4444 !important; 
+}
+
+/* 스케줄 체크 항목 목록 (스크롤 트랙) */
+#page-todo .hw-scroll-list, 
+.hw-scroll-list {
+    display: flex !important; 
+    flex-direction: column !important; 
+    gap: 6px !important;
+}
+
+/* 개별 숙제/보스 행 아이템 */
+#page-todo .hw-item-row, 
+.hw-item-row {
+    background: var(--omni-card-bg) !important; 
+    border: 1px solid var(--omni-border) !important; 
+    border-radius: 12px !important;
+    padding: 10px 12px !important; 
+    display: flex !important; 
+    align-items: center !important;
+    justify-content: space-between !important; 
+    cursor: pointer !important; 
+    transition: all 0.15s ease !important;
+}
+
+#page-todo .hw-item-row:hover, 
+.hw-item-row:hover { 
+    background: var(--omni-item-hover) !important; 
+    border-color: var(--omni-item-border-hover) !important; 
+}
+
+/* 완료된 숙제 행 스타일 */
+#page-todo .hw-item-row.is-done, 
+.hw-item-row.is-done {
+    background: var(--omni-done-bg) !important;
+    border-color: var(--omni-border) !important;
+}
+
+#page-todo .hw-left, 
+.hw-left { 
+    display: flex !important; 
+    align-items: center !important; 
+    gap: 10px !important; 
+    flex: 1 !important; 
+    overflow: hidden !important; 
+}
+
+/* 커스텀 프리미엄 체크박스 UI */
+#page-todo .custom-premium-checkbox, 
+.custom-premium-checkbox {
+    width: 16px !important; 
+    height: 16px !important; 
+    border: 2px solid var(--omni-text-sub) !important; 
+    border-radius: 5px !important;
+    display: flex !important; 
+    align-items: center !important; 
+    justify-content: center !important;
+    font-size: 10px !important; 
+    font-weight: 900 !important; 
+    color: transparent !important; 
+    background: var(--omni-card-bg) !important;
+    transition: all 0.1s ease !important; 
+    flex-shrink: 0 !important;
+}
+
+#page-todo .custom-premium-checkbox.checked, 
+.custom-premium-checkbox.checked {
+    background: var(--omni-lavender-main) !important;
+    border-color: var(--omni-lavender-main) !important;
+    color: #12121a !important;
+}
+
+#page-todo .hw-title, 
+.hw-title { 
+    font-size: 12px !important; 
+    font-weight: 600 !important; 
+    color: var(--omni-text-main) !important; 
+    text-align: left !important; 
+}
+
+#page-todo .hw-item-row.is-done .hw-title, 
+.hw-item-row.is-done .hw-title { 
+    color: var(--omni-done-text) !important; 
+    text-decoration: line-through !important; 
+}
+
+#page-todo .hw-counter, 
+.hw-counter { 
+    font-size: 11.5px !important; 
+    font-weight: 700 !important; 
+    color: var(--omni-text-main) !important; 
+    font-family: 'Inter', sans-serif !important; 
+}
+
+#page-todo .hw-item-row.is-done .hw-counter, 
+.hw-item-row.is-done .hw-counter { 
+    color: var(--omni-done-text) !important; 
+}
+
+/* 보스 난이도 뱃지 및 숫자 표기 규격 */
+#page-todo .boss-image-placeholder-blank, 
+.boss-image-placeholder-blank { 
+    width: 6px !important; 
+    height: 6px !important; 
+    background: var(--omni-lavender-main) !important; 
+    border-radius: 50% !important; 
+    flex-shrink: 0 !important; 
+}
+
+#page-todo .boss-badge-pastel, 
+.boss-badge-pastel { 
+    font-size: 9px !important; 
+    color: var(--omni-lavender-main) !important; 
+    background: var(--omni-lavender-light) !important; 
+    padding: 1px 5px !important; 
+    border-radius: 4px !important; 
+    font-weight: 700 !important; 
+    margin-left: 5px !important; 
+}
+
+#page-todo .clean-num, 
+.clean-num { 
+    font-family: 'Inter', sans-serif !important; 
+}
+
+/* 캐릭터 미등록 시 빈 화면 상태 표기 */
+#page-todo .omni-empty-state, 
+.omni-empty-state {
+    background: var(--omni-card-bg) !important; 
+    border: 1px dashed var(--omni-text-sub) !important; 
+    border-radius: 24px !important;
+    padding: 50px 20px !important; 
+    text-align: center !important; 
+    font-size: 13px !important; 
+    font-weight: 600 !important; 
+    color: var(--omni-text-sub) !important; 
+    width: 100% !important; 
+    box-sizing: border-box !important;
+}
+
+/* ============================================================================
+ * 6. ⚙️ 서브 탭 메뉴 네비게이션 트랙
+ * 초보자 가이드: 일일, 주간, 보스정산, 플래너 단락을 전환할 수 있는 서브 버튼 바입니다.
+ * ============================================================================ */
+#page-todo .sub-tab-menu, 
+.sub-tab-menu { 
+    display: flex !important; 
+    visibility: visible !important; 
+    opacity: 1 !important; 
+    gap: 8px !important; 
+    margin-bottom: 20px !important; 
+    border-bottom: 2px solid var(--omni-border) !important; 
+    padding-bottom: 8px !important; 
+    width: 100% !important; 
+    justify-content: flex-start !important; 
+}
+
+#page-todo .sub-tab-menu .tab-btn, 
+.sub-tab-menu .tab-btn { 
+    background: var(--omni-card-bg) !important; 
+    border: 1px solid var(--omni-border) !important; 
+    padding: 8px 18px !important; 
+    border-radius: 12px !important; 
+    font-size: 12.5px !important; 
+    font-weight: 700 !important; 
+    color: var(--omni-text-sub) !important; 
+    cursor: pointer !important; 
+    transition: all 0.15s ease !important; 
+}
+
+#page-todo .sub-tab-menu .tab-btn:hover, 
+.sub-tab-menu .tab-btn:hover { 
+    background: var(--omni-item-hover) !important; 
+    color: var(--omni-text-main) !important; 
+}
+
+#page-todo .sub-tab-menu .tab-btn.active, 
+.sub-tab-menu .tab-btn.active { 
+    background: var(--omni-lavender-main) !important; 
+    border-color: var(--omni-lavender-main) !important; 
+    color: #ffffff !important; 
+    box-shadow: 0 4px 12px rgba(131, 114, 214, 0.25) !important; 
+}
+
+body.dark #page-todo .sub-tab-menu .tab-btn.active,
+body.dark-mode #page-todo .sub-tab-menu .tab-btn.active,
+body[data-theme="dark"] #page-todo .sub-tab-menu .tab-btn.active,
+.dark-theme #page-todo .sub-tab-menu .tab-btn.active {
+    color: #12121a !important; /* 다크 모드 활성화 시 가독성을 위한 진한 텍스트 처리 */
+}
+
+/* 💡 SPA 섹션 출력 전환 스위치 */
+#page-todo .sub-section, 
+.sub-section { 
+    display: none !important; 
+    width: 100% !important; 
+}
+
+#page-todo .sub-section.active, 
+.sub-section.active { 
+    display: block !important; 
+}
+
+/* ============================================================================
+ * 7. 📅 OMNI STRATEGY PLANNER 및 미니 달력 체크 스킨
+ * 초보자 가이드: 성장 전략 수립 폼과 미니 달력 컴포넌트 레이아웃입니다.
+ * ============================================================================ */
+#page-todo .omni-planner-container, 
+.omni-planner-container {
+    width: 100% !important; 
+    background: var(--omni-card-bg) !important; 
+    border: 1px solid var(--omni-border) !important;
+    border-radius: 24px !important; 
+    padding: 24px !important; 
+    box-sizing: border-box !important;
+}
+
+#page-todo .planner-header-flex, 
+.planner-header-flex { 
+    display: flex !important; 
+    flex-direction: column !important; 
+    gap: 10px !important; 
+    padding-bottom: 14px !important; 
+    border-bottom: 1px dashed var(--omni-border) !important; 
+    text-align: left !important; 
+}
+
+#page-todo .planner-badge, 
+.planner-badge { 
+    display: inline-block !important; 
+    font-size: 10px !important; 
+    font-weight: 800 !important; 
+    color: var(--omni-lavender-main) !important; 
+    background: var(--omni-lavender-light) !important; 
+    padding: 3px 8px !important; 
+    border-radius: 6px !important; 
+    width: fit-content !important; 
+}
+
+#page-todo .planner-main-title, 
+.planner-main-title { 
+    margin: 0 !important; 
+    font-size: 14px !important; 
+    font-weight: 800 !important; 
+    color: var(--omni-text-main) !important; 
+}
+
+/* 플래너 입력 폼 구성 요소 */
+#page-todo .planner-form-row, 
+.planner-form-row { 
+    display: flex !important; 
+    gap: 10px !important; 
+    align-items: center !important; 
+    width: 100% !important; 
+    margin-top: 8px !important; 
+    box-sizing: border-box !important; 
+}
+
+#page-todo .planner-select-box, 
+.planner-select-box { 
+    border: 1px solid var(--omni-border) !important; 
+    background: var(--omni-bg-color) !important; 
+    padding: 0 12px !important; 
+    border-radius: 10px !important; 
+    font-size: 12px !important; 
+    color: var(--omni-text-main) !important; 
+    font-weight: 700 !important; 
+    height: 38px !important; 
+    outline: none !important; 
+}
+
+#page-todo .planner-input-field, 
+.planner-input-field { 
+    border: 1px solid var(--omni-border) !important; 
+    background: var(--omni-bg-color) !important; 
+    padding: 0 14px !important; 
+    border-radius: 10px !important; 
+    font-size: 12px !important; 
+    color: var(--omni-text-main) !important; 
+    font-weight: 600 !important; 
+    flex: 1 !important; 
+    height: 38px !important; 
+    outline: none !important; 
+    box-sizing: border-box !important; 
+}
+
+#page-todo .planner-btn-submit, 
+.planner-btn-submit { 
+    background: var(--omni-lavender-main) !important; 
+    color: #ffffff !important; 
+    border: none !important; 
+    padding: 0 20px !important; 
+    border-radius: 10px !important; 
+    font-size: 12px !important; 
+    font-weight: 800 !important; 
+    cursor: pointer !important; 
+    height: 38px !important; 
+}
+
+body.dark #page-todo .planner-btn-submit,
+body.dark-mode #page-todo .planner-btn-submit,
+body[data-theme="dark"] #page-todo .planner-btn-submit,
+.dark-theme #page-todo .planner-btn-submit {
+    color: #12121a !important;
+}
+
+/* 플래너 메인 대시보드 그리드 (플래너 리스트 : 미니 캘린더 = 1.2 : 0.8) */
+#page-todo .omni-planner-dashboard-layout { 
+    display: grid !important; 
+    grid-template-columns: 1.2fr 0.8fr !important; 
+    gap: 20px !important; 
+    margin-top: 20px !important; 
+    width: 100% !important; 
+}
+
+#page-todo .planner-grid-cards, 
+.planner-grid-cards { 
+    display: flex !important; 
+    flex-direction: column !important; 
+    gap: 12px !important; 
+    width: 100% !important; 
+}
+
+#page-todo .planner-card-item, 
+.planner-card-item { 
+    background: var(--omni-bg-color) !important; 
+    border: 1px solid var(--omni-border) !important; 
+    border-radius: 18px !important; 
+    padding: 16px !important; 
+    text-align: left !important; 
+}
+
+#page-todo .planner-card-meta, 
+.planner-card-meta { 
+    display: flex !important; 
+    justify-content: space-between !important; 
+    align-items: center !important; 
+    margin-bottom: 8px !important; 
+}
+
+#page-todo .planner-card-tag, 
+.planner-card-tag { 
+    font-size: 11px !important; 
+    font-weight: 800 !important; 
+    color: var(--omni-lavender-main) !important; 
+}
+
+#page-todo .planner-card-del-action, 
+.planner-card-del-action { 
+    background: none !important; 
+    border: none !important; 
+    font-size: 11px !important; 
+    font-weight: 700 !important; 
+    color: var(--omni-text-sub) !important; 
+    cursor: pointer !important; 
+}
+
+#page-todo .planner-card-del-action:hover, 
+.planner-card-del-action:hover { 
+    color: #ef4444 !important; 
+}
+
+#page-todo .planner-card-goal, 
+#page-todo .planner-card-route { 
+    margin: 4px 0 !important; 
+    font-size: 12px !important; 
+    font-weight: 700 !important; 
+    color: var(--omni-text-main) !important; 
+    text-align: left !important; 
+}
+
+/* 목표 및 동선 식별 미니 태그 */
+#page-todo .plan-label-mini { 
+    font-size: 9.5px !important; 
+    font-weight: 800 !important; 
+    color: #ffffff !important; 
+    background: var(--omni-lavender-main) !important; 
+    padding: 2px 5px !important; 
+    border-radius: 4px !important; 
+    margin-right: 6px !important; 
+}
+
+#page-todo .plan-label-mini-route { 
+    font-size: 9.5px !important; 
+    font-weight: 800 !important; 
+    color: #ffffff !important; 
+    background: var(--omni-text-sub) !important; 
+    padding: 2px 5px !important; 
+    border-radius: 4px !important; 
+    margin-right: 6px !important; 
+}
+
+body.dark #page-todo .plan-label-mini, 
+body[data-theme="dark"] #page-todo .plan-label-mini, 
+.dark-theme #page-todo .plan-label-mini { 
+    background: #a78bfa !important; 
+    color: #12121a !important; 
+}
+
+body.dark #page-todo .plan-label-mini-route, 
+body[data-theme="dark"] #page-todo .plan-label-mini-route, 
+.dark-theme #page-todo .plan-label-mini-route { 
+    background: #423f5e !important; 
+    color: #BCBCC7 !important; 
+}
+
+/* ============================================================================
+ * 8. 🗓️ 미니 달력 출석 체크 위젯 스킨
+ * 초보자 가이드: 7열 그리드로 정렬된 출석/일정 체크 달력 위젯 스타일입니다.
+ * ============================================================================ */
+#page-todo .omni-mini-calendar-widget, 
+.omni-mini-calendar-widget { 
+    background: var(--omni-card-bg) !important; 
+    border: 1px solid var(--omni-border) !important; 
+    border-radius: 20px !important; 
+    padding: 16px !important; 
+    display: flex !important; 
+    flex-direction: column !important; 
+    gap: 12px !important; 
+}
+
+#page-todo .calendar-header-title, 
+.calendar-header-title { 
+    font-size: 12.5px !important; 
+    font-weight: 800 !important; 
+    color: var(--omni-text-main) !important; 
+    border-bottom: 1px solid var(--omni-border) !important; 
+    padding-bottom: 6px !important; 
+    text-align: left !important; 
+}
+
+#page-todo .calendar-days-grid, 
+.calendar-days-grid { 
+    display: grid !important; 
+    grid-template-columns: repeat(7, 1fr) !important; 
+    gap: 4px !important; 
+}
+
+#page-todo .calendar-day-label, 
+.calendar-day-label { 
+    font-size: 10px !important; 
+    font-weight: 700 !important; 
+    color: var(--omni-text-sub) !important; 
+    padding: 4px 0 !important; 
+}
+
+#page-todo .calendar-date-cell, 
+.calendar-date-cell { 
+    font-size: 11px !important; 
+    font-weight: 600 !important; 
+    color: var(--omni-text-main) !important; 
+    padding: 8px 0 !important; 
+    border-radius: 8px !important; 
+    font-family: 'Inter', sans-serif !important; 
+    cursor: pointer !important; 
+    transition: background 0.15s !important; 
+}
+
+#page-todo .calendar-date-cell:not(.empty-cell):hover, 
+.calendar-date-cell:not(.empty-cell):hover { 
+    background: var(--omni-item-hover) !important; 
+}
+
+/* 달력 날짜 선택(Checked) 하이라이트 */
+#page-todo .calendar-date-cell.is-checked, 
+.calendar-date-cell.is-checked { 
+    background: var(--omni-lavender-main) !important; 
+    color: #ffffff !important; 
+    font-weight: 800 !important; 
+    box-shadow: 0 3px 8px rgba(131, 114, 214, 0.3) !important; 
+}
+
+body.dark #page-todo .calendar-date-cell.is-checked,
+body.dark-mode #page-todo .calendar-date-cell.is-checked,
+body[data-theme="dark"] #page-todo .calendar-date-cell.is-checked,
+.dark-theme #page-todo .calendar-date-cell.is-checked {
+    color: #12121a !important;
+    box-shadow: 0 3px 8px rgba(167, 139, 250, 0.4) !important;
+}

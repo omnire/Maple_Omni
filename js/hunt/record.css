@@ -1,0 +1,551 @@
+/* ============================================================================
+ * 🎨 MAPLE OMNI V14 - js/hunt/record.css [라벤더 컴팩트 가독성 프리미엄 에디션]
+ * 설명: 화이트, 다크, 핑크, 블루 각 마스터 테마 모드 분기에 맞춰 글자색과 가독성이 완벽 자동 스위칭되는 엔진
+ * 패치노트: 
+ * 1. [테마 통합 시스템 마운트] 고정 색상을 전면 제거하고 유기적 CSS 디자인 토큰(--hunt-*)으로 대전환
+ * 2. [화이트 가독성 보장] 라이트/화이트 계열 스킨 전환 시에도 글씨색이 흐려지거나 흰색으로 묻히지 않도록 영구 가드 결착
+ * 3. 유저 설정에 따라 형광색을 전면 제외하고 눈이 가장 편안한 저채도 미색 중심 고급 텍스처 배합 설계
+ * 규칙: 코드를 쓸 때는 항상 초보자도 이해할 수 있게 상세한 주석을 달아줍니다.
+ * ============================================================================ */
+
+/* 💎 [CORE THEME MASTER TOKENS] - 시스템 내부 스킨 분기점 정의 */
+:root {
+    /* 1. 기본 클래식 화이트 럭셔리 라벤더 틴트 서식 */
+    --hunt-bg: #f8f7fc;
+    --hunt-card-bg: #ffffff;
+    --hunt-text-main: #312e4b;
+    --hunt-text-muted: #625d75;
+    --hunt-primary: #7a6ec7;
+    --hunt-border: #ebdffc;
+    --hunt-input-bg: #ffffff;
+    --hunt-input-border: #ded9f3;
+    --hunt-input-text: #494469;
+    --hunt-card-sub-bg: #faf9fe;
+    --hunt-gauge-track: #eef2ff;
+}
+
+/* 🌙 다크 테마 커스텀 모드 제어 서식 (눈 피로도 완전 제로 본체) */
+body.dark-theme {
+    --hunt-bg: #14141c;
+    --hunt-card-bg: #1e1e28;
+    --hunt-text-main: #e3e2ea;
+    --hunt-text-muted: #9fa0b0;
+    --hunt-primary: #9b8fe3;
+    --hunt-border: #2d2b3f;
+    --hunt-input-bg: #252533;
+    --hunt-input-border: #3d3b56;
+    --hunt-input-text: #e3e2ea;
+    --hunt-card-sub-bg: #181822;
+    --hunt-gauge-track: #2a283b;
+}
+
+/* 🌸 핑크 화이트 무드 모드 제어 서식 (소프트 파스텔 핑크 브릭) */
+body.light-pink {
+    --hunt-bg: #fff6f9;
+    --hunt-card-bg: #ffffff;
+    --hunt-text-main: #4d323c;
+    --hunt-text-muted: #8c6e79;
+    --hunt-primary: #d36eb7;
+    --hunt-border: #fce4f0;
+    --hunt-input-bg: #ffffff;
+    --hunt-input-border: #fbcfe8;
+    --hunt-input-text: #4d323c;
+    --hunt-card-sub-bg: #fff0f6;
+    --hunt-gauge-track: #ffe4e6;
+}
+
+/* 🐳 하늘색 화이트 무드 모드 제어 서식 (청량하고 차분한 스카이 오션) */
+body.light-blue {
+    --hunt-bg: #f4f8ff;
+    --hunt-card-bg: #ffffff;
+    --hunt-text-main: #27344c;
+    --hunt-text-muted: #5e6d8c;
+    --hunt-primary: #6e8ed3;
+    --hunt-border: #e0e9fe;
+    --hunt-input-bg: #ffffff;
+    --hunt-input-border: #bfdbfe;
+    --hunt-input-text: #27344c;
+    --hunt-card-sub-bg: #f0f5ff;
+    --hunt-gauge-track: #eef2ff;
+}
+
+/* ✨ 최외곽 레이아웃 및 여백 압축 커널 */
+.v14-record-wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin: -10px auto 0 auto;
+    font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+    box-sizing: border-box;
+    padding: 8px 14px;
+    background-color: var(--hunt-bg);
+    color: var(--hunt-text-main);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ◀ 인트로 복귀 전용 프리미엄 뒤로가기 단추 디자인 */
+.v14-btn-back {
+    background: var(--hunt-card-bg);
+    color: var(--hunt-primary);
+    border: 1px solid var(--hunt-border);
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 11.5px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+.v14-btn-back:hover {
+    background: var(--hunt-card-sub-bg);
+    border-color: var(--hunt-primary);
+    transform: translateX(-2px);
+}
+
+/* 📊 상단 실시간 누적 현황 대시보드 그리드 레일 */
+.v14-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+/* 🤍 정갈한 화이트 카드 패널 */
+.v14-dash-card {
+    background: var(--hunt-card-bg);
+    border-radius: 12px;
+    padding: 14px 12px;
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid var(--hunt-border);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01);
+    transition: all 0.2s ease-in-out;
+}
+.v14-dash-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+}
+
+/* 🎨 대시보드 박스 배경색 은은한 라벤더/테마 틴트 적용 */
+.v14-card-meso, .v14-card-exp, .v14-card-stats, .v14-card-drops { 
+    background-color: var(--hunt-card-bg); 
+}
+
+.v14-dash-title {
+    font-size: 11.5px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+    color: var(--hunt-primary);
+}
+.v14-dash-value {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--hunt-text-main);
+    letter-spacing: -0.2px;
+}
+
+/* 🧭 좌측 설정 존 / 우측 실시간 기록실 2단 그리드 */
+.v14-two-column-body {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    width: 100%;
+}
+.v14-left-control-panel,
+.v14-right-display-panel {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* ⚙️ 메인 플레이트 인하우스 카드 */
+.v14-plate-card {
+    background: var(--hunt-card-bg);
+    border: 1px solid var(--hunt-border);
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.01);
+    box-sizing: border-box;
+    width: 100%;
+}
+.v14-plate-header {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--hunt-primary);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: -0.3px;
+    text-transform: uppercase;
+}
+
+/* 🎯 목표 실시간 달성률 컴포넌트 */
+.v14-gauge-card-zone {
+    margin-top: 12px;
+    background: var(--hunt-card-sub-bg);
+    border: 1px solid var(--hunt-border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    box-sizing: border-box;
+}
+.v14-gauge-info-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--hunt-text-main);
+    margin-bottom: 6px;
+}
+.v14-gauge-track {
+    width: 100%;
+    height: 10px;
+    background: var(--hunt-gauge-track);
+    border-radius: 50px;
+    overflow: hidden;
+    border: 1px solid var(--hunt-border);
+}
+.v14-gauge-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--hunt-primary);
+    border-radius: 50px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.v14-gauge-sub-text {
+    font-size: 10.5px;
+    color: var(--hunt-text-muted);
+    font-weight: 700;
+    margin-top: 5px;
+    text-align: right;
+}
+
+/* 📸 스크린샷 페이스트 문자 추출 존 */
+.v14-ocr-paste-zone {
+    background: var(--hunt-card-sub-bg);
+    border: 2px dashed var(--hunt-border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    color: var(--hunt-primary);
+    font-size: 11.5px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+    outline: none;
+}
+.v14-ocr-paste-zone:focus {
+    border-color: var(--hunt-primary);
+    background: var(--hunt-card-bg);
+}
+
+/* 공용 텍스트 인풋 스타일 */
+.v14-input-base {
+    width: 100%;
+    padding: 9px 12px;
+    background: var(--hunt-input-bg);
+    border: 1px solid var(--hunt-input-border);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    box-sizing: border-box;
+    outline: none;
+    color: var(--hunt-input-text);
+    transition: all 0.15s ease;
+}
+.v14-input-base:focus {
+    border-color: var(--hunt-primary);
+    box-shadow: 0 0 0 3px rgba(122, 110, 199, 0.1);
+}
+
+/* 드랍 / 메획 정렬 격자 스플리터 */
+.v14-stat-split-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+.v14-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    background: var(--hunt-card-sub-bg);
+    border: 1px solid var(--hunt-border);
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+.v14-stat-label {
+    font-size: 11px;
+    color: var(--hunt-text-muted);
+    font-weight: 700;
+}
+.v14-input-stat-digit {
+    width: 52px;
+    padding: 5px;
+    font-size: 11.5px;
+    text-align: center;
+    border: 1px solid var(--hunt-input-border);
+    border-radius: 6px;
+    outline: none;
+    font-weight: bold;
+    background: var(--hunt-input-bg);
+    color: var(--hunt-input-text);
+}
+
+/* 💊 도핑 체크박스 레일 */
+.v14-doping-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+}
+.v14-doping-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10.5px;
+    color: var(--hunt-text-main);
+    background: var(--hunt-card-bg);
+    padding: 8px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--hunt-border);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.v14-doping-label:hover {
+    background: var(--hunt-card-sub-bg);
+    border-color: var(--hunt-primary);
+}
+.v14-doping-label input[type="checkbox"] {
+    margin: 0;
+    width: 14px;
+    height: 14px;
+    accent-color: var(--hunt-primary);
+}
+
+/* ⏱️ 임시 세션 뱃지 리스트 보드 레일 */
+.v14-sub-records-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+    max-height: 170px;
+    overflow-y: auto;
+    padding-right: 2px;
+}
+
+/* 🎫 임시 세션 슬롯형 카드 스타일 */
+.v14-session-badge-card {
+    background: var(--hunt-card-bg);
+    border: 1px solid var(--hunt-border); 
+    border-radius: 8px;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.01);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.v14-badge-top-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10.5px;
+    font-weight: 900;
+    border-bottom: 1px dashed var(--hunt-border);
+    padding-bottom: 4px;
+}
+.v14-badge-time { color: var(--hunt-text-muted); }
+.v14-badge-status { font-weight: 900; padding: 1px 4px; border-radius: 4px; font-size: 9px; }
+.v14-badge-status.done { color: var(--hunt-primary); background: var(--hunt-card-sub-bg); }
+.v14-badge-status.wait { color: var(--hunt-text-muted); background: var(--hunt-bg); }
+
+.v14-badge-map-tag {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--hunt-text-main);
+    background: var(--hunt-card-sub-bg);
+    padding: 3px 6px;
+    border-radius: 4px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.v14-badge-metrics-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.v14-badge-value-row {
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--hunt-text-main);
+}
+.v14-badge-value-row.row-meso { color: var(--hunt-primary); font-weight: 800; }
+.v14-badge-value-row.row-exp { color: var(--hunt-text-main); }
+
+/* 🛠️ 회차 카드 개별 제어 액션 링크 단추 프리셋 */
+.v14-badge-btn-row {
+    display: flex;
+    gap: 4px;
+    margin-top: 3px;
+    border-top: 1px dashed var(--hunt-border);
+    padding-top: 5px;
+}
+.v14-badge-control-btn {
+    flex: 1;
+    padding: 3px 0;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid var(--hunt-input-border);
+    background: var(--hunt-input-bg);
+    color: var(--hunt-input-text);
+    transition: all 0.12s ease;
+}
+.v14-badge-control-btn.edit-trigger {
+    color: var(--hunt-primary);
+    border-color: var(--hunt-border);
+}
+.v14-badge-control-btn.edit-trigger:hover {
+    background: var(--hunt-card-sub-bg);
+}
+.v14-badge-control-btn.delete-trigger {
+    color: #e11d48;
+    border-color: var(--hunt-border);
+}
+.v14-badge-control-btn.delete-trigger:hover {
+    background: var(--hunt-card-sub-bg);
+}
+
+/* 메인 기능 제어 단추 레일 */
+.v14-action-btn-group {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+}
+.v14-btn {
+    padding: 11px;
+    border: none;
+    border-radius: 8px;
+    font-size: 11.5px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.v14-btn-save { flex: 2; background: var(--hunt-primary); color: white; }
+.v14-btn-save:hover { filter: brightness(0.9); }
+.v14-btn-send { flex: 1.5; background: var(--hunt-primary); color: white; opacity: 0.85; }
+.v14-btn-send:hover { opacity: 1; }
+.v14-btn-reset { flex: 0.7; background: var(--hunt-input-bg); color: var(--hunt-input-text); border: 1px solid var(--hunt-input-border); }
+
+/* 🧮 순수 원금 명세서 회계 장부식 디테일 프레임 */
+.v14-pure-statement-plate {
+    background: var(--hunt-card-bg);
+    border: 1px solid var(--hunt-border);
+    border-radius: 14px;
+    padding: 16px;
+    box-sizing: border-box;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+}
+.v14-pure-audit-header {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--hunt-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 2px solid var(--hunt-border);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+.v14-pure-detailed-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+.v14-pure-audit-card {
+    background: var(--hunt-card-sub-bg);
+    border: 1px solid var(--hunt-border);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.v14-audit-type-title {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--hunt-primary);
+    border-left: 3px solid var(--hunt-primary);
+    padding-left: 6px;
+    margin-bottom: 4px;
+}
+.v14-audit-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--hunt-text-muted);
+}
+.v14-audit-line span:last-child {
+    font-weight: 700;
+    color: var(--hunt-text-main);
+}
+.v14-audit-divider {
+    border-top: 1px dashed var(--hunt-border);
+    margin: 4px 0;
+}
+.v14-audit-total-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--hunt-text-main);
+    background: var(--hunt-card-bg);
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--hunt-border);
+}
+.v14-pure-highlight {
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--hunt-primary) !important;
+}
+
+/* 🛠️ 정렬 기반 유틸 및 스크롤바 바인딩 */
+.v14-config-grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.v14-config-grid-3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.v14-stat-section-title-meso { font-size: 11px; color: var(--hunt-text-main); margin: 0 0 8px 0; font-weight: 800; border-left: 3px solid var(--hunt-primary); padding-left: 6px; }
+.v14-stat-section-title-drop { font-size: 11px; color: var(--hunt-text-main); margin: 0 0 8px 0; font-weight: 800; border-left: 3px solid var(--hunt-primary); padding-left: 6px; }
+.v14-doping-divider-zone { padding-top: 12px; border-top: 1px dashed var(--hunt-border); margin-top: 10px; }
+.v14-console-input-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 0.8fr 0.8fr; gap: 6px; margin-bottom: 10px; }
+
+.v14-extra-loot-box { background: var(--hunt-card-sub-bg); border-radius: 12px; padding: 10px; border: 1px solid var(--hunt-border); margin-bottom: 10px; }
+.v14-extra-loot-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.v14-extra-loot-title { font-size: 11px; font-weight: 800; color: var(--hunt-text-muted); }
+.v14-extra-add-btn { background: var(--hunt-border); color: var(--hunt-primary); border: none; padding: 3px 10px; border-radius: 50px; font-size: 10px; font-weight: bold; cursor: pointer; }
+.v14-extra-input-row-flex { display: flex; gap: 6px; margin-bottom: 5px; }
+.v14-extra-name-input { flex: 1.2; padding: 6px 10px; font-size: 11px; }
+.v14-extra-price-input { flex: 1; text-align: right; padding: 6px 10px; font-size: 11px; }
+.v14-extra-delete-btn { background: var(--hunt-input-bg); color: var(--hunt-text-muted); border: 1px solid var(--hunt-input-border); border-radius: 6px; width: 26px; height: 26px; cursor: pointer; font-weight: bold; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+
+.v14-no-session-msg { grid-column: 1/-1; text-align: center; padding: 16px; font-size: 11px; color: var(--hunt-text-muted); font-weight: 700; }
+.v14-sub-records-grid::-webkit-scrollbar { width: 4px; }
+.v14-sub-records-grid::-webkit-scrollbar-track { background: transparent; }
+.v14-sub-records-grid::-webkit-scrollbar-thumb { background: var(--hunt-border); border-radius: 10px; }

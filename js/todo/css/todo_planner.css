@@ -1,0 +1,447 @@
+/**
+ * ============================================================================
+ * 📑 MAPLE OMNI V14 - js/todo/css/todo_planner.css [📅 PLANNER & CALENDAR SKIN]
+ * 설명: 플래너 디자인 종합 개선 - 모던 인터페이스, 선명한 본문 가독성 및 미니 달력 감성 리뉴얼
+ * ============================================================================
+ */
+
+/* 📦 메인 프레임 컨테이너 */
+.omni-planner-container {
+    width: 100%; 
+    background: var(--omni-card-bg, #ffffff); 
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1);
+    border-radius: 18px; 
+    padding: 22px; 
+    box-sizing: border-box;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* 🧭 헤더 & 입력 영역 */
+.planner-header-flex { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    padding-bottom: 16px; 
+    border-bottom: 1px dashed var(--omni-card-border-line, #cbd5e1); 
+    text-align: left; 
+}
+
+.planner-badge { 
+    display: inline-block; 
+    font-size: 10px; 
+    font-weight: 800; 
+    letter-spacing: 0.5px;
+    color: var(--omni-primary-accent, #6366f1); 
+    background: var(--omni-bg-clean, #f8fafc); 
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1);
+    padding: 3px 9px; 
+    border-radius: 6px; 
+    width: fit-content; 
+}
+
+.planner-main-title { 
+    margin: 0; 
+    font-size: 14.5px; 
+    font-weight: 900; 
+    color: var(--omni-text-main, #1e293b); 
+    letter-spacing: -0.2px;
+}
+
+.planner-form-row-custom { 
+    display: flex; 
+    gap: 8px; 
+    margin-top: 4px; 
+    flex-wrap: nowrap; 
+    width: 100%; 
+    align-items: center;
+}
+
+/* 셀렉트박스 및 입력필드 통합 스크립트 */
+.planner-form-row-custom select,
+.planner-form-row-custom input {
+    padding: 9px 12px; 
+    border-radius: 10px; 
+    border: 1px solid var(--omni-card-border-line, #cbd5e1); 
+    font-size: 12px; 
+    font-weight: 600;
+    outline: none; 
+    background: #ffffff; 
+    color: var(--omni-text-main, #1e293b);
+    transition: all 0.2s ease;
+}
+
+.planner-form-row-custom select { 
+    flex: 0 0 140px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#todoPlannerGoalInput { 
+    flex: 0 0 150px;
+}
+
+#todoPlannerRouteInput { 
+    flex: 1;
+}
+
+.planner-form-row-custom select:focus, 
+.planner-form-row-custom input:focus { 
+    border-color: var(--omni-primary-accent, #6366f1); 
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+    background: #ffffff; 
+}
+
+/* 제출 버튼 스펙 */
+.planner-btn-submit { 
+    background: var(--omni-primary-accent, #6366f1); 
+    color: #ffffff; 
+    border: none; 
+    padding: 9px 20px; 
+    border-radius: 10px; 
+    font-size: 12px; 
+    font-weight: 800; 
+    cursor: pointer; 
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+}
+.planner-btn-submit:hover {
+    background: #4f46e5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+}
+.planner-btn-submit:active {
+    transform: translateY(0);
+}
+
+/* 📐 대시보드 그리드 레이아웃 */
+.omni-planner-dashboard-layout { 
+    display: grid; 
+    grid-template-columns: 1fr 310px; 
+    gap: 18px; 
+    margin-top: 18px; 
+    width: 100%; 
+}
+
+.planner-left-stack { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 14px; 
+}
+
+/* 📊 경험치 차트 & 가이드 패널 */
+.planner-chart-panel { 
+    background: #ffffff; 
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1); 
+    border-radius: 16px; 
+    padding: 16px; 
+    text-align: left; 
+    transition: all 0.2s ease;
+}
+
+.chart-panel-tag { 
+    font-size: 10.5px; 
+    font-weight: 900; 
+    color: var(--omni-primary-accent, #6366f1); 
+    background: var(--omni-bg-clean, #f8fafc); 
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1);
+    padding: 2px 7px; 
+    border-radius: 5px; 
+    display: inline-block; 
+    margin-bottom: 8px; 
+}
+
+.chart-panel-title { 
+    margin: 0 0 10px 0; 
+    font-size: 13px; 
+    color: var(--omni-text-main, #1e293b); 
+    font-weight: 800; 
+}
+
+.chart-canvas-wrapper { 
+    width: 100%; 
+    height: 185px; 
+    position: relative; 
+}
+
+/* 🎴 계획서 카드 및 Empty State */
+.planner-grid-cards { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    width: 100%; 
+}
+
+.planner-card-item { 
+    background: #ffffff; 
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1); 
+    border-radius: 14px; 
+    padding: 16px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+    text-align: left; 
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.planner-card-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--omni-primary-accent, #6366f1);
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.08);
+}
+
+.planner-card-meta { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.planner-card-tag { 
+    font-size: 10.5px; 
+    font-weight: 800; 
+    color: var(--omni-primary-accent, #6366f1); 
+    background: var(--omni-bg-clean, #f8fafc); 
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1);
+    padding: 3px 8px; 
+    border-radius: 6px; 
+}
+
+.planner-card-del-action { 
+    background: none; 
+    border: none; 
+    font-size: 11px; 
+    font-weight: 700; 
+    color: #94a3b8; 
+    cursor: pointer; 
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+.planner-card-del-action:hover { 
+    color: #ef4444; 
+    background: #fef2f2;
+}
+
+.planner-card-goal, 
+.planner-card-route { 
+    margin: 0; 
+    font-size: 12.5px; 
+    font-weight: 700; 
+    color: var(--omni-text-main, #1e293b); 
+}
+.planner-card-route { 
+    color: #475569; 
+    font-weight: 600; 
+}
+
+.plan-label-mini { 
+    font-size: 9.5px; 
+    font-weight: 800; 
+    color: #ffffff; 
+    background: var(--omni-primary-accent, #6366f1); 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    margin-right: 6px; 
+}
+
+.plan-label-mini-route { 
+    font-size: 9.5px; 
+    font-weight: 800; 
+    color: #ffffff; 
+    background: #64748b; 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    margin-right: 6px; 
+}
+
+.exp-predict-badge { 
+    margin-top: 6px; 
+    background: var(--omni-bg-clean, #f8fafc); 
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1); 
+    padding: 8px 12px; 
+    border-radius: 8px; 
+    font-size: 11.5px; 
+    color: var(--omni-primary-accent, #6366f1); 
+}
+
+/* 빈 계획서 안내 박스 */
+.omni-empty-state {
+    padding: 28px;
+    text-align: center;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 800;
+    border: 1px dashed #94a3b8 !important;
+    border-radius: 14px;
+    background: #f8fafc;
+}
+
+/* 🗓️ 미니 달력 위젯 디자인 */
+.omni-mini-calendar-widget { 
+    background: #ffffff; 
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1); 
+    border-radius: 16px; 
+    padding: 14px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.calendar-header-title { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    font-size: 12px; 
+    font-weight: 800; 
+    color: var(--omni-text-main, #1e293b); 
+    border-bottom: 1px dashed var(--omni-card-border-line, #cbd5e1); 
+    padding-bottom: 8px; 
+}
+
+.calendar-days-grid { 
+    display: grid; 
+    grid-template-columns: repeat(7, 1fr); 
+    gap: 4px; 
+    text-align: center; 
+    justify-items: center;
+}
+
+.calendar-day-label { 
+    font-size: 10px; 
+    font-weight: 800; 
+    color: var(--omni-text-sub, #64748b); 
+    padding: 2px 0; 
+}
+
+.calendar-date-cell { 
+    font-size: 10.5px; 
+    font-weight: 700; 
+    color: #1e293b; 
+    padding: 4px 0; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    height: 26px;
+    width: 100%;
+    max-width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease; 
+    border: 1px solid transparent;
+}
+.calendar-date-cell:not(.empty-cell):hover { 
+    background: rgba(99, 102, 241, 0.1); 
+    border-color: rgba(99, 102, 241, 0.25);
+    color: var(--omni-primary-accent, #6366f1);
+}
+
+.calendar-date-cell.is-checked { 
+    background: var(--omni-primary-accent, #6366f1) !important; 
+    color: #ffffff !important; 
+    font-weight: 800; 
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
+}
+
+/* ============================================================================
+ * 🌙 [🔥 OMNI DARK THEME OVERRIDE - 뮤트 다크 테마]
+ * ============================================================================
+ */
+body.dark-theme .omni-planner-container {
+    background: #121218 !important;
+    border-color: #2d2b38 !important;
+    box-shadow: none !important;
+}
+
+body.dark-theme .planner-header-flex {
+    border-bottom-color: #2d2b38 !important;
+}
+
+body.dark-theme .planner-badge {
+    background: #1a1922 !important;
+    border-color: #2d2b38 !important;
+    color: #818cf8 !important;
+}
+
+body.dark-theme .planner-main-title {
+    color: #e2e8f0 !important;
+}
+
+body.dark-theme .planner-form-row-custom select,
+body.dark-theme .planner-form-row-custom input {
+    background: #1a1922 !important;
+    border-color: #2d2b38 !important;
+    color: #e2e8f0 !important;
+}
+body.dark-theme .planner-form-row-custom select:focus,
+body.dark-theme .planner-form-row-custom input:focus {
+    border-color: #818cf8 !important;
+    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15) !important;
+    background: #121218 !important;
+}
+
+body.dark-theme .planner-btn-submit {
+    background: #6366f1 !important;
+    color: #ffffff !important;
+}
+
+body.dark-theme .planner-chart-panel,
+body.dark-theme .planner-card-item,
+body.dark-theme .omni-mini-calendar-widget {
+    background: #121218 !important;
+    border-color: #2d2b38 !important;
+}
+
+body.dark-theme .omni-empty-state {
+    background: #121218 !important;
+    border-color: #423f5e !important;
+    color: #94a3b8 !important;
+}
+
+body.dark-theme .chart-panel-tag,
+body.dark-theme .planner-card-tag {
+    background: #1a1922 !important;
+    border-color: #2d2b38 !important;
+    color: #818cf8 !important;
+}
+
+body.dark-theme .chart-panel-title,
+body.dark-theme .planner-card-goal,
+body.dark-theme .calendar-header-title {
+    color: #e2e8f0 !important;
+}
+
+body.dark-theme .planner-card-route {
+    color: #94a3b8 !important;
+}
+
+body.dark-theme .planner-card-del-action {
+    color: #94a3b8 !important;
+}
+body.dark-theme .planner-card-del-action:hover {
+    color: #f87171 !important;
+    background: rgba(239, 68, 68, 0.1) !important;
+}
+
+body.dark-theme .exp-predict-badge {
+    background: #1a1922 !important;
+    border-color: #2d2b38 !important;
+    color: #cbd5e1 !important;
+}
+
+body.dark-theme .calendar-day-label {
+    color: #94a3b8 !important;
+}
+
+body.dark-theme .calendar-date-cell {
+    color: #cbd5e1 !important;
+}
+body.dark-theme .calendar-date-cell:not(.empty-cell):hover {
+    background: rgba(129, 140, 248, 0.15) !important;
+    color: #a5b4fc !important;
+}
+body.dark-theme .calendar-date-cell.is-checked {
+    background: #6366f1 !important;
+    color: #ffffff !important;
+}

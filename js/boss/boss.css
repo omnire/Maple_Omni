@@ -1,0 +1,412 @@
+/* ============================================================================
+ * 🎨 MAPLE OMNI V14 - js/boss/boss.css [DASHBOARD FLAT MINIMAL SKIN]
+ * 설명: 메인 대시보드 테마와 통일감을 주기 위해 불필요한 그라데이션과 네온 컬러를
+ *       전면 배제하고, 좌측 강조 세로선을 단 1개도 포함하지 않은 평면 미니멀 스킨입니다.
+ * 패치노트:
+ * 1. [🚫 상자 좌측 세로선 100% 완전 증발 제거 완수]
+ *    - border-left 코드를 원천 파쇄하여 프리미엄 평면 여백 밸런스를 구축했습니다.
+ * 2. [🔍 대시보드 닉네임/직업/전투력 시각 인덱스 구획선 장착]
+ *    - 문자열이 뭉쳐서 가독성이 저하되던 요소를 보정하기 위한 고대비 그리드 스타일 주입.
+ * ============================================================================
+ */
+
+.omni-ultra-boss-layout.expanded-view {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    height: 640px;
+    max-height: 680px;
+    font-family: 'Pretendard', sans-serif;
+    box-sizing: border-box;
+}
+
+/* 🎰 [좌측] 구역 분할형 보스 스택 매트릭스 관제 패널 */
+.omni-boss-grid-panel.enlarged {
+    width: 53%;
+    background: var(--omni-bg-clean, #ffffff);
+    border: 1px solid var(--omni-card-border-line, #eef2f6);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-sizing: border-box;
+}
+
+/* 🔍 [고가독성 개정] 상단 캐릭터 정보 인디케이터 대시보드 바 */
+.omni-current-char-dashboard-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 12px;
+}
+.char-info-pill { font-weight: 600; color: #475569; text-align: left; }
+.char-info-pill .focus-name { color: #6d28d9; font-weight: 800; font-size: 13px; }
+.char-info-pill .focus-class { color: #0f172a; font-weight: 700; margin-left: 4px; }
+.char-stat-pill { font-weight: 600; color: #475569; text-align: right; }
+.char-stat-pill .focus-stat { color: #b91c1c; font-weight: 800; }
+.focus-splitter { color: #cbd5e1; margin: 0 6px; font-weight: 400; }
+
+.omni-grid-header-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.omni-panel-title-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* 세션 스크롤 존 */
+.omni-boss-scroll-zone {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-right: 4px;
+}
+
+.omni-zone-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* 🚫 좌측 세로선 테두리를 완벽히 제외한 플랫 타이틀 태그 */
+.omni-zone-title-tag {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    text-align: left;
+    padding-bottom: 2px;
+}
+
+/* 격자 스케일 대폭 확장 조율 */
+.omni-boss-grid-container.scaled-up {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+}
+
+/* 대시보드 맞춤형 미니 카드 컴포넌트 */
+.omni-boss-mini-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    box-sizing: border-box;
+}
+
+.omni-boss-mini-card:hover {
+    transform: translateY(-1px);
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.omni-boss-mini-card.active-selected {
+    background: #f1e9ff !important;
+    border: 1px solid #8b5cf6 !important;
+}
+
+.mini-card-avatar-wrap.large-frame {
+    width: 42px;
+    height: 42px;
+    background: #ffffff;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.mini-card-boss-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mini-card-text-metadata {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    overflow: hidden;
+}
+
+.mini-boss-title-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mini-boss-forecast-tag {
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 2px;
+}
+.mini-boss-forecast-tag.success { color: #10b981; }
+.mini-boss-forecast-tag.failed { color: #f43f5e; }
+
+.forecast-time-sub {
+    font-size: 10px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* 📂 [우측] 환산 분석 인스펙터 관제 독 패널 */
+.omni-boss-detail-dock-panel {
+    flex: 1;
+    background: var(--omni-bg-clean, #ffffff);
+    border: 1px solid var(--omni-card-border-line, #eef2f6);
+    border-radius: 12px;
+    padding: 16px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.dock-premium-inner-scroll {
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-right: 4px;
+}
+
+.dock-boss-profile-identity {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.dock-boss-avatar-large {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+}
+
+.dock-boss-name-meta-wrap {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.dock-boss-main-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+}
+
+.dock-boss-sub-level-span {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+/* 데이터 컨텐츠 박스 구획 */
+.dock-content-section-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+/* 🚫 좌측 세로강조 데코레이션 선 완전 제거 준수 */
+.dock-section-sub-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #334155;
+    margin: 0 0 12px 0;
+    padding-left: 0;
+    border-left: none;
+}
+
+/* 정밀 연계 지표 요약 리포트 명세선 */
+.omni-hwansan-static-report-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 11.5px;
+    color: #475569;
+}
+.report-row-item {
+    padding: 6px 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+}
+.report-row-item b { color: #1e293b; }
+.report-row-item span { float: right; color: #6d28d9; font-weight: 700; }
+
+.total-hp-master-badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 10px;
+}
+.total-hp-master-badge span {
+    color: #7c3aed;
+    font-weight: 700;
+}
+
+.phase-time-vertical-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.phase-time-row-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+}
+
+.phase-badge-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #6d28d9;
+    background: #f5f3ff;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.phase-hp-value {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #475569;
+}
+
+.phase-predicted-time {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* 대조선 분석표 링크 */
+.dock-spec-comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.dock-spec-comparison-table th {
+    background: #f8fafc;
+    padding: 8px;
+    font-weight: 600;
+    color: #475569;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.dock-spec-comparison-table td {
+    padding: 8px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+    color: #334155;
+}
+
+.stat-highlight {
+    font-weight: 700;
+    color: #7c3aed;
+}
+
+/* 📊 상세 스탯 설정 하단 가이드 선반 배치 규정 절대 고수 */
+.dock-doping-simulator-sub-shelf {
+    border-top: 1px dashed #cbd5e1;
+    padding-top: 12px;
+    margin-top: 6px;
+}
+
+.doping-shelf-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #7c3aed;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.doping-chips-cluster {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.doping-chip-unit {
+    font-size: 11px;
+    color: #5b21b6;
+    font-weight: 500;
+}
+
+.dock-premium-tips-paragraph-box {
+    font-size: 12px;
+    color: #334155;
+    line-height: 1.6;
+    font-weight: 500;
+    background: #f8fafc;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+/* 🌙 완벽 대응 대시보드 다크모드 무결성 쉘 인프라 */
+body.dark-theme .omni-current-char-dashboard-bar { background: #1e293b; border-color: #334155; }
+body.dark-theme .char-info-pill { color: #cbd5e1; }
+body.dark-theme .char-info-pill .focus-class { color: #f8fafc; }
+body.dark-theme .char-stat-pill { color: #94a3b8; }
+body.dark-theme .char-stat-pill .focus-stat { color: #f87171; }
+body.dark-theme .omni-boss-grid-panel.enlarged,
+body.dark-theme .omni-boss-detail-dock-panel { background: #0f172a; border-color: #1e293b; }
+body.dark-theme .omni-panel-title-text { color: #f8fafc; }
+body.dark-theme .omni-boss-mini-card { background: #1e293b; border-color: #334155; }
+body.dark-theme .mini-boss-title-name { color: #f8fafc; }
+body.dark-theme .dock-boss-profile-identity { background: #1e293b; border-color: #334155; }
+body.dark-theme .dock-boss-main-title { color: #f8fafc; }
+body.dark-theme .dock-content-section-box { background: #0f172a; border-color: #1e293b; }
+body.dark-theme .dock-section-sub-title { color: #cbd5e1; }
+body.dark-theme .report-row-item { background: #1e293b; border-color: #334155; }
+body.dark-theme .report-row-item b { color: #cbd5e1; }
+body.dark-theme .report-row-item span { color: #c084fc; }
+body.dark-theme .phase-time-row-item { background: #1e293b; border-color: #334155; }
+body.dark-theme .phase-badge-label { background: #2e1065; color: #c084fc; }
+body.dark-theme .phase-hp-value { color: #94a3b8; }
+body.dark-theme .phase-predicted-time { color: #f8fafc; }
+body.dark-theme .dock-spec-comparison-table th { background: #1e293b; color: #94a3b8; border-bottom-color: #334155; }
+body.dark-theme .dock-spec-comparison-table td { color: #cbd5e1; border-bottom-color: #1e293b; }
+body.dark-theme .dock-doping-simulator-sub-shelf { border-top-color: #334155; }
+body.dark-theme .doping-chip-unit { color: #c084fc; }
+body.dark-theme .dock-premium-tips-paragraph-box { background: #1e293b; color: #cbd5e1; border-color: #334155; }
+body.dark-theme .mini-card-avatar-wrap.large-frame { background: #0f172a; border-color: #334155; }

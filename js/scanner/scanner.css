@@ -1,0 +1,156 @@
+/* ============================================================================
+ * 🎨 MAPLE OMNI V14 - js/scanner/scanner.css [DARK COMFORT INDIGO INTEGRATION]
+ * 설명: 장비 아이콘 38px 컴팩트 모듈 제어, 테두리 청보라선 조율 및 다크 테마 보정
+ * 최적화: 다크 모드(딥 네이비) 기본 베이스 스킨을 유지함과 동시에, 라이트 모드 및 
+ * 완전 백색 화이트 모드 스위칭 환경에서도 글씨 시인성이 완벽하게 보장되도록 중앙 관리 프로토콜 변수를 도입했습니다.
+ * ============================================================================
+ */
+
+/* 🌌 전역 색상 모드 개별 가변 설정 트리거 프로토콜 */
+:root {
+    /* [기본 설정: Dark Mode] */
+    --scanner-main-bg: #0f1322;
+    --scanner-card-bg: #111625;
+    --scanner-panel-bg: #171520;
+    --scanner-inner-bg: #0d0c12;
+    --scanner-border: #2c344a;
+    --scanner-text-main: #f8fafc;
+    --scanner-text-sub: #cbd5e1;
+    --scanner-text-muted: #64748b;
+    --scanner-accent-num: #b4a5ff;
+    --accent: #5b46e5;
+}
+
+/* ☀️ 라이트 모드 독립 적용 명세 (HTML data-theme 속성 또는 body 클래스 매칭) */
+html[data-theme="light"], body.light-mode {
+    --scanner-main-bg: #f8fafc;
+    --scanner-card-bg: #ffffff;
+    --scanner-panel-bg: #f1f5f9;
+    --scanner-inner-bg: #e2e8f0;
+    --scanner-border: #cbd5e1;
+    --scanner-text-main: #0f172a;
+    --scanner-text-sub: #334155;
+    --scanner-text-muted: #64748b;
+    --scanner-accent-num: #4f46e5;
+    --accent: #6366f1;
+}
+
+/* 🏳️ 화이트 모드 독립 적용 명세 (완전 백색 테마 정렬 기믹) */
+html[data-theme="white"], body.white-mode {
+    --scanner-main-bg: #ffffff;
+    --scanner-card-bg: #ffffff;
+    --scanner-panel-bg: #f8fafc;
+    --scanner-inner-bg: #f1f5f9;
+    --scanner-border: #e2e8f0;
+    --scanner-text-main: #000000;
+    --scanner-text-sub: #1e293b;
+    --scanner-text-muted: #94a3b8;
+    --scanner-accent-num: #3b82f6;
+    --accent: #2563eb;
+}
+
+/* 📊 옴니 스캐너 장비창 메인 구조 격자 라인 */
+.scanner-grid-container {
+    display: grid !important;
+    grid-template-columns: 38px 38px 130px 38px 38px !important;
+    grid-template-rows: repeat(6, 38px) !important;
+    gap: 6px !important;
+    width: fit-content !important;
+    margin: 15px auto !important;
+    position: relative !important;
+    background: var(--scanner-card-bg);
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--scanner-border) !important; 
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
+    transition: background 0.2s, border 0.2s;
+}
+
+/* 👤 장비창 정중앙 아바타 배치 가이드 베이스 홀더 */
+.scanner-char-container {
+    grid-column: 3 / 4 !important;
+    grid-row: 1 / 6 !important;
+    display: flex !important;
+    align-items: center !important; 
+    justify-content: center !important;
+    background: linear-gradient(135deg, var(--scanner-inner-bg) 0%, var(--scanner-card-bg) 100%) !important;
+    border-radius: 8px;
+    position: relative !important;
+    height: 214px !important; 
+    overflow: hidden !important;
+    border: 1px solid var(--scanner-border) !important;
+}
+
+/* 🖼️ 캐릭터 이미지 크기 확대 및 정중앙 배치 */
+.scanner-char-img {
+    width: 120px !important; 
+    height: 120px !important;
+    object-fit: contain !important; 
+    pointer-events: none !important;
+    filter: drop-shadow(0 6px 12px rgba(99, 102, 241, 0.2)) !important;
+    z-index: 5 !important; 
+    display: block !important;
+    margin: auto !important; 
+}
+
+/* 🔲 인게임 기어 격자 슬롯 소형 규격 38px 포지셔닝 */
+.scanner-item-slot {
+    width: 38px !important;
+    height: 38px !important;
+    border: 1px solid var(--scanner-border) !important;
+    background: var(--scanner-inner-bg) !important; 
+    border-radius: 5px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    transition: all 0.12s ease-in-out;
+}
+
+/* 기어 크기 비례 조절 완치 */
+.scanner-item-slot img {
+    width: 26px !important;
+    height: 26px !important;
+    object-fit: contain !important;
+}
+
+/* 슬롯 마우스 호버 시 은은한 테두리와 소프트 백글로우 그라데이션 연동 */
+.scanner-item-slot:hover {
+    background: var(--scanner-panel-bg) !important;
+    border-color: var(--accent) !important; 
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2) !important;
+    cursor: pointer !important;
+}
+
+/* 📋 대조 분석 프리미엄 베이스 패널 명세 */
+.scanner-compare-table {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--scanner-border) !important;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--scanner-card-bg) !important;
+    transition: background 0.2s, border 0.2s;
+}
+
+.font-num { 
+    font-family: 'Consolas', monospace; 
+    font-size: 12px; 
+    font-weight: 800;
+    color: var(--scanner-text-sub) !important; 
+}
+.font-gray {
+    color: var(--scanner-text-muted) !important;
+}
+.font-blue {
+    color: var(--scanner-text-sub) !important;
+    cursor: pointer;
+    font-weight: 800;
+}
+
+/* 실시간 비동기 무한 루프 키프레임 */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

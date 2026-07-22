@@ -1,0 +1,50 @@
+/* ============================================================================
+ * 🔍 MAPLE OMNI - js/search/search.css [SCROLL CLEAN DESIGN - PRESTIGE V4]
+ * 설명: 인게임 연동 툴팁 인터페이스 대응 및 스크롤바 바인딩 프리미엄 스킨 정의서
+ * 규칙: 중략이 없으며, 프리미엄 스케일을 온전히 보존
+ * ============================================================================
+ */
+
+:root {
+    --premium-shadow: 0 10px 25px -5px rgba(131, 114, 214, 0.02);
+}
+
+/* 대시보드 로드 시 아래에서 위로 은은하게 트랜지션되는 애니메이션 정의 효과 */
+#charDetailContainer {
+    animation: omniViewportShow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes omniViewportShow {
+    from { opacity: 0; transform: translateY(3px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🎒 개편된 장비 세부 명세 그리드 전용 슬림 스크롤 시스템 레일 */
+#res_itemGrid::-webkit-scrollbar {
+    width: 4px;
+}
+#res_itemGrid::-webkit-scrollbar-track {
+    background: transparent;
+}
+#res_itemGrid::-webkit-scrollbar-thumb {
+    background: var(--omni-card-border-line, #ded9f3);
+    border-radius: 4px;
+}
+#res_itemGrid::-webkit-scrollbar-thumb:hover {
+    background: var(--omni-slate-primary, #bcaedb);
+}
+
+/* 📊 우측 사이드 컴팩트 스탯 관제창 맞춤형 스크롤바 명세 */
+.omni-spec-scroll-area::-webkit-scrollbar {
+    width: 4px;
+}
+.omni-spec-scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+.omni-spec-scroll-area::-webkit-scrollbar-thumb {
+    background: var(--omni-card-border-line, #f4f2ff);
+    border-radius: 4px;
+}
+.omni-spec-scroll-area::-webkit-scrollbar-thumb:hover {
+    background: var(--omni-slate-primary, #ebdffc);
+}
