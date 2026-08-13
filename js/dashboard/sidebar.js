@@ -88,7 +88,7 @@ window.renderSidebarProfileCard = function(data) {
                 <div style="margin-top: 14px; display: flex; gap: 6px; align-items: center;">
                     <div class="omni-theme-toggle-dock" style="flex: 1; display: flex; background: var(--omni-card-bg); border: 1px dashed var(--omni-card-border-line); padding: 3px; border-radius: 8px; gap: 2px;">
                         <div class="omni-theme-toggle-container" style="position: relative; flex: 1; display: flex;">
-                            <button onclick="window.handleMainThemeClick('light')" id="theme-btn-master-light" class="theme-btn-unit" style="width: 100%; justify-content: center; padding: 6px 4px;">☀️ 라이트</button>
+                            <button onclick="window.handleMainThemeClick('light')" id="theme-btn-master-light" class="theme-btn-unit active" style="width: 100%; justify-content: center; padding: 6px 4px;">☀️ 라이트</button>
                             <div id="omniLightDots" class="omni-light-palette-dots" style="display: none; position: absolute; top: 100%; left: 0; margin-top: 4px; z-index: 20; background: var(--omni-card-bg); padding: 4px 6px; border-radius: 6px; border: 1px dashed var(--omni-card-border-line); gap: 4px; align-items: center;">
                                 <span onclick="window.selectDotColorSkin('light')" id="dot-light" class="palette-dot" style="background: #ffffff; border: 2px solid #8372d6;" title="클래식 화이트"></span>
                                 <span onclick="window.selectDotColorSkin('light-pink')" id="dot-light-pink" class="palette-dot" style="background: #ffbde2; border: 2px solid #d36eb7;" title="핑크 화이트"></span>
