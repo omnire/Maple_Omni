@@ -653,7 +653,7 @@ window.renderDashboardMainWidgets = function() {
             <!-- [1행] 메인 위젯 그리드 (스케줄러, 일정관리, 사냥기록, 시뮬자산, 결정석정산) -->
             <div class="widget-grid-layout">
                 <div class="omni-dashboard-widget-card" style="grid-column: span 9;">
-                    <div class="wdg-hdr">⏰ 스케쥴러 캐릭터 모아보기 (GRID VIEW)</div>
+                    <div class="wdg-hdr">⏰ 스케쥴러 캐릭터 모아보기</div>
                     <div class="daily-reset-scroll-viewport">${dailyResetHtml}</div>
                 </div>
 
@@ -670,7 +670,7 @@ window.renderDashboardMainWidgets = function() {
 
                 <!-- [하단 3개 카드 - 규격화된 대칭 3단 레이아웃] -->
                 <div class="omni-dashboard-widget-card" style="grid-column: span 4;">
-                    <div class="wdg-hdr">📊 사냥 기록 스테이터스 (HUNTING STATS)</div>
+                    <div class="wdg-hdr">📊 사냥 기록 스테이터스 </div>
                     <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; gap: 12px;">
                         <div class="omni-accumulated-stats-panel" style="padding: 10px 12px; gap: 6px;">
                             <div style="font-size: calc(var(--omni-base-font-size) * 0.79); font-weight: 800; display: flex; align-items: center; gap: 4px; border-bottom: 1px dashed var(--omni-card-border-line); padding-bottom: 6px; margin-bottom: 4px; color: #334155;">🏆 누적 아카이브 통계</div>
@@ -707,7 +707,7 @@ window.renderDashboardMainWidgets = function() {
                 </div>
 
                 <div class="omni-dashboard-widget-card" style="grid-column: span 4;">
-                    <div class="wdg-hdr">💎 주간 결정석 정산 (BOSS STONE ESTIMATOR)</div>
+                    <div class="wdg-hdr">💎 주간 결정석 정산 </div>
                     <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; gap: 12px;">
                         <div class="omni-accumulated-stats-panel" style="padding: 10px 12px; gap: 6px;">
                             <div style="font-size: calc(var(--omni-base-font-size) * 0.79); font-weight: 800; display: flex; align-items: center; gap: 4px; border-bottom: 1px dashed var(--omni-card-border-line); padding-bottom: 6px; margin-bottom: 4px; color: #334155;">⚔️ 주간 격파 캐릭터 보스 연동 수익</div>
@@ -739,7 +739,7 @@ window.renderDashboardMainWidgets = function() {
                 </div>
 
                 <div class="omni-dashboard-widget-card" style="grid-column: span 4;">
-                    <div class="wdg-hdr">🎰 옴니 자산 요약 (SIM QUICK STATS)</div>
+                    <div class="wdg-hdr">🎰 옴니 시뮬레이터 요약 </div>
                     <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; gap: 12px;">
                         <div class="omni-accumulated-stats-panel" style="padding: 10px 12px; gap: 6px;">
                             <div style="font-size: calc(var(--omni-base-font-size) * 0.79); font-weight: 800; display: flex; align-items: center; gap: 4px; border-bottom: 1px dashed var(--omni-card-border-line); padding-bottom: 6px; margin-bottom: 4px; color: #334155;">💎 큐브 & 스타포스 현황</div>
@@ -779,7 +779,7 @@ window.renderDashboardMainWidgets = function() {
             <div class="dashboard-secondary-row">
                 <div class="secondary-left-column">
                     <div class="omni-extended-panel">
-                        <div class="panel-hdr">📸 진행중인 이벤트 (EVENT TIMELINE)</div>
+                        <div class="panel-hdr">📸 진행중인 이벤트 </div>
                         <div class="event-slider-container" id="eventSlider">      
                             <div class="event-slider-track" id="eventTrack">
                                 <a href="https://maplestory.nexon.com/News/Event" target="_blank" class="banner-wrapper-slot">
@@ -824,7 +824,7 @@ window.renderDashboardMainWidgets = function() {
 
                 <div class="secondary-right-column">
                     <div class="omni-extended-panel half-height-panel-split">
-                        <div class="panel-hdr">📢 메이플 소식 (MAPLESTORY NOTICES)</div>
+                        <div class="panel-hdr">📢 메이플 공지사항 </div>
                         <div class="split-box-scroll-viewport">
                             <div class="notice-list-wrapper">
                                 <a href="https://maplestory.nexon.com/News/Notice/All/149495" target="_blank" class="notice-list-item">
@@ -876,7 +876,7 @@ window.renderDashboardMainWidgets = function() {
                         </div>
                     </div>
                     <div class="omni-extended-panel half-height-panel-split">
-                        <div class="panel-hdr">🚀 옴니 업데이트 (OMNI RECONSTRUCTION UPDATES)</div>
+                        <div class="panel-hdr">🚀 메이플 옴니버스 패치노트 </div>
                         <div class="split-box-scroll-viewport">
                             <div class="notice-list-wrapper">
                                 <div class="notice-list-item" style="pointer-events:none;">
