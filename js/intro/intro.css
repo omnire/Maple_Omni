@@ -1,0 +1,482 @@
+/* ============================================================================
+ * 🏹 MAPLE OMNI V14 - js/intro/intro.css [HIGH-END TECHNE-CONSOLE SKIN]
+ * 설명: 하이테크 인프라 콘솔 감성의 다크/라이트 하이브리드 게이트웨이 스킨
+ * 기능: PWA 가이드 모달, 정밀 레이아웃, 라이트모드 하얀색 클린 스킨 및 동적 포인트 아이콘
+ * ============================================================================
+ */
+
+/* 💡 [초보자 가이드] 기본 다크 테마 변수 설정 */
+:root {
+    --intro-bg-base: #161426;
+    --intro-card-bg: rgba(30, 27, 51, 0.65);
+    --intro-card-border: rgba(159, 146, 236, 0.18);
+    --intro-text-main: #F0EDFD;
+    --intro-text-sub: #928DAE;
+    --intro-text-muted: #7A7499;
+    --intro-accent: #9F92EC;
+    --intro-accent-hover: #B4A9FB;
+    --intro-accent-bg: rgba(159, 146, 236, 0.15);
+    --intro-input-bg: #161426;
+    --intro-cell-bg: rgba(30, 27, 51, 0.35);
+    --intro-modal-bg: #1E1B33;
+    --intro-shadow: 0 30px 60px -15px rgba(10, 8, 20, 0.4);
+}
+
+/* 💡 [초보자 가이드] 라이트 모드 전용 화이트 클린 변수 정의 */
+body.light-theme #omniIntroOverlay,
+html[data-theme="light"] #omniIntroOverlay,
+body[data-theme="light"] #omniIntroOverlay,
+html.light-mode #omniIntroOverlay,
+body.light-mode #omniIntroOverlay,
+[data-bs-theme="light"] #omniIntroOverlay {
+    --intro-bg-base: #f8fafc;
+    --intro-card-bg: rgba(255, 255, 255, 0.92);
+    --intro-card-border: rgba(131, 114, 214, 0.22);
+    --intro-text-main: #1e1b4b;
+    --intro-text-sub: #475569;
+    --intro-text-muted: #64748b;
+    --intro-accent: #7c3aed;
+    --intro-accent-hover: #6d28d9;
+    --intro-accent-bg: rgba(124, 58, 237, 0.1);
+    --intro-input-bg: #ffffff;
+    --intro-cell-bg: rgba(241, 245, 249, 0.8);
+    --intro-modal-bg: #ffffff;
+    --intro-shadow: 0 20px 40px -10px rgba(124, 58, 237, 0.08);
+}
+
+/* 🌌 전면 스크롤 배리어 차단형 마스터 오버레이 프레임 */
+#omniIntroOverlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: var(--intro-bg-base) !important;
+    background-image: 
+        radial-gradient(circle at 50% -20%, rgba(159, 146, 236, 0.15) 0%, rgba(22, 20, 38, 0) 60%),
+        radial-gradient(circle at 0% 100%, rgba(139, 124, 229, 0.04) 0%, rgba(22, 20, 38, 0) 40%) !important;
+    z-index: 999999 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 50px 24px 30px 24px !important;
+    box-sizing: border-box !important;
+    font-family: 'Pretendard', -apple-system, sans-serif !important;
+    overflow-y: auto !important;
+    transition: background 0.3s ease, opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* 🪐 관제 허브 통합 구조 정렬 프레임 */
+.omni-console-hub {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 900px !important;
+    margin: auto !important;
+    box-sizing: border-box !important;
+    z-index: 10 !important;
+}
+
+/* 🪐 [TOP]: 상단 와이드 헤더 및 브랜드 로고 아키텍처 */
+.omni-console-header {
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin-bottom: 36px !important;
+    position: relative !important;
+}
+
+/* 초모던 미니멀 플로팅 로고 셀 */
+.omni-core-logo {
+    width: 52px !important;
+    height: 52px !important;
+    background: var(--intro-accent-bg) !important;
+    border: 1px solid var(--intro-card-border) !important;
+    border-radius: 18px !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+    margin-bottom: 16px !important;
+    box-shadow: 0 10px 30px rgba(159, 146, 236, 0.1) !important;
+    animation: omniCoreFloat 4s ease-in-out infinite !important;
+}
+.omni-core-logo svg {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* 테크니컬 마스터 브랜드 폰트 디자인 */
+.omni-core-title {
+    font-size: 26px !important;
+    font-weight: 900 !important;
+    color: var(--intro-text-main) !important;
+    margin: 0 0 8px 0 !important;
+    letter-spacing: 1.2px !important;
+}
+.omni-core-title .version-tag {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    background: var(--intro-accent-bg) !important;
+    color: var(--intro-accent) !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+    letter-spacing: 0px !important;
+    margin-left: 6px !important;
+    vertical-align: middle !important;
+}
+
+.omni-core-subtitle {
+    margin: 0 !important;
+    font-size: 13px !important;
+    color: var(--intro-text-sub) !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.3px !important;
+}
+
+/* 🪐 [MIDDLE]: 메인 카드와 가이드 그리드 체인 */
+.omni-console-body {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 28px !important;
+}
+
+/* 게이트웨이 카드 */
+.omni-gateway-card {
+    background: var(--intro-card-bg) !important;
+    border: 1px solid var(--intro-card-border) !important;
+    border-radius: 24px !important;
+    padding: 34px !important;
+    box-shadow: var(--intro-shadow) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    backdrop-filter: blur(12px) !important;
+}
+
+.omni-input-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    margin-bottom: 22px !important;
+}
+
+.omni-input-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 12px !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+
+.omni-label {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    color: var(--intro-accent) !important;
+    letter-spacing: 1px !important;
+}
+
+/* 인터랙티브 트리거 링크 그룹 */
+.omni-trigger-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.omni-guide-trigger {
+    font-size: 12px !important;
+    color: var(--intro-accent) !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    background: var(--intro-accent-bg) !important;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+    border: 1px solid var(--intro-card-border) !important;
+}
+.omni-guide-trigger:hover {
+    opacity: 0.85 !important;
+    transform: translateY(-1px) !important;
+}
+
+/* 인풋 필드 */
+.omni-input-field {
+    width: 100% !important;
+    border: 1px solid var(--intro-card-border) !important;
+    border-radius: 12px !important;
+    padding: 15px 18px !important;
+    font-size: 13.5px !important;
+    box-sizing: border-box !important;
+    outline: none !important;
+    background: var(--intro-input-bg) !important;
+    color: var(--intro-text-main) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.omni-input-field:focus {
+    border-color: var(--intro-accent) !important;
+    box-shadow: 0 0 0 4px var(--intro-accent-bg) !important;
+}
+
+.omni-input-notice {
+    margin: 14px 0 0 0 !important;
+    font-size: 11.5px !important;
+    color: var(--intro-text-muted) !important;
+    line-height: 1.6 !important;
+    word-break: keep-all !important;
+}
+
+/* 커스텀 연결 버튼 */
+.omni-connect-btn {
+    width: 100% !important;
+    background: var(--intro-accent) !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 16px !important;
+    border-radius: 12px !important;
+    font-size: 14.5px !important;
+    font-weight: 800 !important;
+    cursor: pointer !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.2) !important;
+    letter-spacing: 0.5px !important;
+}
+.omni-connect-btn:hover {
+    background: var(--intro-accent-hover) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 14px 32px rgba(124, 58, 237, 0.35) !important;
+}
+.omni-connect-btn:active {
+    transform: translateY(0px) !important;
+}
+
+/* ⛓️ 가이드 박스 그리드 레이아웃 */
+.omni-feature-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 16px !important;
+    width: 100% !important;
+}
+
+.omni-feature-cell {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    background: var(--intro-cell-bg) !important;
+    border: 1px solid var(--intro-card-border) !important;
+    border-radius: 18px !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+    transition: all 0.25s ease !important;
+}
+.omni-feature-cell:hover {
+    border-color: var(--intro-accent) !important;
+    transform: translateY(-2px) !important;
+}
+
+.cell-icon {
+    font-size: 16px !important;
+    background: var(--intro-accent-bg) !important;
+    color: var(--intro-accent) !important;
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.cell-content h5 {
+    margin: 0 0 6px 0 !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    color: var(--intro-text-main) !important;
+}
+.cell-content p {
+    margin: 0 !important;
+    font-size: 11.5px !important;
+    color: var(--intro-text-sub) !important;
+    line-height: 1.5 !important;
+    word-break: keep-all !important;
+}
+
+/* 📑 하단 가이드라인 및 고지문 (Footer) */
+.omni-console-footer {
+    width: 100% !important;
+    text-align: center !important;
+    margin-top: 36px !important;
+    border-top: 1px solid var(--intro-card-border) !important;
+    padding-top: 22px !important;
+}
+
+.omni-footer-links {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 24px !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    color: var(--intro-text-muted) !important;
+    margin-bottom: 12px !important;
+}
+.omni-footer-links span {
+    cursor: pointer !important;
+    transition: color 0.15s ease !important;
+}
+.omni-footer-links span:hover {
+    color: var(--intro-accent) !important;
+}
+.omni-footer-links .policy-highlight {
+    color: var(--intro-accent) !important;
+    font-weight: 800 !important;
+}
+
+.omni-footer-copyright {
+    font-size: 10px !important;
+    color: var(--intro-text-muted) !important;
+    line-height: 1.6 !important;
+}
+
+/* 💨 시스템 해제 페이드아웃 효과 */
+#omniIntroOverlay.fade-out {
+    opacity: 0 !important;
+    transform: scale(0.98) !important;
+}
+
+/* 🔄 애니메이션 루프 정의 */
+@keyframes omniCoreFloat {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0); }
+}
+
+
+/* ============================================================================
+ * 💡 [수정완료] 모달 안내창 레이아웃 & 텍스트 깨짐 차단 CSS
+ * ============================================================================
+ */
+.omni-modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(10, 8, 20, 0.65) !important;
+    backdrop-filter: blur(8px) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 9999999 !important;
+    animation: omniModalEffect 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+}
+
+.omni-modal-content {
+    background: var(--intro-modal-bg) !important;
+    border: 1px solid var(--intro-card-border) !important;
+    padding: 32px !important;
+    border-radius: 24px !important;
+    width: 100% !important;
+    max-width: 480px !important;
+    box-sizing: border-box !important;
+    box-shadow: var(--intro-shadow) !important;
+    text-align: center !important;
+}
+
+.omni-modal-content h3 {
+    color: var(--intro-text-main) !important;
+    margin: 0 0 20px 0 !important;
+    font-size: 16px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.5px !important;
+}
+
+/* 모달 내부 단계별 정렬 박스 */
+.modal-steps-box {
+    text-align: left !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    margin-bottom: 26px !important;
+}
+
+/* 💡 [핵심 해결] p 내부 flex 요소가 글자를 분리시키지 않도록 정밀 구조 적용 */
+.modal-steps-box p {
+    margin: 0 !important;
+    font-size: 12.5px !important;
+    color: var(--intro-text-sub) !important;
+    line-height: 1.6 !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+}
+
+.modal-steps-box p .step-num {
+    background: var(--intro-accent-bg) !important;
+    color: var(--intro-accent) !important;
+    font-weight: 800 !important;
+    font-size: 10.5px !important;
+    width: 22px !important;
+    height: 22px !important;
+    border-radius: 6px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+
+.modal-steps-box p .step-text {
+    flex: 1 !important;
+    word-break: keep-all !important;
+    color: var(--intro-text-sub) !important;
+}
+
+.modal-steps-box p .step-text strong {
+    color: var(--intro-accent) !important;
+    font-weight: 800 !important;
+}
+
+/* 모달 닫기 버튼 */
+.omni-modal-btn {
+    background: var(--intro-accent) !important;
+    border: none !important;
+    color: #ffffff !important;
+    padding: 12px 32px !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    font-weight: 800 !important;
+    font-size: 13px !important;
+    transition: all 0.2s !important;
+}
+.omni-modal-btn:hover {
+    background: var(--intro-accent-hover) !important;
+    transform: translateY(-1px) !important;
+}
+
+@keyframes omniModalEffect {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* 📱 모바일 반응형 디스플레이 브레이크포인트 */
+@media (max-width: 840px) {
+    #omniIntroOverlay {
+        padding: 30px 16px 20px 16px !important;
+    }
+    .omni-feature-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+    .omni-gateway-card {
+        padding: 24px 18px !important;
+    }
+    .omni-core-title {
+        font-size: 22px !important;
+    }
+    .omni-input-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+}

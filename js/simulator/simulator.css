@@ -1,0 +1,234 @@
+/* ============================================================================
+ * 🎨 MAPLE OMNI V14 - js/simulator/simulator.css [COMPLETE COLOR SYSTEM]
+ * 설명: 츄츄지지 스타일의 큐브 재설정 통계 판넬 및 캐릭터/장비별 실시간 로그 출력 전용 스킨 시트입니다.
+ * 보안 설계: 부모 ID인 `#page-simulator` 범위 내부만 선택하여 타 모듈과의 충돌 가능성을 원천 차단합니다.
+ * ============================================================================
+ */
+
+/* 🌌 전체 프로젝트 root 테마와 동기화되는 시뮬레이터 다크 테마 변수셋 */
+:root[data-theme='dark'] #page-simulator {
+    --sim-bg: #12121a;                         /* 시뮬레이터 모듈 전체 바닥 배경색 */
+    --sim-card-bg: #181721;                    /* 개별 통계 박스 및 컴포넌트 내부 카드 배경색 */
+    --sim-inner-bg: #0d0c12;                   /* 테이블 헤더 및 입력 인풋 폼의 내장 어두운 배경색 */
+    --sim-text-main: #BCBCC7;                  /* 가독성이 확보된 메인 텍스트 컬러 */
+    --sim-text-sub: #747285;                   /* 설명글 및 서브 정보용 흐린 회색조 폰트 컬러 */
+    --sim-text-white: #f8fafc;                 /* 활성화된 숫자 및 강조 타이틀용 화이트 폰트 컬러 */
+    --sim-border: #262438;                     /* 모듈 테두리용 딥 청보라 스킨 컬러 */
+    --sim-accent: #5b46e5;                     /* 메인 아이콘 활성화 및 배지 핀 포인트 인디고 컬러 */
+    --sim-accent-glow: rgba(91, 70, 229, 0.15);/* 마우스 호버 시 발산되는 백그라운드 라벤더 글로우 */
+    --sim-shadow: rgba(0, 0, 0, 0.4);          /* 다크모드 전용 묵직한 하단 그림자 명세 */
+}
+
+/* ☀️ 전체 프로젝트 root 테마와 동기화되는 시뮬레이터 화이트 테마 변수셋 */
+:root[data-theme='light'] #page-simulator {
+    --sim-bg: #f1f5f9;                         /* 화이트모드 시 부드러운 눈이 편안한 슬레이트 그레이 바닥 배경 */
+    --sim-card-bg: #ffffff;                    /* 순백색 카드 박스 배경 명세 */
+    --sim-inner-bg: #f8fafc;                   /* 요약 카드 및 격자 슬롯 기본 라이트 그레이 배경 */
+    --sim-text-main: #333333;                  /* 눈의 피로를 최소화하는 진한 회색조 메인 폰트 */
+    --sim-text-sub: #555555;                   /* 서브 텍스트 가독성 확보용 미디움 회색 */
+    --sim-text-white: #111111;                 /* 화이트모드에서 강하게 강조되어야 할 볼드 폰트 컬러 */
+    --sim-border: #e2e8f0;                     /* 슬레이트 계열의 라이트 테두리 선 명세 */
+    --sim-accent: #6366f1;                     /* 화이트 테마에 최적화된 청보라 인디고 스킨 액센트 */
+    --sim-accent-glow: rgba(99, 102, 241, 0.08);/* 마우스 호버 시 은은하게 표현되는 소프트 틴트 영역 */
+    --sim-shadow: rgba(0, 0, 0, 0.06);         /* 화이트모드용 가벼운 경량 그림자 명세 */
+}
+
+/* 🖥️ 시뮬레이터 루트 컨테이너 마진 및 기본 글꼴 셋업 */
+#page-simulator {
+    background-color: var(--sim-bg) !important;
+    color: var(--sim-text-main) !important;
+    min-height: 100vh;
+    padding: 24px;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    box-sizing: border-box;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* 📊 상단 누적 메소, 누적 캐시, 감정 비용 3단 카드 레이아웃 정렬 */
+#page-simulator .sim-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+/* 💳 츄츄지지 스타일의 3대 누적 지표 요약 카드 컴포넌트 */
+#page-simulator .sim-summary-card {
+    background: var(--sim-card-bg);
+    border: 1px solid var(--sim-border);
+    border-radius: 12px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 4px 12px var(--sim-shadow);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+/* 요약 카드에 마우스 호버 시 살짝 떠오르는 모션 그래픽 */
+#page-simulator .sim-summary-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--sim-accent);
+}
+
+/* 요약 카드 내부 항목 타이틀 라벨 */
+#page-simulator .sim-summary-card .sim-card-label {
+    font-size: 13px;
+    color: var(--sim-text-sub);
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+/* 요약 카드 내부 최종 금액 및 횟수 수치 출력 폰트셋 */
+#page-simulator .sim-summary-card .sim-card-value {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--sim-text-white);
+    font-family: 'Consolas', monospace; /* 고정폭 폰트를 활용하여 숫자가 삐져나오는 버그를 방어합니다. */
+}
+
+/* 📦 데이터 컴포넌트용 공용 아우터 메인 박스 모델 */
+#page-simulator .sim-main-box {
+    background: var(--sim-card-bg);
+    border: 1px solid var(--sim-border);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 6px 20px var(--sim-shadow);
+    margin-bottom: 24px;
+}
+
+/* 각 메인 박스 내부 상단 지표 분류 타이틀바 명세 */
+#page-simulator .sim-box-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--sim-text-white);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--sim-border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 🎴 츄츄지지 스크린샷 규격을 구현하기 위한 가로 8열 반응형 격자 그리드 구조 */
+#page-simulator .sim-cube-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 12px;
+    margin-top: 10px;
+}
+
+/* 🎲 26종 큐브 아이콘 및 카운팅 데이터 결합 슬롯 명세 */
+#page-simulator .sim-cube-slot {
+    background: var(--sim-inner-bg);
+    border: 1px solid var(--sim-border);
+    border-radius: 8px;
+    padding: 14px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.15s ease-in-out;
+}
+
+/* 큐브 슬롯 호버 시 은은한 라벤더 보랏빛 포인트 컬러 매칭 */
+#page-simulator .sim-cube-slot:hover {
+    border-color: var(--sim-accent);
+    background: var(--sim-accent-glow);
+    transform: scale(1.03);
+}
+
+/* 큐브 인게임 스프라이트 아이콘 크기 고정 제어 */
+#page-simulator .sim-cube-slot img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    margin-bottom: 8px;
+}
+
+/* 사용 횟수 수치 가독성 폰트 */
+#page-simulator .sim-cube-count {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--sim-text-main);
+    font-family: 'Consolas', monospace;
+}
+
+/* 🗂️ 필터 컨트롤 셀렉트 박스 라인 배치 조율 */
+#page-simulator .sim-filter-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+/* 드롭다운 필터 요소 프리미엄 디자인 맞춤 변경 명세 */
+#page-simulator .sim-select-input {
+    background: var(--sim-inner-bg);
+    color: var(--sim-text-main);
+    border: 1px solid var(--sim-border);
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    outline: none;
+    cursor: pointer;
+    font-family: 'Pretendard', sans-serif;
+    transition: border-color 0.2s ease;
+}
+
+#page-simulator .sim-select-input:focus {
+    border-color: var(--sim-accent);
+}
+
+/* 📜 잠재능력 재설정 실시간 소급 테이블 아키텍처 */
+#page-simulator .sim-log-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    text-align: left;
+}
+
+#page-simulator .sim-log-table th {
+    background: var(--sim-inner-bg);
+    color: var(--sim-text-sub);
+    padding: 14px;
+    font-weight: 800;
+    border-bottom: 2px solid var(--sim-border);
+}
+
+#page-simulator .sim-log-table td {
+    padding: 14px;
+    border-bottom: 1px solid var(--sim-border);
+    color: var(--sim-text-main);
+    font-weight: 700;
+}
+
+/* 🟢 메이플 등급 체계 시각 동기화용 하이라이트 배지 팩토리 */
+#page-simulator .badge-grade {
+    display: inline-block;
+    padding: 4px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 900;
+    color: #ffffff !important; /* 화이트/다크 테마 폰트 오염을 방지하기 위해 흰색 고정 */
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+#page-simulator .grade-legendary { background: #10b981; } /* 레전드리 - 녹색 */
+#page-simulator .grade-unique { background: #f59e0b; }    /* 유니크 - 노란색 */
+#page-simulator .grade-epic { background: #8b5cf6; }      /* 에픽 - 보라색 */
+#page-simulator .grade-rare { background: #3b82f6; }      /* 레어 - 파란색 */
+
+/* 📉 재설정 완료된 3줄 잠재능력 텍스트 박스 고가독성 스킨 */
+#page-simulator .sim-option-box {
+    font-family: 'Consolas', 'Pretendard', monospace;
+    font-size: 12px;
+    color: var(--sim-text-white);
+    background: var(--sim-inner-bg);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border-left: 3px solid var(--sim-accent);
+    line-height: 1.6;
+}

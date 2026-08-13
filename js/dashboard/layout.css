@@ -1,0 +1,266 @@
+/* ============================================================================
+ * 🎨 MAPLE OMNI V15 - dashboard/layout.css
+ * 설명: 기본 바디 스타일, 커스텀 스크롤바, 로딩 레이어, 상단 테마 도크 레이아웃입니다.[cite: 5]
+ * ============================================================================
+ */
+
+* { box-sizing: border-box; }
+
+body {
+    background: #f4f6f9; /* 상하단 이질감을 없앤 균형 잡힌 중간색 배경 적용 */
+    margin: 0;
+    color: var(--omni-text-dark);
+}
+
+body.light-pink { background: #fff5f7; }
+body.light-blue { background: #f0f7ff; }
+body.dark-theme { background: var(--builder-bg, #12121a); }
+
+/* ----------------------------------------------------------------------------
+ * ⏳ [API 동기화 전용 풀스크린 로딩 오버레이][cite: 5]
+ * ---------------------------------------------------------------------------- */
+.omni-loading-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(18, 18, 26, 0.85) !important;
+    backdrop-filter: blur(5px) !important;
+    z-index: 999999 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 16px !important;
+}
+
+.omni-spinner-ring {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(167, 139, 250, 0.2);
+    border-top: 4px solid var(--omni-slate-primary, #a78bfa);
+    border-radius: 50%;
+    animation: omniSpin 0.8s linear infinite;
+}
+
+@keyframes omniSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.omni-loading-text {
+    color: #ffffff !important;
+    font-size: 14.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.3px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    margin: 0;
+}
+
+/* ----------------------------------------------------------------------------
+ * 🎚️ [커스텀 스크롤바 커스텀 스타일][cite: 5]
+ * ---------------------------------------------------------------------------- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--omni-card-border-line); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--omni-slate-primary); }
+
+body.dark-theme ::-webkit-scrollbar-track { background: var(--builder-card-bg, #181721); }
+body.dark-theme ::-webkit-scrollbar-thumb { background: var(--builder-border-dashed, #423f5e); border-radius: 10px; }
+body.dark-theme ::-webkit-scrollbar-thumb:hover { background: var(--builder-text-accent, #a78bfa); }
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--omni-card-border-line) transparent;
+}
+body.dark-theme * {
+    scrollbar-color: var(--builder-border-dashed, #423f5e) var(--builder-card-bg, #181721);
+}
+
+/* ----------------------------------------------------------------------------
+ * 🎨 대시보드 상단 마스터 테마 제어 도크 바[cite: 5]
+ * ---------------------------------------------------------------------------- */
+.dashboard-master-control-header {
+    display: flex; 
+    justify-content: flex-end; 
+    align-items: center; 
+    border-left: none; 
+    padding-left: 0; 
+    margin-bottom: 20px; 
+    margin-top: -10px;
+    gap: 20px;
+    width: 100%;
+}
+
+.dashboard-core-title {
+    margin: 0; 
+    font-size: calc(var(--omni-base-font-size) * 1.43); 
+    font-weight: 900; 
+    color: var(--omni-text-dark); 
+    letter-spacing: -0.5px;
+}
+
+.dashboard-action-trigger-box { display: flex; gap: 8px; align-items: center; }
+
+.dashboard-head-action-btn {
+    padding: 6px 12px; 
+    font-weight: 800; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: calc(var(--omni-base-font-size) * 0.77); 
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.dashboard-head-action-btn.logout-btn {
+    border: 1px dashed var(--omni-card-border-line); 
+    background: var(--omni-card-bg); 
+    color: var(--omni-text-muted);
+}
+.dashboard-head-action-btn.logout-btn:hover {
+    background: var(--omni-coral-light);
+    color: var(--omni-coral);
+    border-color: rgba(220, 38, 38, 0.4);
+}
+
+.omni-theme-toggle-container {
+    position: relative; 
+    display: inline-block;
+    z-index: 2147483647 !important;
+}
+
+.omni-theme-toggle-dock {
+    display: flex;
+    background: var(--omni-card-bg);
+    border: 1px dashed var(--omni-card-border-line);
+    padding: 3px;
+    border-radius: 8px;
+    gap: 2px;
+}
+
+.theme-btn-unit {
+    background: none;
+    border: none;
+    padding: 4px 10px;
+    font-size: calc(var(--omni-base-font-size) * 0.77); 
+    font-weight: 800;
+    color: var(--omni-text-sub);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.theme-btn-unit:hover { color: var(--omni-text-dark); }
+.theme-btn-unit.active {
+    background: var(--omni-slate-primary);
+    color: var(--omni-badge-text) !important; 
+}
+
+.omni-light-palette-dots {
+    position: absolute;
+    top: calc(100% + 8px); 
+    left: 50%;                 
+    transform: translateX(-50%);
+    background: var(--omni-card-bg);
+    border: 1px dashed var(--omni-card-border-line);
+    padding: 6px 10px;
+    border-radius: 8px;
+    display: none;             
+    gap: 8px;
+    z-index: 2147483647 !important;
+    align-items: center;
+    transition: all 0.15s ease-in-out;
+}
+
+.omni-light-palette-dots::after {
+    content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+    border-width: 6px; border-style: solid; border-color: transparent transparent var(--omni-card-bg) transparent;
+}
+.omni-light-palette-dots::before {
+    content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+    border-width: 7px; border-style: solid; border-color: transparent transparent var(--omni-card-border-line) transparent; z-index: -1;
+}
+
+.palette-dot {
+    display: inline-block; width: 13px; height: 13px; border-radius: 50%; cursor: pointer;
+    transition: transform 0.15s ease;
+}
+.palette-dot:hover { transform: scale(1.2) !important; }
+
+/* ----------------------------------------------------------------------------
+ * 1. 좌측 제어 사이드바 워크스페이스 프레임 구조[cite: 5]
+ * ---------------------------------------------------------------------------- */
+.sidebar-workspace-wrapper {
+    display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 16px;
+    background: var(--omni-sidebar-bg) !important; border-radius: 16px;
+    border: 1px dashed var(--omni-card-border-line) !important;
+}
+
+.workspace-notice-card {
+    background: var(--omni-card-bg) !important; 
+    border: 1px dashed var(--omni-card-border-line) !important; 
+    padding: 20px; 
+    border-radius: 14px;
+}
+
+.notice-badge-title {
+    display: inline-block; font-size: calc(var(--omni-base-font-size) * 0.71); font-weight: 900; color: var(--omni-text-dark); 
+    background: var(--omni-card-bg) !important; border: 1px dashed var(--omni-card-border-line); padding: 3px 8px; border-radius: 6px;
+}
+
+.workspace-notice-card h4 { margin: 0 0 6px 0; font-size: calc(var(--omni-base-font-size) * 0.93); font-weight: 900; color: var(--omni-text-dark) !important; }
+.workspace-notice-card p { margin: 0; font-size: calc(var(--omni-base-font-size) * 0.82); color: var(--omni-text-muted) !important; font-weight: 600; line-height: 1.6; }
+
+.sidebar-api-refresh-box { width: 100%; }
+.sidebar-global-refresh-btn {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--omni-card-bg);
+    color: var(--omni-slate-primary) !important;
+    border: 1px dashed var(--omni-card-border-line);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease-in-out;
+}
+.sidebar-global-refresh-btn:hover {
+    background: var(--omni-slate-primary);
+    color: var(--omni-badge-text) !important;
+    border-color: var(--omni-slate-primary);
+}
+
+.sidebar-sub-action-btn {
+    flex: 1;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 7px 0;
+    text-align: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: var(--omni-card-bg) !important;
+    border: 1px dashed var(--omni-card-border-line) !important;
+    color: var(--omni-text-dark) !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.sidebar-sub-action-btn:hover {
+    background: var(--omni-hover-point) !important;
+    border-color: var(--omni-slate-primary) !important;
+}
+
+.workspace-meta-status { margin-top: 16px; border-top: 1px dashed var(--omni-card-border-line) !important; padding-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.meta-status-row { display: flex; justify-content: space-between; font-size: calc(var(--omni-base-font-size) * 0.82); font-weight: 700; }
+.meta-status-row span { color: var(--omni-text-sub) !important; }
+.meta-status-row strong { color: var(--omni-sky-highlight) !important; }
+.workspace-secure-anchor { margin-top: 15px; font-size: calc(var(--omni-base-font-size) * 0.79); font-weight: 800; color: var(--omni-text-muted) !important; display: flex; align-items: center; gap: 8px; padding-top: 12px; border-top: 1px dashed var(--omni-card-border-line) !important; }

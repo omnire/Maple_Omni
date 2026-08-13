@@ -1,0 +1,184 @@
+/* ============================================================================
+   🎨 js/hunt/hunt.css - 사냥 관제 콘솔 메인 레이아웃 및 통일 뒤로가기 버튼 스타일
+   설명: index.html의 page-hunt 섹션 내부 전체를 지탱하는 기본 뼈대 디자인입니다.
+   규칙: 코드를 쓸 때는 항상 초보자도 이해할 수 있게 상세한 주석을 달아줍니다.
+   ============================================================================ */
+
+/* 사냥 전역 섹션 컨테이너 */
+#page-hunt {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* 상단 타이틀 및 모드 전환 버튼 구역 */
+.page-header h2 {
+    font-size: 22px;
+    font-weight: 900;
+    color: #1e293b;
+    margin: 0;
+}
+
+/* 탭 전환 서브 메뉴 스타일 */
+.sub-tab-menu {
+    display: flex;
+    gap: 8px;
+    margin: 20px 0;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 8px;
+}
+
+.sub-tab-menu .tab-btn {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.sub-tab-menu .tab-btn:hover {
+    background: #f1f5f9;
+    color: #334155;
+}
+
+.sub-tab-menu .tab-btn.active {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+/* 서브 섹션 가시성 제어 클래스 */
+.sub-section {
+    display: none;
+    width: 100%;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.sub-section.active {
+    display: block;
+}
+
+/* ⚔️ 동적 인하우스 헤더 액션 바 스타일 규칙 디자인 */
+.v14-internal-header-action-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    background: #ffffff;
+    border: 1px solid #ebdffc;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 4px rgba(124, 58, 237, 0.02);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.v14-header-control-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f5f3ff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #e0d7ff;
+}
+
+.v14-badge-title { font-size: 12px; color: #6d28d9; font-weight: 700; }
+.v14-badge-name { font-size: 13.5px; font-weight: 800; color: #4c1d95; background: #ffffff; padding: 2px 8px; border-radius: 4px; border: 1px solid #ddd6fe; }
+
+/* ◀ [전역 통일 뒤로가기 버튼 시스템] */
+.v14-btn-back {
+    background: var(--hunt-card-bg, #ffffff);
+    color: var(--hunt-primary, #7c3aed);
+    border: 1px solid var(--hunt-border, #e0d7ff);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 11.5px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 32px;
+    box-sizing: border-box;
+    line-height: 1;
+}
+
+.v14-btn-back:hover {
+    background: var(--hunt-card-sub-bg, #f5f3ff);
+    border-color: var(--hunt-primary, #7c3aed);
+    transform: translateX(-2px);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================================
+   🌙 [통일 다크모드 테마 색상 연동] - 표준 Palette #12121a / #181721 적용
+   ============================================================================ */
+body.dark-theme, html.dark-theme, .dark-theme {
+    background-color: #12121a !important;
+    color: #BCBCC7;
+}
+
+body.dark-theme .page-header h2,
+html.dark-theme .page-header h2,
+.dark-theme .page-header h2 { color: #BCBCC7; }
+
+body.dark-theme .sub-tab-menu,
+html.dark-theme .sub-tab-menu,
+.dark-theme .sub-tab-menu { border-bottom-color: #262438; }
+
+body.dark-theme .sub-tab-menu .tab-btn,
+html.dark-theme .sub-tab-menu .tab-btn,
+.dark-theme .sub-tab-menu .tab-btn { color: #747285; }
+
+body.dark-theme .sub-tab-menu .tab-btn:hover,
+html.dark-theme .sub-tab-menu .tab-btn:hover,
+.dark-theme .sub-tab-menu .tab-btn:hover { background: #181721; color: #BCBCC7; }
+
+body.dark-theme .sub-tab-menu .tab-btn.active,
+html.dark-theme .sub-tab-menu .tab-btn.active,
+.dark-theme .sub-tab-menu .tab-btn.active { background: #212030; color: #a78bfa; }
+
+body.dark-theme .v14-internal-header-action-bar,
+html.dark-theme .v14-internal-header-action-bar,
+.dark-theme .v14-internal-header-action-bar { background: #181721; border-color: #262438; }
+
+body.dark-theme .v14-header-control-badge,
+html.dark-theme .v14-header-control-badge,
+.dark-theme .v14-header-control-badge { background: #212030; border-color: #423f5e; }
+
+body.dark-theme .v14-badge-name,
+html.dark-theme .v14-badge-name,
+.dark-theme .v14-badge-name { background: #181721; color: #a78bfa; border-color: #262438; }
+
+body.dark-theme .v14-btn-back,
+html.dark-theme .v14-btn-back,
+.dark-theme .v14-btn-back { background: #181721; color: #a78bfa; border-color: #262438; }
+
+body.dark-theme .v14-btn-back:hover,
+html.dark-theme .v14-btn-back:hover,
+.dark-theme .v14-btn-back:hover { background: #212030; border-color: #423f5e; }
+
+/* 🌸 [PINK THEME] */
+body.light-pink .page-header h2 { color: #831843; }
+body.light-pink .sub-tab-menu { border-bottom-color: #fbcfe8; }
+body.light-pink .sub-tab-menu .tab-btn.active { background: #ffe4e6; color: #db2777; }
+body.light-pink .v14-internal-header-action-bar { background: #fff5f8; border-color: #fbcfe8; }
+body.light-pink .v14-header-control-badge { background: #ffe4e6; border-color: #fbcfe8; }
+
+/* 🔹 [BLUE THEME] */
+body.light-blue .page-header h2 { color: #0c4a6e; }
+body.light-blue .sub-tab-menu { border-bottom-color: #bae6fd; }
+body.light-blue .sub-tab-menu .tab-btn.active { background: #e0f2fe; color: #0284c7; }
+body.light-blue .v14-internal-header-action-bar { background: #f0f7ff; border-color: #bae6fd; }
+body.light-blue .v14-header-control-badge { background: #e0f2fe; border-color: #bae6fd; }

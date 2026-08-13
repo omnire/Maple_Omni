@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- 💡 [초보자 가이드] 문서 기본 설정 및 웹 폰트(Pretendard) 로드 -->
+    <meta charset="UTF-8">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAPLE OMNI V15 - Widescreen Ultimate Premium</title>
+    
+    <!-- 📱 PWA 앱 환경 설정 매니페스트 -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- 🎨 [1. 글로벌 및 공통 레이아웃 스타일시트] -->
+    <link rel="stylesheet" href="css/style.css"> 
+    <link rel="stylesheet" href="js/intro/intro.css">        
+    
+    <!-- 🛠️ [2. 대시보드 모듈 전용 스타일시트] -->
+    <link rel="stylesheet" href="js/dashboard/theme.css">   <!-- 다크/라이트 테마 색상 변수 -->
+    <link rel="stylesheet" href="js/dashboard/layout.css">  <!-- 대시보드 구조 및 그리드 골격 -->
+    <link rel="stylesheet" href="js/dashboard/widgets.css"> <!-- 프로필 카드 및 위젯 UI -->
+    <link rel="stylesheet" href="js/dashboard/planner.css"> <!-- 메모장, 이벤트, 계획서 -->
+    
+    <!-- 📋 [3. 주간 할일 / 투두 모듈 스타일시트] -->
+    <link rel="stylesheet" href="js/todo/css/todo_summary.css">
+    <link rel="stylesheet" href="js/todo/css/todo_planner.css">
+    <link rel="stylesheet" href="js/todo/css/todo_daily.css">
+    <link rel="stylesheet" href="js/todo/css/todo_weekly.css">
+    <link rel="stylesheet" href="js/todo/css/todo_boss.css">
+    
+    <!-- 🔍 [4. 캐릭터 검색 분석 모듈 스타일시트] -->
+    <link rel="stylesheet" href="js/search/basic.css">
+    <link rel="stylesheet" href="js/search/search.css">
+    <link rel="stylesheet" href="js/search/search_skill.css">
+    <link rel="stylesheet" href="js/search/search_union.css">
+
+    <!-- 😈 [5. 보스 레이드 모듈 스타일시트] -->
+    <link rel="stylesheet" href="js/boss/boss.css">
+    
+    <!-- 📷 [6. 옴니스캐너 & 빌더 모듈 스타일시트] (farmer.css 불필요 항목 완전 제거) -->
+    <link rel="stylesheet" href="js/scanner/scanner.css">    
+    <link rel="stylesheet" href="js/builder/builder.css">    
+    
+    <!-- ⚔️ [7. 사냥 및 정산 관리 모듈 스타일시트] -->
+    <link rel="stylesheet" href="js/hunt/overview.css?v=v14_lavender_premium">
+    <link rel="stylesheet" href="js/hunt/hunt.css?v=v14_lavender_premium">
+    <link rel="stylesheet" href="js/hunt/record.css?v=v14_lavender_premium">
+    <link rel="stylesheet" href="js/hunt/history.css?v=v14_lavender_premium">
+    <link rel="stylesheet" href="js/hunt/analysis.css?v=v14_lavender_premium">
+    
+    <!-- 💰 [8. 지출 / MVP / 시뮬레이터 스타일시트] -->
+    <link rel="stylesheet" href="js/expense/expense.css?v=v14_lavender_premium">
+    <link rel="stylesheet" href="js/mvp/mvp.css">
+    <link rel="stylesheet" href="js/simulator/simulator.css">
+    
+    <!-- 📊 [외부 그래프 라이브러리] Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* 💡 [초보자 가이드] 페이지 전환 시 화면 깜빡임 및 레이아웃 깨짐 방지용 기본 CSS 설정 */
+        .page-section { display: none !important; }
+        .page-section.active { display: block !important; }
+        
+        /* 서브 탭 화면 제어 기본 규칙 */
+        .sub-section { display: none !important; }
+        .sub-section.active { display: block !important; }
+
+        /* 💡 [초보자 가이드] 사냥 기록지 상단 허전한 공백을 좁히기 위한 상단 마진/패딩 압축 스타일 */
+        #page-hunt { padding-top: 0 !important; margin-top: 0 !important; }
+        #hunt-record { padding-top: 0 !important; margin-top: 0 !important; }
+        .v14-record-wrapper { margin-top: -12px !important; padding-top: 0 !important; }
+        .v14-top-header-bar { margin-top: 0 !important; padding-top: 0 !important; }
+    </style>
+</head>
+<body>
+
+    <!-- 🧭 [상단 고정 네비게이션 헤더 바] -->
+    <header class="omni-top-nav">
+        <div class="nav-brand">MAPLE <span>OMNI</span></div>
+        
+        <!-- 캐릭터 빠른 검색창 -->
+        <div class="search-container">
+            <span>🔍</span>
+            <input type="text" id="globalSearchInput" placeholder="캐릭터명 검색 후 엔터" onkeypress="if(event.key === 'Enter') startOmniSearch(this.value);">
+        </div>
+        
+        <!-- 메인 페이지 이동 메뉴 버튼들 -->
+        <nav class="nav-menu" style="position: relative;">
+            <button id="nav-btn-dashboard" onclick="omniSwitchPage('page-dashboard')" class="nav-btn">홈/대시보드</button>
+            
+            <!-- 주간 할일 드롭다운 메뉴 -->
+            <div style="position: relative; display: inline-block;">
+                <button id="nav-btn-todo" onclick="toggleTodoDropdown(); omniSwitchPage('page-todo');" class="nav-btn">주간 할일 ▾</button>
+                <div id="todoDropdownMenu" style="display: none; position: absolute; top: 100%; left: 0; background: #ffffff; border: 1px dashed #cbd5e1; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 6px; z-index: 1000; min-width: 140px; flex-direction: column; gap: 4px;">
+                    <button onclick="window.switchTodoTab('summary'); hideTodoDropdown();" style="background: transparent; border: none; padding: 8px 12px; text-align: left; font-size: 12px; font-weight: 700; color: #475569; border-radius: 6px; cursor: pointer; width: 100%;">📋 요약</button>
+                    <button onclick="window.switchTodoTab('planner'); hideTodoDropdown();" style="background: transparent; border: none; padding: 8px 12px; text-align: left; font-size: 12px; font-weight: 700; color: #475569; border-radius: 6px; cursor: pointer; width: 100%;">📅 옴니 플래너</button>
+                    <button onclick="window.switchTodoTab('daily'); hideTodoDropdown();" style="background: transparent; border: none; padding: 8px 12px; text-align: left; font-size: 12px; font-weight: 700; color: #475569; border-radius: 6px; cursor: pointer; width: 100%;">☀️ 일일 퀘스트</button>
+                    <button onclick="window.switchTodoTab('weekly'); hideTodoDropdown();" style="background: transparent; border: none; padding: 8px 12px; text-align: left; font-size: 12px; font-weight: 700; color: #475569; border-radius: 6px; cursor: pointer; width: 100%;">📦 주간 퀘스트</button>
+                    <button onclick="window.switchTodoTab('boss'); hideTodoDropdown();" style="background: transparent; border: none; padding: 8px 12px; text-align: left; font-size: 12px; font-weight: 700; color: #475569; border-radius: 6px; cursor: pointer; width: 100%;">😈 주간 보스</button>
+                </div>
+            </div>
+
+            <button id="nav-btn-search" onclick="omniSwitchPage('page-search')" class="nav-btn">캐릭터 조회</button>
+            <button id="nav-btn-scanner" onclick="omniSwitchPage('page-scanner')" class="nav-btn">옴니스캐너</button>
+            <button id="nav-btn-builder" onclick="omniSwitchPage('page-builder')" class="nav-btn">옴니빌더</button>
+            <button id="nav-btn-boss" onclick="omniSwitchPage('page-boss')" class="nav-btn">보스</button>
+            <button id="nav-btn-hunt" onclick="omniSwitchPage('page-hunt')" class="nav-btn">사냥/재획</button>
+            <button id="nav-btn-mvp" onclick="omniSwitchPage('page-mvp')" class="nav-btn">MVP 계산기</button>
+            <button id="nav-btn-simulator" onclick="omniSwitchPage('page-simulator')" class="nav-btn">시뮬레이터</button>
+        </nav>
+    </header>
+
+    <!-- 🖥️ [메인 와이드 스크린 레이아웃 프레임] -->
+    <div class="omni-widescreen-frame">
+        
+        <!-- 👈 [좌측 고정 사이드바 시스템 인터페이스] -->
+        <aside class="omni-widescreen-sidebar" id="characterCardContainer">
+            <div class="system-interface-sidebar" style="width: 100%; display: flex; flex-direction: column; gap: 16px;">
+                <div class="interface-header" style="font-size: 11px; font-weight: 900; color: #64748b; letter-spacing: 1.5px; padding-bottom: 4px; border-bottom: 1px solid #e2e8f0;">SYSTEM INTERFACE</div>
+                
+                <div class="core-regulation" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+                    <div class="regulation-title" style="font-size: 11px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 6px;">
+                        <span style="color: #0f766e;">⚙️</span> OMNI CORE REGULATION
+                    </div>
+                    <p class="regulation-desc" style="margin: 0; font-size: 11px; color: #475569; line-height: 1.5; word-break: keep-all;">
+                        본 관제 콘솔은 넥슨 OpenAPI 아키텍처의 실시간 파싱 부하 규정을 준수하며 안전 필터 모드로 작동 중입니다.
+                    </p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 🖥️ [우측 메인 메인 화면 뷰어 존] -->
+        <aside class="omni-widescreen-viewport">
+            
+            <!-- 1. 대시보드 메인 화면 -->
+            <section id="page-dashboard" class="page-section">
+                <div id="dashboardWidgets"></div>
+
+                <!-- 🌐 [대시보드 전용 푸터] 점선 제거 및 대시보드 내부 맨 아래에 고유 배치 -->
+                <footer style="width: 100%; margin-top: 80px; padding: 20px 20px 40px 20px; border-top: none; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; font-family: 'Pretendard', sans-serif; box-sizing: border-box;">
+                    <div style="display: flex; gap: 16px; font-size: 12px; font-weight: 700; flex-wrap: wrap; justify-content: center;">
+                        <a href="#" style="color: var(--omni-slate-primary, #7a6ec7); text-decoration: none;">PWA 가이드</a>
+                        <a href="#" style="color: var(--omni-slate-primary, #7a6ec7); text-decoration: none;">개인정보처리방침</a>
+                        <a href="#" style="color: var(--omni-slate-primary, #7a6ec7); text-decoration: none;">이용약관</a>
+                        <a href="#" style="color: var(--omni-slate-primary, #7a6ec7); text-decoration: none;">게임 IP 사용가이드</a>
+                        <a href="#" style="color: var(--omni-slate-primary, #7a6ec7); text-decoration: none;">API 발급 문의</a>
+                    </div>
+                    <div style="font-size: 11px; color: var(--omni-text-muted, #6a638c); font-weight: 600; line-height: 1.5;">
+                        Data based on NEXON OPEN API · This system is an independent management console and is not affiliated with NEXON official.
+                    </div>
+                    <div style="font-size: 10.5px; color: var(--omni-text-sub, #94a3b8); font-weight: 600;">
+                        © 2026. Maple Omni Architecture. All rights reserved.
+                    </div>
+                </footer>
+            </section>
+
+            <!-- 2. 주간 할일 화면 -->
+            <section id="page-todo" class="page-section">
+                <div id="todo-summary" class="sub-section"></div>
+                <div id="todo-planner" class="sub-section"></div>
+                <div id="todo-daily" class="sub-section"></div>
+                <div id="todo-weekly" class="sub-section"></div>
+                <div id="todo-boss" class="sub-section"></div>
+            </section>
+
+            <!-- 3. 캐릭터 조회 화면 -->
+            <section id="page-search" class="page-section">
+                <div id="search-basic" class="sub-section active" style="display: block !important;"></div>
+            </section>
+
+            <!-- 4. 옴니스캐너 화면 -->
+            <section id="page-scanner" class="page-section">
+                <!-- scanner.js 내부에서 1:1 순수 내실 비교 레이아웃이 렌더링됩니다. -->
+            </section>
+
+            <!-- 5. 옴니빌더 화면 -->
+            <section id="page-builder" class="page-section">
+                <div id="builderContent"></div>
+            </section>
+
+            <!-- 6. 보스 레이드 대시보드 화면 -->
+            <section id="page-boss" class="page-section">
+                <div id="bossContent"></div>
+            </section>
+
+            <!-- 7. 사냥 / 재획 관리 화면 -->
+            <section id="page-hunt" class="page-section">
+                <div class="sub-tab-menu">
+                    <button onclick="window.switchHuntTab('overview')" class="tab-btn">📊 사냥 종합 현황 (7일 요약)</button>
+                    <button onclick="window.switchHuntTab('record')" class="tab-btn">✍️ 사냥 기록하기</button>
+                    <button onclick="window.switchHuntTab('expense')" class="tab-btn">💰 지출 기록</button> 
+                    <button onclick="window.switchHuntTab('history')" class="tab-btn">📜 사냥정산센터</button>
+                    <button onclick="window.switchHuntTab('analysis')" class="tab-btn">📈 누적 성장분석 리포트</button>
+                </div>
+                <div id="hunt-overview" class="sub-section"></div> 
+                <div id="hunt-record" class="sub-section"></div>
+                
+                <div id="hunt-expense" class="sub-section">
+                    <div id="expenseContent"></div>
+                </div>
+                
+                <div id="hunt-history" class="sub-section"></div>
+                <div id="hunt-analysis" class="sub-section">
+                    <div class="analysis-chart-container"><canvas id="omniGrowthChart"></canvas></div>
+                </div>
+            </section>
+
+            <!-- 8. MVP 계산기 화면 -->
+            <section id="page-mvp" class="page-section">
+                <div class="page-header" style="border-left: 4px solid #7c3aed; padding-left: 15px; margin-bottom: 25px;"><h2 style="margin: 0; font-size: 20px; font-weight: 900; color: #1e293b;">MVP 등급 손익 비율 트래킹 센터</h2></div>
+                <div id="mvpContent"></div>
+            </section>
+
+            <!-- 9. 시뮬레이터 화면 -->
+            <section id="page-simulator" class="page-section">
+                <div class="page-header" style="border-left: 4px solid #7c3aed; padding-left: 15px; margin-bottom: 25px;">
+                    <h2 style="margin: 0; font-size: 20px; font-weight: 900; color: #1e293b;">큐브 & 스타포스 계정 시뮬레이터 종합 통계</h2>
+                </div>
+                <div id="simulatorContent"></div>
+            </section>
+
+            <!-- ⚡ [초보자 가이드] SPA 라우팅 및 드롭다운 컨트롤 인라인 스크립트 -->
+            <script>
+            (function() {
+                let isOmniSearchingNow = false;
+
+                // 주간 할일 드롭다운 토글
+                window.toggleTodoDropdown = function() {
+                    const menu = document.getElementById('todoDropdownMenu');
+                    if (menu) {
+                        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+                    }
+                };
+
+                window.hideTodoDropdown = function() {
+                    const menu = document.getElementById('todoDropdownMenu');
+                    if (menu) {
+                        menu.style.display = 'none';
+                    }
+                };
+
+                // 드롭다운 외부 클릭 시 닫기
+                document.addEventListener('click', (e) => {
+                    const btn = document.getElementById('nav-btn-todo');
+                    const menu = document.getElementById('todoDropdownMenu');
+                    if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                        menu.style.display = 'none';
+                    }
+                });
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    if (typeof window.startOmniSearch === 'function') {
+                        const originalStartOmniSearch = window.startOmniSearch;
+                        window.startOmniSearch = function(characterName) {
+                            isOmniSearchingNow = true; 
+                            originalStartOmniSearch(characterName);
+                            setTimeout(() => { isOmniSearchingNow = false; }, 1000);
+                        };
+                    }
+
+                    if (typeof window.omniSwitchPage === 'function') {
+                        const originalOmniSwitchPage = window.omniSwitchPage;
+                        window.omniSwitchPage = function(pageId) {
+                            if (isOmniSearchingNow && pageId === 'page-search') {
+                                const currentPage = document.querySelector('.page-section.active');
+                                if (currentPage && currentPage.id !== 'page-search') {
+                                    isOmniSearchingNow = false; 
+                                    return; 
+                                }
+                            }
+                            originalOmniSwitchPage(pageId);
+
+                            if (pageId === 'page-dashboard' && typeof window.renderDashboardMainWidgets === 'function') {
+                                window.renderDashboardMainWidgets();
+                            }
+
+                            if (pageId === 'page-todo' && typeof window.switchTodoTab === 'function') {
+                                window.switchTodoTab(window.omniTodoState.activeSubTab);
+                            }
+
+                            if (pageId === 'page-search') {
+                                const searchBasic = document.getElementById('search-basic');
+                                if (searchBasic) searchBasic.classList.add('active');
+                                if (typeof window.renderFullSearchPage === 'function' && !searchBasic.hasChildNodes()) {
+                                    window.renderFullSearchPage();
+                                }
+                            }
+                        };
+                    }
+                });
+            })();
+            </script>
+        </aside>
+    </div>
+
+    <script src="js/common/omni-cache.js"></script>
+
+    <!-- ⚙️ [1. 핵심 시스템 및 API 코어 스크립트] -->
+    <script src="js/core/data.js"></script>      
+    <script src="js/core/api_core.js"></script>       
+    <script src="js/core/api_hub.js"></script>  
+    <script src="js/core/api_search.js"></script>  
+    <script src="js/core/router.js"></script>    
+    
+    <!-- 🛠️ [2. 대시보드 모듈 스크립트] -->
+    <script src="js/dashboard/theme.js"></script>     
+    <script src="js/dashboard/sidebar.js"></script>   
+    <script src="js/dashboard/character.js"></script> 
+    <script src="js/dashboard/widgets.js"></script>   
+    <script src="js/dashboard/planner.js"></script>   
+    
+    <!-- 📋 [3. 주간 할일 모듈 스크립트] -->
+    <script src="js/todo/js/todo_state.js"></script>
+    <script src="js/todo/js/todo_sync.js"></script>
+    <script src="js/todo/js/todo_summary.js"></script>
+    <script src="js/todo/js/todo_planner.js"></script>
+    <script src="js/todo/js/todo_daily.js"></script>
+    <script src="js/todo/js/todo_weekly.js"></script>
+    <script src="js/todo/js/todo_boss.js"></script>
+    
+    <!-- 🔍 [4. 검색 분석 모듈 스크립트] -->
+    <script src="js/search/basic.js"></script>    
+    <script src="js/search/search.js"></script>   
+    <script src="js/search/search_achievement.js"></script>
+    <script src="js/search/search_skill.js"></script> 
+    <script src="js/search/search_union.js"></script> 
+    
+    <!-- 🎮 [5. 스캐너 및 빌더 모듈 스크립트] (farmer.css 완전히 제외됨) -->
+    <script src="item_db.js"></script>
+    <script src="js/scanner/scanner.js"></script>
+    <script src="js/builder/builder.js"></script>
+    <script src="js/boss/boss.js"></script>
+    
+    <!-- ⚔️ [6. 사냥 및 정산 모듈 스크립트] -->
+    <script src="js/hunt/hunt.js?v=v14_lavender_premium"></script>      
+    <script src="js/hunt/overview.js?v=v14_lavender_premium"></script> 
+    <script src="js/hunt/record.js?v=v14_lavender_premium"></script>    
+    <script src="js/hunt/history.js?v=v14_lavender_premium"></script>    
+    <script src="js/hunt/analysis.css?v=v14_lavender_premium"></script> 
+    <script src="js/hunt/analysis.js?v=v14_lavender_premium"></script> 
+    
+    <!-- 💰 [7. 지출 / MVP / 인트로 / 시뮬레이터 스크립트] -->
+    <script src="js/expense/expense.js?v=v14_lavender_premium"></script>
+    <script src="js/mvp/mvp.js"></script>
+    <script src="js/intro/intro.js"></script>
+    <script src="js/simulator/simulator.js"></script>
+    
+    <!-- 📱 [8. 서비스 워커 등록 스크립트] -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(function(err) { 
+                console.log("ServiceWorker 등록 완료"); 
+            });
+        }
+    </script>
+</body>
+</html>

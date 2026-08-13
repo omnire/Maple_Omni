@@ -1,0 +1,27 @@
+/* ============================================================================
+ * 📑 MAPLE OMNI V14 - js/todo/todo_weekly.css [📦 WEEKLY SUB-THEME SYSTEM]
+ * 설명: 주간 콘텐츠 컴포넌트 확장 스킨입니다.
+ * 초보자 가이드: 라이트모드 순백 점선 및 다크모드 회색빛 대시보드 스펙과 완벽 연동됩니다.
+ * ============================================================================
+ */
+
+#todo-weekly .hw-item-row {
+    transition: transform 0.15s ease, border-color 0.15s ease;
+    background: #ffffff;
+    border: 1px dashed #cbd5e1;
+}
+#todo-weekly .hw-item-row:hover {
+    transform: translateX(1px);
+    background: #f1f5f9;
+    border-color: #8372d6;
+}
+
+/* 🌙 [다크모드 전용] 지정 변수 100% 바인딩 */
+body.dark-theme #todo-weekly .hw-item-row {
+    background: var(--builder-card-bg, #181721) !important;
+    border: 1px dashed var(--builder-border-dashed, #423f5e) !important;
+}
+body.dark-theme #todo-weekly .hw-item-row:hover {
+    background: var(--builder-input-bg, #212030) !important;
+    border-color: var(--builder-text-accent, #a78bfa) !important;
+}

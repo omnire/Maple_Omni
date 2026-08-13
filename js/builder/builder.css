@@ -1,0 +1,222 @@
+/**
+ * ============================================================================
+ * 🛠️ MAPLE OMNI V15 - builder.css [PREMIUM SIMULATOR SKIN - FIX OFFSET]
+ * 설명: 테마 독립 격리 시스템 및 장비 아이콘 컴팩트화(40px), 세트효과 타이틀 및 
+ *       프로필/인벤토리 내 캐릭터 아바타 위치를 즉시 조절 가능한 설정판 탑재.
+ * ============================================================================
+ */
+
+:root {
+    --builder-bg: #ffffff;
+    --builder-card-bg: #ffffff;
+    --builder-text-main: #1e1b4b;
+    --builder-text-sub: #6b7280;
+    --builder-text-accent: #7c3aed;
+    --builder-border: #e9d5ff;
+    --builder-border-dashed: #d8b4fe;
+    --builder-accent: #8b5cf6;
+    --builder-bg-sub: #faf5ff;
+    --builder-bg-selected: #f3e8ff;
+    --builder-input-bg: #ffffff;
+
+    /* ==========================================
+       🖼️ [유저 이미지 위치 및 수치 조절 보드판]
+       - 원하는 수치로 변경하여 쉽게 화면을 교정하세요.
+       ========================================== */
+    --profile-avatar-top: -8px;        /* 프로필 원 속 캐릭터의 상/하 위치 (더 내리려면 0px, 10px 등으로 키우세요) */
+    --profile-avatar-scale: 2.6;       /* 프로필 원 속 캐릭터 배율 크기 (2.6배로 크기 확대) */
+    
+    --inventory-avatar-top: -10px;      /* 중앙 인벤토리 아바타 상단 여백 (기본 10px에서 -10px로 위로 밀어 정렬) */
+    --inventory-avatar-scale: 2.2;     /* 중앙 인벤토리 아바타 크기 배율 (2.2배로 큼직하게 확대 적용) */
+
+    --set-effect-title-size: 13px;     /* '👑 활성화 장비 세트 효과' 헤더의 글씨체 크기 (기본 13px) */
+}
+
+body.dark-theme {
+    --builder-bg: #12121a;
+    --builder-card-bg: #181721;
+    --builder-text-main: #BCBCC7;
+    --builder-text-sub: #747285;
+    --builder-text-accent: #a78bfa;
+    --builder-border: #262438;
+    --builder-border-dashed: #423f5e;
+    --builder-accent: #7a7791;
+    --builder-bg-sub: #212030;
+    --builder-bg-selected: #2b2846;
+    --builder-input-bg: #212030;
+}
+
+.builder-three-column-grid {
+    display: grid !important;
+    grid-template-columns: 310px 1fr 340px !important; 
+    gap: 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    align-items: start !important;
+}
+
+.builder-master-card {
+    background: var(--builder-card-bg) !important;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid var(--builder-border) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* 🖼️ [프로필 아바타 원형 테두리 설정] */
+.builder-profile-avatar-circle {
+    width: 72px;
+    height: 72px;
+    background: #eef2ff;
+    border: 1.5px solid var(--builder-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 🎒 [인게임 아바타 매트릭스 격자 조절] */
+.builder-inventory-grid-container {
+    display: grid !important;
+    grid-template-columns: 40px 40px 80px 40px 40px !important; 
+    grid-template-rows: repeat(6, 40px) !important;
+    gap: 8px !important;
+    width: fit-content !important;
+    margin: 15px auto !important;
+    position: relative !important;
+    background: var(--builder-bg) !important;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--builder-border-dashed) !important;
+}
+
+/* 👤 장비 보드 내부 한가운데 캐릭터 아바타 상주 영역 */
+.builder-avatar-frame {
+    grid-column: 3 / 4 !important;
+    grid-row: 1 / 6 !important; 
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: var(--builder-bg-sub) !important;
+    border-radius: 8px;
+    border: 1px dashed var(--builder-border-dashed) !important;
+    height: 100% !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.builder-item-slot-node {
+    width: 100% !important;
+    height: 100% !important;
+    border: 1px solid var(--builder-border) !important;
+    background: var(--builder-card-bg) !important;
+    border-radius: 6px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    transition: all 0.12s ease-in-out;
+    cursor: pointer;
+}
+.builder-item-slot-node:hover {
+    background: var(--builder-bg-sub) !important;
+    transform: scale(1.04);
+}
+.builder-item-slot-node.selected-active {
+    border-color: var(--builder-text-accent) !important;
+    background: var(--builder-bg-selected) !important;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2) !important;
+    border-width: 2px !important;
+}
+
+.builder-preset-pill {
+    border: none;
+    background: transparent;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--builder-text-sub) !important;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.builder-preset-pill.active {
+    background: var(--builder-accent) !important; 
+    color: #ffffff !important;
+    font-weight: 900;
+}
+body.dark-theme .builder-preset-pill.active {
+    background: var(--builder-accent) !important;
+    color: #121212 !important; 
+}
+
+/* 👑 [세트 효과 헤더 영역 타이틀 설정] */
+.builder-set-effect-title {
+    font-size: var(--set-effect-title-size) !important;
+    font-weight: 900 !important;
+    color: var(--builder-text-accent) !important;
+    margin-bottom: 8px !important;
+}
+
+.builder-mini-input {
+    width: 55px;
+    padding: 3px 5px;
+    font-size: 11px;
+    border: 1px solid var(--builder-border-dashed) !important;
+    border-radius: 4px;
+    outline: none;
+    text-align: center;
+    float: right;
+    color: var(--builder-text-main) !important;
+    background-color: var(--builder-input-bg) !important;
+}
+
+/* 🔮 [잠재능력 카드 등급별 테두리 및 배경 핫스킨 컬러링] */
+.potential-grade-card {
+    transition: all 0.25s ease-in-out;
+}
+.potential-grade-card.grade-legendary {
+    border-color: #22c55e !important;
+    background-color: rgba(34, 197, 94, 0.06) !important;
+    box-shadow: inset 0 0 8px rgba(34, 197, 94, 0.15);
+}
+.potential-grade-card.grade-unique {
+    border-color: #f59e0b !important;
+    background-color: rgba(245, 158, 11, 0.05) !important;
+    box-shadow: inset 0 0 8px rgba(245, 158, 11, 0.1);
+}
+.potential-grade-card.grade-epic {
+    border-color: #3b82f6 !important;
+    background-color: rgba(59, 130, 246, 0.05) !important;
+    box-shadow: inset 0 0 8px rgba(59, 130, 246, 0.1);
+}
+.potential-grade-card.grade-rare {
+    border-color: #94a3b8 !important;
+    background-color: rgba(148, 163, 184, 0.05) !important;
+}
+.potential-grade-card.grade-normal {
+    border-color: var(--builder-border-dashed) !important;
+    background-color: var(--builder-input-bg) !important;
+}
+
+.builder-square-btn {
+    width: 24px;
+    height: 24px;
+    background: var(--builder-input-bg) !important;
+    border: 1px solid var(--builder-border-dashed) !important;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--builder-text-main) !important;
+}
+
+@media (max-width: 1024px) {
+    .builder-three-column-grid {
+        grid-template-columns: 1fr !important;
+    }
+}

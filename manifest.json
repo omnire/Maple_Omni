@@ -1,0 +1,18 @@
+{
+  "short_name": "MapleOmni",
+  "name": "MAPLE OMNI WORKSPACE V14",
+  "description": "창모드 최적화 고성능 메이플스토리 사냥 및 재획 관제 콘솔",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#1e293b",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAI6SURBVHhe7Zs9buMwDIWvOfcKeo7eI3SXSZPrpE6T69wgeowoV9B79Bw9R89RbyBIYFmRSIwYSt98AARIsfInH0ria8uyLMuSJMkyf6uXf9Xv+b/Nq7f/N6eP6uP7tE7Ue/VyfF4vVp3g83qxZgRPm1dZ7YOfm1dZ7YMfeG5eZfUHXptXWf2B9ea9X/GvP/6u6uV8fF4vVp3g1VvV6/Hpf9Z0gs/vXfH7e7fP6of0qP77gU/rXfH8Yd0rPr8u60S9VS/H5/XisvGz/mOnv4A98f1fL66Nf9i8en/bX8CeeGv++7f9f3n19W6f+A7WwOf7mO6Jn++P6p74+X7l0/bX/CWe4On4Z+Lp3/yVf9vffR6f/WdNJ/j83hW/v3f7rH5Ij+q/H/i03hXPH9a94vPrsk7UW/VyfF4vLreN9/+wYhKkhwRJICZBeESQBGIShEcESSAmQXhEkARiEoRHBEkgJkF4RJAEkP5fW/Z/XRIkgfR/XfH7e7fP6of0qP77gU/rXfH8Yd0rPr8u60S9VS/H5/Xi2vgZ/w/2wOf7mO6Jn++P6p74+X7l03wG6yD9v7b9X3j19W6f+A7WwOf7mO6Jn++P6p74+X7l0/bXfAbripfvD6se8fF+5dN8Butg/ffXFfOXYhKkhwRJICZBeESQBGIShEcESSAmQXhEkARiEoRHBEkgJkF4RJAEkv9ry7Isy7Isy/wf6xdw8SgIidvT6wAAAABJRU5ErkJggg==",
+      "sizes": "64x64",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

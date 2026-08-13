@@ -1,0 +1,464 @@
+/**
+ * ============================================================================
+ * 📑 MAPLE OMNI V14 - js/todo/todo_planner.css [📅 PLANNER & CALENDAR SKIN]
+ * 설명: 육성 계획서 및 미니 달력 체크 스펙 (라이트모드 화이트톤 정제 및 다크모드 눈 피로도 개선)
+ * ============================================================================
+ */
+
+.omni-planner-container {
+    width: 100%; 
+    background: var(--omni-card-bg, #ffffff); 
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1);
+    border-radius: 20px; 
+    padding: 24px; 
+    box-sizing: border-box;
+}
+
+.planner-header-flex { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 14px; 
+    padding-bottom: 18px; 
+    border-bottom: 1px dashed #cbd5e1; 
+    text-align: left; 
+}
+
+.planner-badge { 
+    display: inline-block; 
+    font-size: 10px; 
+    font-weight: 800; 
+    color: var(--omni-primary-accent, #6366f1); 
+    background: var(--omni-bg-clean, #f8fafc); 
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1);
+    padding: 3px 8px; 
+    border-radius: 6px; 
+    width: fit-content; 
+}
+
+.planner-main-title { 
+    margin: 0; 
+    font-size: 14px; 
+    font-weight: 800; 
+    color: var(--omni-text-main, #1e293b); 
+}
+
+.planner-form-row-custom { 
+    display: flex; 
+    gap: 8px; 
+    margin-top: 8px; 
+    flex-wrap: nowrap; 
+    width: 100%; 
+    align-items: center;
+}
+
+.planner-form-row-custom select { 
+    padding: 10px 12px; 
+    border-radius: 10px; 
+    border: 1px solid #cbd5e1; 
+    font-weight: 700; 
+    background: #ffffff; 
+    font-size: 12px; 
+    outline: none; 
+    color: var(--omni-text-main, #1e293b);
+    flex: 0 0 130px;
+}
+
+/* 목표 레벨 기입창은 좁게 고정 */
+#todoPlannerGoalInput { 
+    padding: 10px 12px; 
+    border-radius: 10px; 
+    border: 1px solid #cbd5e1; 
+    font-size: 12px; 
+    outline: none; 
+    background: #ffffff; 
+    color: var(--omni-text-main, #1e293b);
+    flex: 0 0 150px;
+}
+
+/* 메모 / 이동 성장 루트 입력창은 넓게 확장 */
+#todoPlannerRouteInput { 
+    padding: 10px 12px; 
+    border-radius: 10px; 
+    border: 1px solid #cbd5e1; 
+    font-size: 12px; 
+    outline: none; 
+    background: #ffffff; 
+    color: var(--omni-text-main, #1e293b);
+    flex: 1;
+}
+
+.planner-form-row-custom select:focus, 
+.planner-form-row-custom input:focus { 
+    border-color: var(--omni-primary-accent, #6366f1); 
+    background: #ffffff; 
+}
+
+.planner-btn-submit { 
+    background: var(--omni-primary-accent, #6366f1); 
+    color: #ffffff; 
+    border: none; 
+    padding: 10px 22px; 
+    border-radius: 10px; 
+    font-size: 12px; 
+    font-weight: 800; 
+    cursor: pointer; 
+}
+
+.omni-planner-dashboard-layout { 
+    display: grid; 
+    grid-template-columns: 1fr 300px; 
+    gap: 20px; 
+    margin-top: 20px; 
+    width: 100%; 
+}
+
+.planner-left-stack { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 16px; 
+}
+
+/* LEVEL 성장 분석 계측 차트 스킨 */
+.planner-chart-panel { 
+    background: #ffffff; 
+    border: 1px dashed #cbd5e1; 
+    border-radius: 16px; 
+    padding: 16px; 
+    text-align: left; 
+}
+
+.planner-char-exp-table-panel {
+    background: #ffffff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 16px;
+    padding: 16px;
+    text-align: left;
+}
+
+.chart-panel-tag { 
+    font-size: 11px; 
+    font-weight: 900; 
+    color: var(--omni-primary-accent, #6366f1); 
+    background: var(--omni-bg-clean, #f8fafc); 
+    border: 1px dashed #cbd5e1;
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    display: inline-block; 
+    margin-bottom: 8px; 
+}
+
+.chart-panel-title { 
+    margin: 0 0 12px 0; 
+    font-size: 13px; 
+    color: #1e293b; 
+    font-weight: 800; 
+}
+
+.chart-canvas-wrapper { 
+    width: 100%; 
+    height: 180px; 
+    position: relative; 
+}
+
+.planner-grid-cards { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+    width: 100%; 
+}
+
+.planner-card-item { 
+    background: #ffffff; 
+    border: 1px dashed #cbd5e1; 
+    border-radius: 16px; 
+    padding: 18px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    text-align: left; 
+}
+
+.planner-card-meta { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.planner-card-tag { 
+    font-size: 10.5px; 
+    font-weight: 800; 
+    color: var(--omni-primary-accent, #6366f1); 
+    background: var(--omni-bg-clean, #f8fafc); 
+    border: 1px dashed #cbd5e1;
+    padding: 3px 8px; 
+    border-radius: 6px; 
+}
+
+.planner-card-del-action { 
+    background: none; 
+    border: none; 
+    font-size: 11px; 
+    font-weight: 700; 
+    color: #94a3b8; 
+    cursor: pointer; 
+}
+.planner-card-del-action:hover { 
+    color: #ef4444; 
+}
+
+.planner-card-goal, 
+.planner-card-route { 
+    margin: 0; 
+    font-size: 12px; 
+    font-weight: 700; 
+    color: var(--omni-text-main, #1e293b); 
+}
+.planner-card-route { 
+    color: #64748b; 
+    font-weight: 600; 
+}
+
+.plan-label-mini { 
+    font-size: 9.5px; 
+    font-weight: 800; 
+    color: #ffffff; 
+    background: var(--omni-primary-accent, #6366f1); 
+    padding: 2px 5px; 
+    border-radius: 4px; 
+    margin-right: 6px; 
+}
+
+.plan-label-mini-route { 
+    font-size: 9.5px; 
+    font-weight: 800; 
+    color: #ffffff; 
+    background: #64748b; 
+    padding: 2px 5px; 
+    border-radius: 4px; 
+    margin-right: 6px; 
+}
+
+.exp-predict-badge { 
+    margin-top: 8px; 
+    background: var(--omni-bg-clean, #f8fafc); 
+    border: 1px dashed #cbd5e1; 
+    padding: 6px 10px; 
+    border-radius: 6px; 
+    font-size: 11px; 
+    color: var(--omni-primary-accent, #6366f1); 
+}
+
+/* 📌 [새로운 OMNI 디자인 규격 반영] 데이터 미존재 시 표시되는 공백 상태 카드 스킨 */
+.omni-empty-state-card {
+    background: #ffffff;
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1);
+    border-radius: 16px;
+    padding: 32px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.omni-empty-state-card .empty-icon {
+    font-size: 26px;
+    margin-bottom: 2px;
+}
+
+.omni-empty-state-card .empty-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--omni-text-main, #1e293b);
+}
+
+.omni-empty-state-card .empty-desc {
+    margin: 0;
+    font-size: 11.5px;
+    color: var(--omni-text-sub, #64748b);
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+/* 🗓️ 미니 달력 체크 스펙 */
+.omni-mini-calendar-widget { 
+    background: #ffffff; 
+    border: 1px dashed var(--omni-card-border-line, #cbd5e1); 
+    border-radius: 16px; 
+    padding: 16px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+}
+
+.calendar-header-title { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    font-size: 13px; 
+    font-weight: 800; 
+    color: var(--omni-text-main, #1e293b); 
+    border-bottom: 1px dashed #cbd5e1; 
+    padding-bottom: 8px; 
+}
+
+.calendar-days-grid { 
+    display: grid; 
+    grid-template-columns: repeat(7, 1fr); 
+    gap: 6px; 
+    text-align: center; 
+}
+
+.calendar-day-label { 
+    font-size: 10.5px; 
+    font-weight: 700; 
+    color: var(--omni-text-sub, #64748b); 
+    padding: 4px 0; 
+}
+
+.calendar-date-cell { 
+    font-size: 11px; 
+    font-weight: 600; 
+    color: #475569; 
+    padding: 8px 0; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    position: relative; 
+    transition: background 0.15s; 
+}
+.calendar-date-cell:not(.empty-cell):hover { 
+    background: #f1f5f9; 
+}
+
+.calendar-date-cell.is-checked { 
+    background: var(--omni-primary-accent, #6366f1) !important; 
+    color: #ffffff !important; 
+    font-weight: 800; 
+}
+
+/* ============================================================================
+ * 🌙 [🔥 OMNI DARK THEME OVERRIDE - 눈 피로도 최소화 뮤트 다크 테마]
+ * ============================================================================
+ */
+body.dark-theme .omni-planner-container {
+    background: #121218 !important;
+    border: 1px dashed #2d2b38 !important;
+}
+
+body.dark-theme .planner-header-flex {
+    border-bottom: 1px dashed #2d2b38 !important;
+}
+
+body.dark-theme .planner-badge {
+    background: #1a1922 !important;
+    border-color: #2d2b38 !important;
+    color: #818cf8 !important;
+}
+
+body.dark-theme .planner-main-title {
+    color: #e2e8f0 !important;
+}
+
+body.dark-theme .planner-form-row-custom select,
+body.dark-theme .planner-form-row-custom input {
+    background: #1a1922 !important;
+    border: 1px dashed #2d2b38 !important;
+    color: #e2e8f0 !important;
+}
+body.dark-theme .planner-form-row-custom select:focus,
+body.dark-theme .planner-form-row-custom input:focus {
+    border-color: #818cf8 !important;
+    background: #121218 !important;
+}
+
+body.dark-theme .planner-btn-submit {
+    background: #6366f1 !important;
+    color: #ffffff !important;
+}
+
+body.dark-theme .planner-chart-panel {
+    background: #121218 !important;
+    border: 1px dashed #2d2b38 !important;
+}
+
+body.dark-theme .planner-char-exp-table-panel {
+    background: #121218 !important;
+    border: 1px dashed #2d2b38 !important;
+}
+body.dark-theme .planner-char-exp-table-panel th {
+    color: #94a3b8 !important;
+    border-bottom: 1px dashed #2d2b38 !important;
+}
+body.dark-theme .planner-char-exp-table-panel td {
+    color: #e2e8f0 !important;
+    border-bottom: 1px dashed #2d2b38 !important;
+}
+body.dark-theme .chart-panel-tag {
+    background: #1a1922 !important;
+    border-color: #2d2b38 !important;
+    color: #818cf8 !important;
+}
+body.dark-theme .chart-panel-title {
+    color: #e2e8f0 !important;
+}
+
+body.dark-theme .planner-card-item {
+    background: #121218 !important;
+    border: 1px dashed #2d2b38 !important;
+}
+body.dark-theme .planner-card-tag {
+    background: #1a1922 !important;
+    border-color: #2d2b38 !important;
+    color: #818cf8 !important;
+}
+body.dark-theme .planner-card-del-action {
+    color: #94a3b8 !important;
+}
+body.dark-theme .planner-card-goal {
+    color: #e2e8f0 !important;
+}
+body.dark-theme .planner-card-route {
+    color: #94a3b8 !important;
+}
+body.dark-theme .plan-label-mini,
+body.dark-theme .plan-label-mini-route {
+    color: #ffffff !important;
+    background: #6366f1 !important;
+}
+body.dark-theme .exp-predict-badge {
+    background: #1a1922 !important;
+    border: 1px dashed #2d2b38 !important;
+    color: #cbd5e1 !important;
+}
+
+/* 📌 다크모드 공백 카드 다크 스킨 오버라이드 */
+body.dark-theme .omni-empty-state-card {
+    background: #121218 !important;
+    border: 1px dashed #2d2b38 !important;
+}
+body.dark-theme .omni-empty-state-card .empty-title {
+    color: #e2e8f0 !important;
+}
+body.dark-theme .omni-empty-state-card .empty-desc {
+    color: #94a3b8 !important;
+}
+
+body.dark-theme .omni-mini-calendar-widget {
+    background: #121218 !important;
+    border: 1px dashed #2d2b38 !important;
+}
+body.dark-theme .calendar-header-title {
+    border-bottom: 1px dashed #2d2b38 !important;
+    color: #e2e8f0 !important;
+}
+body.dark-theme .calendar-day-label {
+    color: #94a3b8 !important;
+}
+body.dark-theme .calendar-date-cell {
+    color: #cbd5e1 !important;
+}
+body.dark-theme .calendar-date-cell.is-checked {
+    background: #6366f1 !important;
+    color: #ffffff !important;
+}

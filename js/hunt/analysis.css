@@ -1,0 +1,198 @@
+/* ============================================================================
+ * 🎨 features/hunt/analysis.css - 📈 누적 성장분석 리포트 2x2 대시보드 [통일 다크모드 에디션]
+ * 설명: 다크모드 / 화이트모드 색상 시스템 변수를 정확히 바인딩합니다.
+ * 규칙: 코드를 쓸 때는 항상 초보자도 이해할 수 있게 상세한 주석을 달아줍니다.
+ * ============================================================================ */
+
+/* 📊 [4개 격자 칸 분할 아키텍처 구조 디자인] */
+.omni-analysis-pro-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 14px;
+}
+
+/* 🛡️ 최외곽 보드 카드 프레임 레이어 (여백 밀착 정렬) */
+.v14-plate-card-wrapper {
+    background: var(--card-bg, #ffffff);
+    border-radius: 16px;
+    border: 1px solid var(--border-color, #e1dbf7);
+    padding: 16px;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+/* 개별 사각 칸 지표 분석 리포트 카드 플레이트 */
+.analysis-metric-card-plate {
+    background: var(--card-bg, #ffffff);
+    border-radius: 14px;
+    border: 1px solid var(--border-color, #ebdffc);
+    padding: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s;
+}
+.analysis-metric-card-plate:hover {
+    transform: translateY(-1.5px);
+    border-color: var(--accent-purple, #a78bfa);
+}
+
+/* 📉 차트 캔버스 홀더 컨테이너 */
+.chart-canvas-container-box {
+    height: 190px;
+    width: 100%;
+    position: relative;
+    margin-top: 10px;
+    background: var(--bg-main, #ffffff);
+    border: 1px solid var(--border-color, #f3effa);
+    border-radius: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+/* 대시보드 최상단 타이틀 폰트 */
+.v14-analysis-title-text {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-main, #211e2b);
+    letter-spacing: -0.3px;
+}
+
+/* 동기화 수동 업데이트 단추 */
+.v14-analysis-sync-btn {
+    background: var(--card-bg, #ffffff);
+    border: 1px solid var(--border-color, #c7bdf2);
+    color: var(--accent-purple, #6d28d9);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.12s ease-in-out;
+}
+.v14-analysis-sync-btn:hover {
+    background: var(--bg-main, #f5f2fc);
+    border-color: var(--accent-purple, #7c3aed);
+}
+
+/* 👤 [캐릭터 프로필 벨트 구역] */
+.v14-analysis-profile-flex {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    background: var(--bg-main, #fbfaff);
+    border: 1px solid var(--border-color, #efeafd);
+    border-radius: 12px;
+    padding: 14px;
+    box-sizing: border-box;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.v14-analysis-avatar-frame {
+    width: 76px;
+    height: 76px;
+    background: var(--card-bg, #ffffff);
+    border: 1px solid var(--border-color, #e2dbf5);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: background 0.2s, border-color 0.2s;
+}
+.v14-analysis-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.v14-analysis-meta-details-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 150px;
+}
+.v14-analysis-text-name {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: var(--text-main, #2e2a38);
+}
+.v14-analysis-badge-job {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent-purple, #6d28d9);
+    background: var(--bg-main, #f1eafd);
+    padding: 2px 6px;
+    border-radius: 4px;
+    width: fit-content;
+    margin: 2px 0;
+}
+.v14-analysis-text-sub {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-muted, #7c7489);
+}
+
+/* 상단 우측 총합 집계 벤토 매트릭스 */
+.v14-analysis-metrics-summary-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+.v14-metrics-bento-item {
+    background: var(--card-bg, #ffffff);
+    border: 1px solid var(--border-color, #f1eafd);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted, #72698a);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.v14-analysis-b-meso { font-size: 12px; color: var(--accent-purple, #7c3aed); font-weight: 700; }
+.v14-analysis-b-exp  { font-size: 12px; color: #9333ea; font-weight: 700; }
+.v14-analysis-b-gem  { font-size: 12px; color: var(--accent-purple, #6d28d9); font-weight: 700; }
+.v14-analysis-b-frag { font-size: 12px; color: #a855f7; font-weight: 700; }
+
+.v14-chart-inner-title {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--accent-purple, #4c1d95);
+    border-left: 3px solid var(--accent-purple, #a855f7);
+    padding-left: 6px;
+    letter-spacing: -0.2px;
+}
+.v14-analysis-top-flex { display: flex; justify-content: space-between; align-items: center; }
+
+/* 🌙 [통일 다크 테마] */
+body.dark-theme, html.dark-theme, .dark-theme {
+    --card-bg: #181721;
+    --bg-main: #12121a;
+    --border-color: #262438;
+    --text-main: #BCBCC7;
+    --text-muted: #747285;
+    --accent-purple: #a78bfa;
+}
+
+/* 🌸 [PINK THEME] */
+body.light-pink .v14-plate-card-wrapper { background: #fff5f8; border-color: #fbcfe8; }
+body.light-pink .v14-analysis-title-text { color: #831843; }
+
+/* 🔹 [BLUE THEME] */
+body.light-blue .v14-plate-card-wrapper { background: #f0f7ff; border-color: #bae6fd; }
+body.light-blue .v14-analysis-title-text { color: #0c4a6e; }

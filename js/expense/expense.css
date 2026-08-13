@@ -1,0 +1,77 @@
+/* ============================================================================
+ * 💰 MAPLE OMNI V14 - js/expense/expense.css [지출 장부 전용 인프라 디자인]
+ * 설명: 스타포스, 큐브, 경매장 소비 등 고액 지출을 시원시원한 스케일로 보여주는 가우징입니다.
+ * ============================================================================ */
+
+/* 메인 지출 장부 포트 레이어 코어 wrapper */
+.v14-expense-wrapper {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif;
+    background-color: #fcfbfe;
+}
+
+/* 🔄 왼쪽 입력 폼 / 오른쪽 명세 내역 테이블 대칭 분할 */
+.v14-expense-layout {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    align-items: flex-start;
+}
+
+/* 폼 기입 콤포넌트 카드 구조 조율 */
+.v14-expense-form-card {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #ebdffc;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 4px 14px rgba(122, 110, 199, 0.03);
+}
+
+/* 지출 상세 원장 리스트 보드 크기 상향 */
+.v14-expense-list-card {
+    flex: 1.5; /* 테이블 스페이스 공간을 더 넓게 설정 */
+    background: #ffffff;
+    border: 1px solid #ebdffc;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 4px 14px rgba(122, 110, 199, 0.03);
+}
+
+/* 📊 프리미엄 그리드 정산 테이블 스펙 명세 */
+.v14-expense-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+.v14-expense-table th {
+    background: #f4f2ff;
+    color: #5a4eb3;
+    font-weight: 800;
+    font-size: 13px; /* 가독성 확보 상향 */
+    padding: 14px 10px;
+    border-bottom: 2px solid #ebdffc;
+}
+
+.v14-expense-table td {
+    padding: 14px 10px;
+    font-size: 14px; /* 숫자 시인성 증폭 */
+    font-weight: 700;
+    color: #494469;
+    border-bottom: 1px solid #f4effa;
+    text-align: center;
+}
+
+/* 셀렉트 인풋 창 라벤더 포인트 매핑 */
+select.v14-input-base {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%237a6ec7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
+    cursor: pointer;
+}

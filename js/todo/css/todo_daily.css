@@ -1,0 +1,270 @@
+/* ============================================================================
+ * 📑 MAPLE OMNI V14 - js/todo/todo_daily.css [☀️ DAILY QUEST LIST SKIN]
+ * 설명: 일과 퀘스트 체크박스 행 및 프로필 카드 스킨입니다.
+ * 초보자 가이드: 청록색 요소를 일절 배제하고 라벤더 및 회색빛 다크톤으로 수렴시켰습니다.
+ * ============================================================================
+ */
+
+.omni-character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 380px));
+    gap: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: flex-start;
+}
+
+.omni-char-card {
+    background: #ffffff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 380px;
+}
+
+.char-header { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    gap: 10px; 
+    padding-bottom: 10px; 
+    border-bottom: 1px dashed #cbd5e1; 
+    margin-bottom: 10px; 
+}
+
+.char-avatar-wrapper { 
+    width: 56px; 
+    height: 56px; 
+    overflow: hidden; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    background: #ffffff; 
+    border: 2px solid var(--omni-slate-primary, #8372d6); 
+    flex-shrink: 0; 
+}
+
+.char-avatar-wrapper img { 
+    width: 56px; 
+    height: 56px; 
+    object-fit: contain; 
+    transform: scale(2.2) translateY(-2px); 
+    transform-origin: center center; 
+}
+
+.char-name { 
+    font-size: 14.5px; 
+    font-weight: 700; 
+    color: #334155; 
+    text-align: left; 
+}
+
+.char-spec { 
+    font-size: 11.5px; 
+    color: var(--omni-text-sub, #64748b); 
+    font-weight: 700; 
+    margin-top: 3px; 
+    text-align: left; 
+}
+
+.btn-delete-char { 
+    background: none; 
+    border: none; 
+    font-size: 18px; 
+    color: #cbd5e1; 
+    cursor: pointer; 
+    padding: 0 4px;
+}
+.btn-delete-char:hover { 
+    color: #ef4444; 
+}
+
+.hw-scroll-list { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 6px; 
+    max-height: 300px; 
+    overflow-y: auto; 
+    padding-right: 4px; 
+}
+
+.hw-item-row { 
+    background: #ffffff; 
+    border: 1px dashed #cbd5e1; 
+    border-radius: 10px; 
+    padding: 10px 14px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    cursor: pointer; 
+    transition: all 0.15s ease; 
+}
+
+.hw-item-row:hover { 
+    background: #f1f5f9; 
+    border-color: #8372d6; 
+}
+
+.hw-item-row.is-done { 
+    background: #f8fafc !important; 
+    border-color: #cbd5e1 !important; 
+}
+
+.hw-left { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    flex: 1; 
+    overflow: hidden; 
+}
+
+.custom-premium-checkbox { 
+    width: 16px; 
+    height: 16px; 
+    border: 2px solid #cbd5e1; 
+    border-radius: 5px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 10px; 
+    font-weight: 900; 
+    color: transparent; 
+    background: #ffffff; 
+}
+
+.custom-premium-checkbox.checked { 
+    background: var(--omni-lavender-main, #8372d6); 
+    border-color: var(--omni-lavender-main, #8372d6); 
+    color: #ffffff; 
+}
+
+.hw-title { 
+    font-size: 12px; 
+    font-weight: 600; 
+    color: #334155; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    text-align: left; 
+    display: flex;
+    align-items: center;
+}
+
+.hw-tooltip-target {
+    position: relative;
+    cursor: help;
+    border-bottom: 1px dotted #8372d6;
+}
+
+.hw-item-row.is-done .hw-title { 
+    color: #94a3b8; 
+    text-decoration: line-through; 
+    font-weight: 500; 
+}
+
+.hw-counter { 
+    font-size: 11.5px; 
+    font-weight: 700; 
+    color: #475569; 
+}
+
+.hw-item-row.is-done .hw-counter { 
+    color: #94a3b8; 
+}
+
+/* ============================================================================
+ * 🌙 [🔥 OMNI DARK THEME OVERRIDE]
+ * 설명: 대시보드 다크모드 표준 스펙 연동 (#181721 카드 배경, #212030 입력창, #BCBCC7 본문 텍스트)
+ * ============================================================================
+ */
+body.dark-theme .omni-guide-box {
+    background: #181721 !important;
+    border: 1px dashed #423f5e !important;
+}
+body.dark-theme .omni-guide-box div {
+    color: #BCBCC7 !important;
+}
+
+body.dark-theme .omni-char-card {
+    background: #181721 !important;
+    border: 1px dashed #423f5e !important;
+}
+
+body.dark-theme .char-header {
+    border-bottom: 1px dashed #423f5e !important;
+}
+
+body.dark-theme .char-avatar-wrapper {
+    background: #212030 !important;
+    border: 2px solid #a78bfa !important;
+}
+
+body.dark-theme .char-name {
+    color: #BCBCC7 !important;
+}
+
+body.dark-theme .char-spec {
+    color: #747285 !important;
+}
+
+body.dark-theme .btn-delete-char {
+    color: #747285 !important;
+}
+body.dark-theme .btn-delete-char:hover {
+    color: #ef4444 !important;
+}
+
+body.dark-theme .hw-item-row {
+    background: #181721 !important;
+    border: 1px dashed #423f5e !important;
+}
+body.dark-theme .hw-item-row:hover {
+    background: #212030 !important;
+    border-color: #a78bfa !important;
+}
+
+body.dark-theme .hw-item-row.is-done {
+    background: #212030 !important;
+    border-color: #262438 !important;
+}
+
+body.dark-theme .custom-premium-checkbox {
+    border: 2px solid #423f5e !important;
+    background: #212030 !important;
+}
+
+body.dark-theme .custom-premium-checkbox.checked {
+    background: #a78bfa !important;
+    border-color: #a78bfa !important;
+    color: #12121a !important; 
+}
+
+body.dark-theme .hw-title {
+    color: #BCBCC7 !important;
+}
+
+body.dark-theme .hw-item-row.is-done .hw-title {
+    color: #747285 !important;
+}
+
+body.dark-theme .hw-counter {
+    color: #747285 !important;
+}
+
+/* 🟢 청록/초록 칩 요소 오버라이드 정제 */
+body.dark-theme .expert-quest-dot-chip,
+body.dark-theme .hw-quest-chip {
+    background: #212030 !important;
+    border: 1px dashed #423f5e !important;
+    color: #BCBCC7 !important;
+}
+body.dark-theme .expert-quest-dot-chip.done,
+body.dark-theme .hw-quest-chip.done {
+    background: rgba(167, 139, 250, 0.15) !important;
+    border: 1px dashed #a78bfa !important;
+    color: #a78bfa !important;
+}

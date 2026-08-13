@@ -1,0 +1,209 @@
+/* ============================================================================
+ * 🎨 MAPLE OMNI V15 - js/scanner/scanner.css
+ * 설명: 옴니스캐너 1:1 순수 내실 및 체급 정밀 비교 전용 스타일시트입니다.
+ * ============================================================================
+ */
+
+/* 💡 [초보자 가이드] 기본 라이트 모드 테마 변수 설정 */
+:root {
+    --scanner-main-bg: var(--omni-sidebar-bg, #f8fafc);
+    --scanner-card-bg: var(--omni-card-bg, #ffffff);
+    --scanner-panel-bg: var(--omni-card-bg, #ffffff);
+    --scanner-inner-bg: var(--omni-hover-point, #f1f5f9);
+    --scanner-border: var(--omni-card-border-line, #e2e8f0);
+    --scanner-border-dashed: var(--omni-card-border-line, #cbd5e1);
+    --scanner-text-main: var(--omni-text-dark, #1e293b);
+    --scanner-text-sub: var(--omni-text-muted, #475569);
+    --scanner-text-muted: var(--omni-text-sub, #64748b);
+    --scanner-accent-num: var(--omni-sky-highlight, #5c4ca8);
+    --accent: var(--omni-slate-primary, #8372d6);
+    --scanner-shadow: var(--omni-inner-shadow, 0 4px 12px rgba(0, 0, 0, 0.03));
+}
+
+/* 💡 [초보자 가이드] 다크 모드 규격 바인딩 */
+body.dark-theme,
+html[data-theme="dark"], 
+body[data-theme="dark"], 
+html.dark-mode, 
+body.dark-mode, 
+html.dark, 
+body.dark,
+.dark-mode,
+.dark,
+.dark-theme,
+[data-theme="dark"],
+[data-bs-theme="dark"] {
+    --scanner-main-bg: var(--builder-bg, #131314);
+    --scanner-card-bg: var(--builder-card-bg, #1e1f20);
+    --scanner-panel-bg: var(--builder-card-bg, #1e1f20);
+    --scanner-inner-bg: var(--builder-input-bg, #2c2d2e);
+    --scanner-border: var(--builder-border, #3d3d3d);
+    --scanner-border-dashed: var(--builder-border-dashed, #444444);
+    --scanner-text-main: var(--builder-text-main, #e8eaed);
+    --scanner-text-sub: var(--builder-text-sub, #a8a8a8);
+    --scanner-text-muted: var(--builder-text-sub, #a8a8a8);
+    --scanner-accent-num: var(--builder-text-accent, #a78bfa);
+    --accent: var(--builder-text-accent, #a78bfa);
+    --scanner-shadow: none;
+}
+
+/* 💡 상단 검색 캡슐 바 레이아웃 */
+.scanner-search-center-wrapper {
+    width: 100% !important;
+    margin: 0 0 20px 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    font-family: 'Pretendard', sans-serif !important;
+}
+
+.scanner-capsule-bar {
+    display: flex !important;
+    align-items: center !important;
+    background: var(--scanner-card-bg) !important;
+    border: 1px solid var(--scanner-border) !important;
+    border-radius: 12px !important;
+    padding: 8px 12px !important;
+    box-shadow: var(--scanner-shadow) !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
+}
+
+.scanner-capsule-bar:focus-within {
+    border-color: var(--accent) !important;
+}
+
+.scanner-capsule-slot {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+.scanner-capsule-icon {
+    font-size: 14px !important;
+}
+
+.scanner-capsule-input {
+    width: 100% !important;
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: var(--scanner-text-main) !important;
+    font-family: 'Pretendard', sans-serif !important;
+}
+
+.scanner-capsule-input::placeholder {
+    color: var(--scanner-text-muted) !important;
+    font-weight: 500 !important;
+}
+
+.scanner-capsule-vs {
+    font-size: 11px !important;
+    font-weight: 900 !important;
+    font-family: 'Consolas', monospace !important;
+    color: var(--accent) !important;
+    background: var(--scanner-inner-bg) !important;
+    padding: 4px 10px !important;
+    border-radius: 8px !important;
+    border: 1px dashed var(--scanner-border-dashed) !important;
+    margin: 0 8px !important;
+    user-select: none !important;
+}
+
+.scanner-capsule-btn {
+    background: var(--accent) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 9px 18px !important;
+    font-size: 12.5px !important;
+    font-weight: 800 !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    transition: opacity 0.15s ease !important;
+}
+
+.scanner-capsule-btn:hover {
+    opacity: 0.9 !important;
+}
+
+/* 💡 캐릭터 장비 격자 그리드 컨테이너 */
+.scanner-grid-container {
+    display: grid !important;
+    grid-template-columns: 38px 38px 150px 38px 38px !important;
+    grid-template-rows: repeat(6, 38px) !important;
+    gap: 6px !important;
+    width: fit-content !important;
+    margin: 10px auto !important;
+    position: relative !important;
+    background: var(--scanner-card-bg);
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid var(--scanner-border) !important; 
+    box-shadow: var(--scanner-shadow);
+    transition: background 0.2s, border 0.2s;
+}
+
+.scanner-char-container {
+    grid-column: 3 / 4 !important;
+    grid-row: 1 / 6 !important;
+    display: flex !important;
+    align-items: center !important; 
+    justify-content: center !important;
+    background: var(--scanner-inner-bg) !important;
+    border-radius: 8px;
+    position: relative !important;
+    height: 100% !important; 
+    overflow: hidden !important;
+    border: 1px dashed var(--scanner-border-dashed) !important;
+}
+
+.scanner-char-img {
+    width: 220px !important; 
+    height: 220px !important;
+    object-fit: contain !important; 
+    pointer-events: none !important;
+    z-index: 5 !important; 
+    display: block !important;
+    margin: auto !important; 
+    transform: translateY(-12px) !important;
+    transition: transform 0.2s ease;
+}
+
+.scanner-char-container:hover .scanner-char-img {
+    transform: translateY(-12px) scale(1.04) !important;
+}
+
+.scanner-item-slot {
+    width: 38px !important;
+    height: 38px !important;
+    border: 1px solid var(--scanner-border) !important;
+    background: var(--scanner-inner-bg) !important; 
+    border-radius: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    transition: all 0.12s ease-in-out;
+}
+
+.scanner-item-slot img {
+    width: 26px !important;
+    height: 26px !important;
+    object-fit: contain !important;
+}
+
+.scanner-item-slot:hover {
+    background: var(--scanner-card-bg) !important;
+    border-color: var(--accent) !important; 
+    transform: translateY(-1px);
+    cursor: pointer !important;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

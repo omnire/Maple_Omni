@@ -1,0 +1,280 @@
+/* ============================================================================
+ * 🎨 MAPLE OMNI V15 - dashboard/widgets.css [LAYOUT & VISUAL HARMONY REFINED]
+ * 설명: 우측 대시보드 메인 위젯 그리드, 캐릭터 카드, 통계 패널 및 정산 카드 스타일입니다.
+ * 초보자 가이드: 카드 높이 균등 배치 및 스크롤 영역 제한으로 캡처상의 하단 여백 불일치를 해결했습니다.
+ * ============================================================================
+ */
+
+/* ----------------------------------------------------------------------------
+ * 1. 우측 대시보드 위젯 그리드 레이아웃
+ * ---------------------------------------------------------------------------- */
+.widget-grid-layout { 
+    display: grid; 
+    grid-template-columns: repeat(12, 1fr) !important; 
+    gap: 16px; 
+    width: 100%; 
+    align-items: stretch; /* 카드 높이 상하 완전 동기화 */
+}
+
+@media (max-width: 1024px) {
+    .widget-grid-layout {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.omni-dashboard-widget-card {
+    background: var(--omni-card-bg) !important; 
+    border: 1px dashed var(--omni-card-border-line) !important; 
+    border-radius: 16px; 
+    padding: 14px;
+    box-shadow: none !important; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; /* 카드 내부 위아래 요소 균등 배치 */
+    gap: 8px; 
+    min-width: 0; 
+    overflow: hidden;
+    height: 100%; /* 카드 높이 100% 채움 */
+}
+
+.wdg-hdr { 
+    font-size: calc(var(--omni-base-font-size) * 0.86); 
+    font-weight: 900; 
+    padding-bottom: 6px; 
+    padding-left: 2px; 
+    border-bottom: 1px dashed var(--omni-card-border-line); 
+    color: #334155; /* 제목 폰트 색상을 진회색으로 통일 */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+/* ----------------------------------------------------------------------------
+ * 📅 일정 관리 이벤트 리스트 스크롤용 뷰포트 (캐릭터 카드 하단 늘어짐 방지 핵심)
+ * ---------------------------------------------------------------------------- */
+.omni-event-tracker-scroll-viewport {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    max-height: 155px; /* 높이를 제한하여 좌측 캐릭터 카드 하단 빈 여백을 완벽 제거 */
+    overflow-y: auto;
+    padding-right: 2px;
+}
+
+.daily-reset-scroll-viewport {
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr) !important; 
+    gap: 12px; 
+    overflow: hidden !important; 
+    height: 100%; 
+    max-height: none !important; 
+    padding-right: 0px;
+    width: 100%;
+}
+
+/* ----------------------------------------------------------------------------
+ * 👤 캐릭터 스케쥴러 프로필 카드
+ * ---------------------------------------------------------------------------- */
+.expert-char-profile-card { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center;
+    justify-content: space-between;
+    gap: 10px; 
+    padding: 14px 12px; 
+    background: var(--omni-card-bg) !important; 
+    border: 1px dashed var(--omni-card-border-line) !important; /* 테두리를 원래의 부드러운 점선으로 원복 */
+    border-radius: 12px; 
+    transition: all 0.2s ease; 
+    width: 100%; 
+    height: 100%; 
+    min-height: 330px; 
+}
+
+/* 카드 내부 서브 글씨 톤을 은은한 소프트 톤으로 조정 */
+.expert-char-profile-card .expert-char-job-level-txt,
+.expert-char-profile-card .expert-detail-label,
+.expert-char-profile-card .expert-boss-counter-row {
+    color: #475569 !important; 
+}
+.expert-char-profile-card:hover { 
+    background: var(--omni-hover-point) !important; 
+    border-color: var(--omni-slate-primary) !important; 
+    transform: translateY(-2px); 
+}
+
+.expert-avatar-frame-large { 
+    width: 96px; 
+    height: 96px; 
+    overflow: hidden; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    background: transparent; 
+    border: none; 
+    border-radius: 0; 
+    flex-shrink: 0; 
+}
+.expert-avatar-frame-large img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
+    transform: scale(1.8); 
+    transform-origin: center center; 
+}
+
+.expert-char-profile-card.empty-placeholder-slot {
+    border: 1.5px dashed var(--omni-card-border-line) !important;
+    background: var(--omni-card-bg) !important;
+    opacity: 0.9;
+}
+.expert-avatar-frame-large.empty-avatar-frame {
+    border: 2px dashed var(--omni-slate-primary);
+    background: var(--omni-card-bg);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.expert-avatar-frame-large.empty-avatar-frame:hover {
+    background: var(--omni-hover-point);
+    border-color: var(--omni-slate-primary);
+}
+.placeholder-plus-icon {
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--omni-slate-primary);
+}
+.placeholder-text {
+    color: var(--omni-text-sub) !important;
+}
+
+.placeholder-reg-btn {
+    width: 100%; 
+    padding: 8px 12px; 
+    font-size: 11.5px !important; 
+    background: var(--omni-point-purple-bg) !important; 
+    border: 1px dashed var(--omni-card-border-line) !important; 
+    color: var(--omni-slate-primary) !important;
+    font-weight: 800;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+.placeholder-reg-btn:hover {
+    background: var(--omni-slate-primary) !important;
+    color: var(--omni-badge-text) !important;
+    border-color: var(--omni-slate-primary) !important;
+}
+
+.expert-reset-meta { display: flex; flex-direction: column; gap: 3px; align-items: center; }
+.expert-char-name-txt-large { font-size: calc(var(--omni-base-font-size) * 0.9); font-weight: 900; color: var(--omni-text-dark); }
+.expert-char-job-level-txt { font-size: calc(var(--omni-base-font-size) * 0.72); color: var(--omni-text-sub); font-weight: 700; }
+
+.expert-char-details-box { 
+    width: 100%; 
+    border-top: 1px dashed var(--omni-card-border-line); 
+    padding-top: 10px; 
+    margin-top: 4px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 6px; 
+    text-align: left; 
+}
+
+.expert-detail-label { 
+    font-size: calc(var(--omni-base-font-size) * 0.72); 
+    font-weight: 800; 
+    color: var(--omni-text-muted); 
+}
+
+.expert-daily-quest-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 4px; 
+    width: 100%; 
+}
+
+.expert-quest-dot-chip { 
+    font-size: calc(var(--omni-base-font-size) * 0.64); 
+    font-weight: 800; 
+    padding: 3px 2px; 
+    border-radius: 4px; 
+    text-align: center; 
+    white-space: nowrap;
+    background: var(--omni-card-bg); 
+    color: #475569 !important; /* 은은한 소프트 톤으로 일치시킵니다 */
+    border: 1px dashed var(--omni-card-border-line); 
+}
+.expert-quest-dot-chip.done { 
+    background: var(--omni-emerald-light) !important; 
+    color: var(--omni-emerald) !important; 
+    border: 1px dashed var(--omni-card-border-line) !important; 
+}
+
+.expert-boss-counter-row { 
+    display: flex; 
+    justify-content: space-between; 
+    width: 100%; 
+    font-size: calc(var(--omni-base-font-size) * 0.72); 
+    font-weight: 700; 
+    color: var(--omni-text-muted); 
+}
+.expert-boss-counter-row strong { 
+    color: var(--omni-slate-primary); 
+    font-weight: 800; 
+}
+
+/* ----------------------------------------------------------------------------
+ * 📊 통계 카드 (하단 3개 카드 대칭 레이아웃 규격화 및 엑박 방지)
+ * ---------------------------------------------------------------------------- */
+.omni-accumulated-stats-panel { 
+    background: var(--omni-card-bg) !important; 
+    padding: 8px 10px; 
+    border-radius: 8px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 3px; 
+    border: 1px dashed var(--omni-card-border-line) !important; 
+}
+
+.omni-hunting-mvp-character-dock,
+.omni-sim-status-dock,
+.omni-boss-stone-status-dock { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    padding: 6px 10px; 
+    border: 1px dashed var(--omni-card-border-line) !important; 
+    border-radius: 8px; 
+    background: var(--omni-card-bg) !important; 
+    min-height: 44px;
+}
+
+.mvp-circular-avatar-frame {
+    width: 32px; 
+    height: 32px; 
+    border-radius: 50%; 
+    border: 2px solid var(--omni-slate-primary); 
+    overflow: hidden; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    background: var(--omni-card-bg); 
+    flex-shrink: 0;
+}
+
+.omni-bottom-summary-bar {
+    border-top: 1px dashed var(--omni-card-border-line); 
+    padding-top: 6px; 
+    margin-top: 2px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%;
+}

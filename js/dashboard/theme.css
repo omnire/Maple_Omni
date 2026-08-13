@@ -1,0 +1,93 @@
+/* ============================================================================
+ * 🎨 MAPLE OMNI V15 - dashboard/theme.css
+ * 설명: 대시보드 테마별(라이트, 핑크, 블루, 다크) CSS 변수 정의 파일입니다.
+ * 초보자 가이드: 테마 스위칭 시 모든 카드가 테두리/색상 변수와 자동 동기화됩니다.
+ * ============================================================================
+ */
+
+/* ☀️ [기본 테마] 라이트모드 눈이 편안한 화이트 라벤더 스킨 변수 */
+:root {
+    --omni-base-font-size: 15.5px;
+    --omni-slate-primary: #8372d6;        /* 차분하고 단정한 라벤더 포인트 색상 */
+    --omni-sky-highlight: #5c4ca8;        /* 강조 글꼴 색상 */
+    --omni-bg-clean: #f4f6f9;             /* 기본 메인 배경 (상하단 이질감을 없앤 균형 잡힌 중간색 적용) */
+    --omni-card-bg: #ffffff;              /* 카드 박스 배경 */
+    --omni-sidebar-bg: #edf2f7;            /* 사이드바 배경 (중간톤 적용) */
+    --omni-text-dark: #1e293b;            /* 가독성이 뚜렷한 메인 제목 텍스트 */
+    --omni-text-muted: #334155;           /* 가독성을 높인 중간 서브 텍스트 */
+    --omni-text-sub: #475569;             /* 눈이 편안한 설명 텍스트 */
+    --omni-card-border-line: #d8dee8;    /* 부드러우면서도 통일감 있는 중간 테두리 */
+    --omni-inner-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02); /* 허전함을 없애고 고급스러운 입체감을 주는 소프트 섀도우 */         
+    --omni-glow-effect: transparent; 
+    --omni-hover-point: #eaedf3;          /* 호버 시 소프트 중간 톤 배경 */
+
+    /* 상태 제어 전용 컬러 스쿼드 */
+    --omni-emerald: #059669; --omni-emerald-light: #ecfdf5;
+    --omni-amber: #d97706; --omni-amber-light: #fffbeb;
+    --omni-coral: #dc2626; --omni-coral-light: #fef2f2;
+    --omni-badge-text: #ffffff;
+    --omni-point-amber-text: #b45309; --omni-point-amber-bg: #fef3c7; --omni-point-amber-border: #fde68a;
+    --omni-point-purple-bg: #f3f0ff;
+}
+
+/* 🌸 [확장 테마 01] 은은한 핑크 화이트 스킨 */
+body.light-pink {
+    --omni-slate-primary: #d36eb7;        
+    --omni-sky-highlight: #a6438b;
+    --omni-card-bg: #ffffff;              
+    --omni-sidebar-bg: #fdf2f8;            
+    --omni-card-border-line: #fbcfe8;      /* 눈이 편안한 은은한 소프트 핑크 테두리 */      
+    --omni-hover-point: #fce7f3;
+    --omni-text-dark: #1e293b;            /* 가독성이 뚜렷한 메인 제목 텍스트 */
+    --omni-text-muted: #334155;           /* 시인성을 높인 중간 서브 텍스트 */
+    --omni-text-sub: #475569;             /* 정돈된 설명 텍스트 */
+    --omni-point-purple-bg: #fdf2f8;
+}
+
+/* 🌀 [확장 테마 02] 청량한 블루 화이트 스킨 */
+body.light-blue {
+    --omni-slate-primary: #6e8ed3;        
+    --omni-sky-highlight: #4363a6;
+    --omni-card-bg: #ffffff;              
+    --omni-sidebar-bg: #f0f9ff;            
+    --omni-card-border-line: #bae6fd;      /* 눈이 편안한 은은한 소프트 블루 테두리 */      
+    --omni-hover-point: #e0f2fe;
+    --omni-text-dark: #1e293b;            /* 가독성이 뚜렷한 메인 제목 텍스트 */
+    --omni-text-muted: #334155;           /* 시인성을 높인 중간 서브 텍스트 */
+    --omni-text-sub: #475569;             /* 정돈된 설명 텍스트 */
+    --omni-point-purple-bg: #f0f9ff;
+}
+
+/* 🌙 [다크모드 지정 규격 100% 바인딩] */
+body.dark-theme {
+    --builder-bg: #131314;             /* 제미나이 스타일 중립적 다크 배경 */
+    --builder-card-bg: #1e1f20;        /* 가독성이 확보된 카드 표면 색상 */
+    --builder-text-main: #e8eaed;      /* 눈이 편안한 화이트 톤 텍스트 */
+    --builder-text-sub: #a8a8a8;       /* 읽기 편한 라이트 그레이 서브 텍스트 */
+    --builder-text-accent: #a78bfa;    
+    --builder-border: #3d3d3d;         /* 충분한 대비를 가진 테두리 */
+    --builder-border-dashed: #444444;  /* 은은한 점선 테두리 */
+    --builder-input-bg: #2c2d2e;       /* 입력창 대비 색상 */       
+
+    --omni-slate-primary: #f8fafc;        /* 다크모드에서 시인성이 뛰어난 선명한 메인 텍스트 및 제목 컬러 */
+    --omni-sky-highlight: var(--builder-text-accent);        /* 중요한 포인트 강조 표시에만 유지되는 라벤더 컬러 */        
+    --omni-bg-clean: var(--builder-card-bg);             
+    --omni-card-bg: var(--builder-card-bg);              
+    --omni-sidebar-bg: var(--builder-bg);           
+    --omni-hover-point: var(--builder-input-bg);          
+    --omni-text-dark: var(--builder-text-main);            
+    --omni-text-muted: var(--builder-text-sub);           
+    --omni-text-sub: var(--builder-text-sub);              
+    --omni-card-border-line: var(--builder-border-dashed);     
+    --omni-inner-shadow: none;
+    --omni-glow-effect: transparent;
+    --omni-point-amber-text: #a78bfa; 
+    --omni-point-amber-bg: #212030; 
+    --omni-point-amber-border: #423f5e;
+    --omni-badge-text: #12121a;
+    --omni-point-purple-bg: #212030;
+
+    --omni-emerald: #34d399; --omni-emerald-light: #182622;
+    --omni-amber: #fbbf24; --omni-amber-light: #28231a;
+    --omni-coral: #f87171; --omni-coral-light: #2a1b20;
+}

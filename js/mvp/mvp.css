@@ -1,0 +1,309 @@
+/**
+ * ============================================================================
+ * 🎨 MAPLE OMNI V14 - js/mvp/mvp.css [HYBRID DUAL SYSTEM - LIGHT & DARK]
+ * 설명: MVP 캐시 효율 시뮬레이터 및 재고/기록장 통합 관제용 다중 모드 대응 스타일시트
+ * 최적화: 유저 피드백의 다크모드 전용 헥사코드 명세를 기본으로 계승하되, 
+ * 시스템이나 부모 레이아웃이 화이트 모드일 때는 눈이 편안한 밝은 그레이 톤으로 자동 변환됩니다.
+ * 규칙: 100% 검정색을 지양하고 눈이 편안하도록 배율이 고도로 정밀 튜닝되었습니다.
+ * ============================================================================
+ */
+
+/* 🪐 1. 기본 화이트 모드(Light Mode) 테마 스케일 변수 정의 */
+:root {
+    --builder-bg: #f8fafc;             /* 전체 시뮬레이터 외부 도화지 레이어 배경 (포근하고 밝은 미드 그레이) */
+    --builder-card-bg: #ffffff;        /* 상세 스탯, 인벤토리, 제어 패널 개별 박스 배경 (순백색 카드) */
+    --builder-text-main: #334155;      /* 장비 이름, 핵심 스탯 수치 등 하이라이트 글꼴 색상 (눈이 편안한 딥 슬레이트 그레이) */
+    --builder-text-sub: #64748b;        /* 아이템 설명, 스탯 라벨 등 눈이 편안한 서브 글꼴 색상 */
+    --builder-text-accent: #8b5cf6;     /* 실시간 변동치 타이틀 및 활성화된 프리셋 강조 색상 (소프트 바이올렛) */
+    --builder-border: #e2e8f0;         /* 각 카드 및 대형 컴포넌트 간 실선 구분 가이드라인 */
+    --builder-border-dashed: #cbd5e1;  /* 장비 옵션 분해 창 및 내부 입력 박스 점선 가이드라인 */
+    --builder-input-bg: #f1f5f9;       /* 추옵 숫자 기입 란 및 드롭다운 메뉴 내부 기본 배경 */
+    
+    /* 기능성 액센트 컬러 */
+    --omni-accent-green: #059669;      /* 마일리지 적립 등 이득 지표용 가독성 최적화 그린 */
+    --omni-accent-blue: #2563eb;       /* 달성 지표용 고가독 실버 블루 */
+    --omni-accent-red: #dc2626;        /* 삭제 및 리셋 경고용 레드 */
+}
+
+/* 🪐 2. 다크 모드(Dark Mode) 전용 테마 스케일 변수 정의 */
+/* 시스템 기본 다크 테마 감지 및 바디 클래스(.dark-mode)가 활성화되어 있을 때 다크모드로 변경 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --builder-bg: #12121a;             /* 전체 시뮬레이터 외부 도화지 레이어 배경 */
+        --builder-card-bg: #181721;        /* 상세 스탯, 인벤토리, 제어 패널 개별 박스 배경 */
+        --builder-text-main: #BCBCC7;      /* 장비 이름, 핵심 스탯 수치 등 하이라이트 글꼴 색상 */
+        --builder-text-sub: #747285;        /* 아이템 설명, 스탯 라벨 등 눈이 편안한 서브 글꼴 색상 */
+        --builder-text-accent: #a78bfa;     /* 실시간 변동치 타이틀 및 활성화된 프리셋 강조 색상 */
+        --builder-border: #262438;         /* 각 카드 및 대형 컴포넌트 간 실선 구분 가이드라인 */
+        --builder-border-dashed: #423f5e;  /* 장비 옵션 분해 창 및 내부 입력 박스 점선 가이드라인 */
+        --builder-input-bg: #212030;       /* 추옵 숫자 기입 란 및 드롭다운 메뉴 내부 기본 배경 */
+        
+        /* 기능성 액센트 컬러 */
+        --omni-accent-green: #34d399;      /* 마일리지 적립 등 이득 지표용 그린 */
+        --omni-accent-blue: #60a5fa;       /* 달성 지표용 고가독 실버 블루 */
+        --omni-accent-red: #f87171;        /* 삭제 및 리셋 경고용 파스텔 레드 */
+    }
+}
+
+/* 부모 컨테이너의 테마 선택자 대응 (화면 상에서 다크클래스를 강제 적용하는 경우까지 완벽 호환) */
+body.dark-mode :root,
+body.dark :root,
+.dark-theme :root {
+    --builder-bg: #12121a;
+    --builder-card-bg: #181721;
+    --builder-text-main: #BCBCC7;
+    --builder-text-sub: #747285;
+    --builder-text-accent: #a78bfa;
+    --builder-border: #262438;
+    --builder-border-dashed: #423f5e;
+    --builder-input-bg: #212030;
+    
+    --omni-accent-green: #34d399;
+    --omni-accent-blue: #60a5fa;
+    --omni-accent-red: #f87171;
+}
+
+/* 🧱 메인 모듈 컨테이너 래퍼 */
+.mvp-module-wrapper {
+    width: 100%;
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    color: var(--builder-text-main);
+    box-sizing: border-box;
+    padding: 5px 0px;
+    background-color: var(--builder-bg);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* 💳 스타일 다목적 디자인 카드 */
+.mvp-premium-card {
+    background: var(--builder-card-bg);
+    border: 1px solid var(--builder-border);
+    border-radius: 10px;
+    padding: 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* 📊 대시보드 카드용 상단 서브 헤더 배치 */
+.mvp-stat-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--builder-text-accent);
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--builder-border);
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 📋 통계 수치 한 줄 레이아웃 */
+.mvp-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--builder-text-main);
+}
+
+.mvp-stat-row span {
+    color: var(--builder-text-sub);
+}
+
+/* ⚡ 입력창 및 기능 컨트롤 가이드 */
+.mvp-inline-input {
+    border: 1px solid var(--builder-border);
+    background: var(--builder-input-bg);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--builder-text-main);
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.mvp-inline-input:focus {
+    border-color: var(--builder-text-accent);
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.15);
+}
+
+/* 🏛️ 대시보드 상단 2열 반응형 그리드 시스템 */
+.mvp-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+@media (max-width: 1024px) {
+    .mvp-dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 🎛️ 상단 툴바 및 유틸리티 엔진 레이아웃 */
+.mvp-toolbar-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: var(--builder-card-bg);
+    border: 1px solid var(--builder-border);
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+.mvp-toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mvp-toolbar-group span {
+    color: var(--builder-text-sub) !important;
+}
+
+/* 💊 알약 형태의 프리미엄 조작 탭 스위치 */
+.mvp-pill-tabs {
+    display: flex;
+    background: var(--builder-input-bg);
+    padding: 4px;
+    border-radius: 8px;
+    gap: 4px;
+    display: inline-flex;
+    margin-bottom: 16px;
+    border: 1px solid var(--builder-border);
+}
+
+.mvp-tab-btn {
+    border: none;
+    background: transparent;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--builder-text-sub);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.mvp-tab-btn.active {
+    background: var(--builder-card-bg);
+    color: var(--builder-text-accent);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--builder-border);
+}
+
+/* 📈 그라데이션 프로그래스 바 */
+.mvp-progress-container {
+    background: var(--builder-input-bg);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 12px;
+    border: 1px solid var(--builder-border);
+}
+
+.mvp-progress-bar {
+    background: linear-gradient(90deg, var(--builder-border-dashed) 0%, var(--builder-text-accent) 100%);
+    width: 0%;
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 📋 시스템 통합 데이터 테이블 스타일 마크업 */
+.mvp-premium-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 13px;
+}
+
+.mvp-premium-table th {
+    background: var(--builder-input-bg);
+    color: var(--builder-text-sub);
+    font-weight: 800;
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--builder-border);
+}
+
+.mvp-premium-table td {
+    padding: 14px 10px;
+    border-bottom: 1px solid var(--builder-border);
+    color: var(--builder-text-main);
+    font-weight: 600;
+    vertical-align: middle;
+    background: var(--builder-card-bg);
+}
+
+/* 🎯 손익 판정 텍스트 하이라이트 매칭 컬러 크루 */
+.profit-plus {
+    color: var(--omni-accent-green) !important;
+}
+
+.profit-minus {
+    color: var(--omni-accent-red) !important;
+}
+
+/* 🛠️ 다목적 오퍼레이션 제어 버튼 스쿼드 */
+.mvp-action-btn {
+    background: var(--builder-input-bg);
+    color: var(--builder-text-main);
+    border: 1px solid var(--builder-border-dashed);
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.mvp-action-btn:hover {
+    background: var(--builder-card-bg);
+    border-color: var(--builder-text-accent);
+    color: var(--builder-text-accent);
+}
+
+.mvp-util-btn {
+    background: var(--builder-input-bg);
+    border: 1px solid var(--builder-border);
+    color: var(--builder-text-sub);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mvp-util-btn:hover {
+    background: var(--builder-card-bg);
+    color: var(--builder-text-main);
+}
+
+.mvp-del-btn {
+    background: var(--builder-input-bg);
+    border: 1px solid var(--builder-border);
+    color: var(--builder-text-sub);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mvp-del-btn:hover {
+    background: #451a1a;
+    border-color: var(--omni-accent-red);
+    color: var(--omni-accent-red);
+}

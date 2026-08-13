@@ -1,0 +1,103 @@
+/* ============================================================================
+ * 🔍 MAPLE OMNI V14 - js/search/search_union.css [FLAT V14 DASHBOARD SKIN]
+ * 설명: 그림자를 모두 제거한 플랫 V14 디자인, 전문적인 점선 가이드라인 및 고대비 가독성 스킨
+ * 규칙: 중략 및 생략 없는 완전판 스크립트
+ * ============================================================================
+ */
+
+/* ☀️ 화이트모드 (라이트모드) 기본 테마 변수 */
+:root {
+    --omni-bg-clean: #ffffff;
+    --omni-card-bg: #fbfaff;
+    --omni-card-border-line: #cbd5e1;      /* 눈이 편안하고 은은한 표준 실선 테두리 */
+    --omni-card-border-dashed: #cbd5e1;    /* 눈이 편안하고 은은한 표준 점선 테두리 */
+    --omni-text-dark: #312e4b;
+    --omni-text-muted: #6a638c;
+    --omni-text-sub: #94a3b8;
+    --omni-slate-primary: #7a6ec7;
+    --omni-hover-point: #f4f2ff;
+}
+
+/* 🌙 [초보자 가이드] 대시보드 마스터 테마와 완벽 동기화되는 다크모드 변수 규격 (가독성 및 대비감 대폭 강화) */
+body.dark-theme {
+    /* 대시보드 메인 배경색 변수 바인딩 */
+    --omni-bg-clean: #181721 !important;
+    /* 다크모드 카드 박스 배경색 변수 바인딩 (외곽 카드와 내부 카드의 시각적 단차를 주어 가독성 극대화) */
+    --omni-card-bg: #222031 !important;
+    /* 다크모드 실선 테두리 색상 바인딩 */
+    --omni-card-border-line: #3b3852 !important;
+    /* 다크모드 점선 테두리 색상 (시인성을 높이기 위해 밝고 선명한 톤으로 설정) */
+    --omni-card-border-dashed: #818cf8 !important;
+    /* 다크모드 메인 텍스트 색상 바인딩 (선명한 화이트 톤으로 가독성 향상) */
+    --omni-text-dark: #f8fafc !important;
+    /* 다크모드 서브 보조 텍스트 색상 바인딩 (기존의 어둡고 흐린 톤을 밝은 연회색으로 개선) */
+    --omni-text-muted: #cbd5e1 !important;
+    /* 다크모드 서브 라벨 및 포인트 컬러 바인딩 */
+    --omni-text-sub: #c084fc !important;
+    /* 다크모드 주요 포인트 액센트 칼라 바인딩 */
+    --omni-slate-primary: #c084fc !important;
+    /* 다크모드 마우스 호버 시 백그라운드 색상 바인딩 */
+    --omni-hover-point: #2e2b44 !important;
+}
+
+/* 🚫 V14 전용 그림자 완벽 제거 (모든 박스 요소의 그림자를 제거하여 깔끔하고 세련된 대시보드 연출) */
+#searchTabContentContainer,
+#searchTabContentContainer *,
+#searchTabContentContainer div,
+#searchTabContentContainer button {
+    box-shadow: none !important;
+}
+
+/* 📐 V15 프리미엄 점선 테두리 및 모던 글래스모피즘 스타일링 지원 */
+.union-dashed-card,
+.union-effect-scroll-area > div {
+    border: 1.5px dashed var(--omni-card-border-line, #d8cfea) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(122, 110, 199, 0.03) !important;
+    transition: all 0.2s ease !important;
+}
+.union-effect-scroll-area > div:hover {
+    border-color: var(--omni-slate-primary, #7a6ec7) !important;
+    box-shadow: 0 8px 20px rgba(122, 110, 199, 0.08) !important;
+    transform: translateY(-1px);
+}
+
+/* 🔮 유니온 대시보드 마운트 로드 시 은은하게 차오르는 페이드 컴포넌트 효과 */
+#searchTabContentContainer {
+    animation: omniUnionFadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes omniUnionFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 📊 대형 유니온 리스트 전용 슬림 스크롤바 맞춤 정의 명세 */
+.union-effect-scroll-area::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+.union-effect-scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+.union-effect-scroll-area::-webkit-scrollbar-thumb {
+    background: var(--omni-card-border-line, #cbd5e1);
+    border-radius: 4px;
+}
+.union-effect-scroll-area::-webkit-scrollbar-thumb:hover {
+    background: var(--omni-slate-primary, #94a3b8);
+}
+
+/* 🧱 보스 스펙 데이터 및 아티팩트 자식 노드 스크롤 최적화 상속 */
+#res_boss_spec_analyzer::-webkit-scrollbar,
+.union-effect-scroll-area div::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* 👥 38인 레이더 격자 프로필 카드 호버 연출 효과 (점선 강조 포함) */
+.union-effect-scroll-area > div:hover {
+    border: 1px dashed var(--omni-slate-primary, #cbd5e1) !important;
+    background: var(--omni-hover-point, #f1f5f9) !important;
+    transform: translateY(-1px);
+    transition: all 0.15s ease;
+}
